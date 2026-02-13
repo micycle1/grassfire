@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://bitbucket.org/bmmeijers/grassfire/"
+Homepage = "https://github.com/micycle1/grassfire"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/grassfire"]
