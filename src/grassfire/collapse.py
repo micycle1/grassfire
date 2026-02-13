@@ -94,10 +94,7 @@ def area_collapse_times(o, d, a):
     coeff = area_collapse_time_coeff(o, d, a)
     logging.debug(coeff)
     solution = solve_quadratic(coeff[0], coeff[1], coeff[2])
-    # logging.debug("numpy solve: " + str(["{:.60f}".format(_) for _ in numpy.roots(coeff)]))
-    # solution = filter(lambda x: x != None, solution)
     solution.sort()
-    # http://stackoverflow.com/questions/28081247/print-real-roots-only-in-numpy
     logging.debug("area collapse times: " + str(solution))
     return solution
 
@@ -179,17 +176,6 @@ def compute_event_0triangle(tri, now, sieve):
     logging.debug(">> time_edge_collapse: {0}".format(time_edge_collapse))
     logging.debug(">> time_area_collapse: {0}".format(time_area_collapse))
 
-    # spoke can be overrun by vertex -- should be witnessed by (inaccurate) area collapse
-    # vertex_crash_times = [
-    #     vertex_crash_time(o, d, a),
-    #     vertex_crash_time(a, o, d),
-    #     vertex_crash_time(d, a, o)
-    # ]
-    # logging.debug("vertex crash times " + str(time_vertex_crash))
-    # time_vertex_crash = sieve(vertex_crash_times, now)
-    # logging.debug("time vertex crash " + str(time_vertex_crash))
-
-
     if time_edge_collapse is None and time_area_collapse is None:
         # if we do not have a time for either, no collapse will happen
         return None
@@ -254,13 +240,6 @@ def compute_event_0triangle(tri, now, sieve):
             else:
                 raise ValueError('can this happen?')
                 return None
-#            return None
-
-
-#     largest_dist = max(dists)
-#     side = dists.index(largest_dist)
-#     return Event(when=time, tri=tri, side = (side,), tp="flip", tri_tp=tri.type)
-#     raise ValueError("0 triangle with 2 or 0 side collapse, while edge collapse time computed?")
 
     else:
         # FIXME: much duplication here with above
@@ -281,10 +260,6 @@ def compute_event_0triangle(tri, now, sieve):
                     when=time, tri=tri, side=(side,), tp="edge",
                     tri_tp=tri.type)
             else:
-                #                 return None
-                # print repr(tri)
-                # logging.debug("TRIANGLE NOT OK: {}".format(id(tri)))
-                # return None
                 raise ValueError(
                     "0 triangle with 2 or 0 side collapse,"
                     "while edge collapse time computed?")
@@ -1625,18 +1600,4 @@ if __name__ == "__main__":
     formatter = logging.Formatter('%(asctime)s - %(message)s')
     ch.setFormatter(formatter)
     root.addHandler(ch)
-    # -- logging
-    # import logging
-    # import sys
-    # root = logging.getLogger()
-    # root.setLevel(logging.DEBUG)
-
-    # ch = logging.StreamHandler(sys.stdout)
-    # ch.setLevel(logging.DEBUG)
-    # formatter = logging.Formatter(
-    #     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # ch.setFormatter(formatter)
-    # root.addHandler(ch)
-    # -- main function
     main()
-    # test_compute_collapse_times()

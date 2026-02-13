@@ -31,13 +31,10 @@ def get_version():
 
 PACKAGES = find_packages('src')
 if cython_available:
-    EXT_MODULES = [] # cythonize("src/tri/CYTHON.pyx")
+    EXT_MODULES = []
 else:
     sys.stderr.write("Cython NOT available, building from .C sources\n")
-    EXT_MODULES = [
-#         Extension('oseq._oseq', 
-#                   ['src/oseq/_oseq.c']),
-    ]
+    EXT_MODULES = []
 SCRIPTS = [] 
 REQUIREMENTS = ["geompreds", "tri", "oseq"]
 DATA_FILES = []
@@ -59,8 +56,6 @@ setup(
     install_requires = REQUIREMENTS,
     classifiers = [
         "Development Status :: 3 - Alpha",
-        # "Development Status :: 4 - Beta",
-        # "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Intended Audience :: Information Technology",
         "License :: OSI Approved :: MIT License",
