@@ -42,10 +42,6 @@ def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False)
         pts = conv.points
     dt = triangulate(pts, conv.infos, conv.segments, output)
     if output:
-        #         with open("/tmp/alltris.wkt", "w") as fh:
-        #             output_triangles([t for t in TriangleIterator(dt,
-        #                                                           finite_only=False)],
-        #                              fh)
         with open("/tmpfast/edges.wkt", "w") as fh:
             fh.write("id;wkt\n")
             edgeit = FiniteEdgeIterator(dt, constraints_only=True)
@@ -84,31 +80,6 @@ def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False)
         from grassfire.inout import visualize
 
         visualize([], skel, last_evt_time + 10)
-#    if shrink:
-#        #box = get_box(conv.points)
-#        #transform = get_transform(box)
-#        #pts = list(map(transform.forward, conv.points))
-#        print(transform.backward)
-#        for kv in skel.vertices:
-#            if kv.stops_at is not None:
-#                if kv.start_node is not kv.stop_node:
-#                    x, y = kv.start_node.pos
-#                    assert -2.0 <= x <= 2.0, (x, "end")
-#                    assert -2.0 <= y <= 2.0, (y, "end")
-#                    back = transform.backward(kv.start_node.pos)
-#                    print("*", kv.start_node.pos, back)
-#                    kv.start_node.pos = back
-#                    back = transform.backward(kv.stop_node.pos)
-#                    print("*", kv.stop_node.pos, back)
-#                    kv.stop_node.pos = back
-#                else:
-#                    #logging.info('skipping segment with same start / end node')
-#                    continue
-#            else:
-#                # FIXME:
-#                # should also update origin of kinetic vertex?
-#                # s = ((v.start_node.pos, v.position_at(1000)), (v.start_node.info, None))
-#                pass
     return skel
 
 

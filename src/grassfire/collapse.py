@@ -1,13 +1,8 @@
 import logging
-# import numpy
 import bisect
 import math
 
-# from operator import sub, add
 from tri.delaunay.tds import cw, ccw, Edge
-
-###from geompreds import orient2d
-###from grassfire.vectorops import norm, cross, dot, make_vector, unit, rotate90ccw, add, div
 
 from grassfire.primitives import Event
 from grassfire.calc import near_zero, get_unique_times
@@ -64,13 +59,6 @@ def vertex_crash_time(org, dst, apx):
     assert org.ur is not None
     assert org.ur == dst.ul, "#{} #{} :: {} vs {}".format(id(org), id(dst), org.ur, dst.ul)
 
-
-    #logging.error("DISTANCE {}".format(org.ur.signed_distance(apx.position_at(0))))
-
-#    print(org.ur)
-#    print(dst.ul)
-#    assert org.ur.w == dst.ul.w
-#    n = org.ur.w[:]
     n = tuple(org.ur.w) # was: org.ur
 
     logging.debug("Vector n: " + str(n))
@@ -509,16 +497,7 @@ def compute_event_1triangle(tri, now, sieve):
                 return Event(
                     when=time, tri=tri, side=sides, tp="edge", tri_tp=tri.type)
             else:
-#                sides = (dists.index(max(dists)),)  # longest side
-### FIXME: ###
-#                if time_area_collapse is not None and time_area_collapse < time:
-#                    logging.debug(" flip witnessed by area collapse time is earlier than vertex crash time -> we use the area collapse time, instead of vertex crash time")
-#                    time = time_area_collapse
-#                    dists = [math.sqrt(d.distance2_at(a, time)),
-#                             math.sqrt(a.distance2_at(o, time)),
-#                             math.sqrt(o.distance2_at(d, time))]
                 sides = (dists.index(max(dists)),)  # longest side
-### END FIXME: ###
                 return Event(
                     when=time, tri=tri, side=sides, tp="flip", tri_tp=tri.type)
 
@@ -542,15 +521,10 @@ def compute_event_1triangle(tri, now, sieve):
             # or equal to vertex crash time
             time = time_edge_collapse
             sides = [wavefront_side]
-#            dists = [math.sqrt(d.distance2_at(a, time)),
-#                     math.sqrt(a.distance2_at(o, time)),
-#                     math.sqrt(o.distance2_at(d, time))]
 
             dists_squared = [d.distance2_at(a, time),
                              a.distance2_at(o, time),
                              o.distance2_at(d, time)]
-#            logging.debug('dists squared {}'.format(dists_squared))
-
 
             # shortest edge at that time collapses
             sides = [dists_squared.index(min(dists_squared))]

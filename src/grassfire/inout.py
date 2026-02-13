@@ -40,14 +40,12 @@ def output_triangles_at_T(tri, T, fh):
 
 def output_kdt(skel, time):
     """ """
-#     time = 0
     with open("/tmpfast/ktris.wkt", "w") as fh:
         fh.write("id;wkt;n0;n1;n2;v0;v1;v2\n")
         for t in skel.triangles:
             if not t.finite:
                 continue
             valid = all([(v.starts_at <= time and v.stops_at >= time) or v.stops_at is None for v in t.vertices])
-#         if v.stops_at is not None:
             if valid:
                 L = []
                 for v in t.vertices:
@@ -57,11 +55,9 @@ def output_kdt(skel, time):
                 if t is None:
                     continue
                 fh.write("{0};{1};{2[0]};{2[1]};{2[2]};{3[0]};{3[1]};{3[2]}\n".format(id(t), poly, [id(n) for n in t.neighbours], [id(v) for v in t.vertices]))
-            #fh.write("{0};POINT({1[0]} {1[1]});{2};{3}\n".format(id(v), v.visualize_at(t), id(v.left), id(v.right)))
     with open("/tmpfast/kvertices.wkt", "w") as fh:
         fh.write("id;wkt;left cw;right ccw\n")
         for v in skel.vertices:
-#         if v.stops_at is not None:
             if (v.starts_at <= time and v.stops_at >= time) or v.stops_at is None:
                 fh.write("{0};POINT({1[0]} {1[1]});{2};{3}\n".format(id(v), v.visualize_at(time), id(v.left), id(v.right)))
 
@@ -70,7 +66,6 @@ def output_vertices_at_T(V, T, fh):
     """Output list of vertices as WKT to text file (for QGIS)"""
     fh.write("id;info;wkt;left cw;right ccw\n")
     for v in V:
-#         if v.stops_at is not None:
         fh.write("{0};{4};POINT({1[0]} {1[1]});{2};{3}\n".format(id(v), v.visualize_at(T), id(v.left), id(v.right), v.info))
 
 
@@ -93,7 +88,6 @@ def output_offsets(skel, now=1000, ct=5):
     # now = 10
     # inc = 0.005 # 
     inc = now / float(ct)
-    #times = [0.0276]#[0.075] #[0.0375] #[0.15] #[0.075] #
     times = [t*inc for t in range(ct)]
     with open("/tmpfast/offsetsl.wkt", "w") as fh:
         fh.write("wkt;time;from;to\n")
@@ -109,7 +103,6 @@ def output_offsets(skel, now=1000, ct=5):
                         fh.write(s)
                         fh.write("\n")
                     except AttributeError:
-                        #print "*"
                         pass
 
     with open("/tmpfast/offsetsr.wkt", "w") as fh:
@@ -127,7 +120,6 @@ def output_offsets(skel, now=1000, ct=5):
                         fh.write(s)
                         fh.write("\n")
                     except AttributeError:
-                        #print "FIXME: investigate"
                         pass
 
 
@@ -194,15 +186,15 @@ watcher.fileChanged.connect(onFileChanged)
 def interactive_visualize(queue, skel, step, now):
     visualize(queue, skel, now)
     notify_qgis()
-    user_input = raw_input(str(step) + ' {' + str(now) + '} > before event (now time); "r" to rewind, any other key to continue$ ')
+    user_input = input(str(step) + ' {' + str(now) + '} > before event (now time); "r" to rewind, any other key to continue$ ')
     if user_input == 'r':
         visualize(queue, skel, 0)
         notify_qgis()
-        user_input = raw_input(str(step) + '  - at start time; "n" to now-0.1, any other key to continue$ ')
+        user_input = input(str(step) + '  - at start time; "n" to now-0.1, any other key to continue$ ')
         if user_input == 'n':
             visualize(queue, skel, now-0.01)
             notify_qgis()
-            user_input = raw_input(str(step) + '  - now time; paused - press a key to continue$ ')
+            user_input = input(str(step) + '  - now time; paused - press a key to continue$ ')
 
 
 def visualize(queue, skel, NOW):
