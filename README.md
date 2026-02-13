@@ -10,9 +10,32 @@ The code in this package depends on a few other packages:
 - [geompreds](https://github.com/bmmeijers/predicates/)
 - [oseq](https://github.com/bmmeijers/oseq/)
 
+### Using uv (recommended)
+
+This project uses [uv](https://docs.astral.sh/uv/) for dependency management.
+
+```bash
+# Install uv if you haven't already
+pip install uv
+
+# Clone the repository
+git clone https://github.com/micycle1/grassfire.git
+cd grassfire
+
+# Install dependencies and create a virtual environment
+uv sync
+
+# Activate the virtual environment
+source .venv/bin/activate  # On Unix/macOS
+# or
+.venv\Scripts\activate  # On Windows
+```
+
+### Using pip
+
 You can install them with pip (I'd suggest to make a virtualenv):
 
-```
+```bash
 pip install -e git+https://github.com/bmmeijers/predicates/#egg=geompreds
 pip install -e git+https://github.com/bmmeijers/tri/#egg=tri
 pip install -e git+https://github.com/bmmeijers/oseq/#egg=oseq
@@ -20,7 +43,7 @@ pip install -e git+https://github.com/bmmeijers/oseq/#egg=oseq
 
 After that you should be able to install grassfire:
 
-```
+```bash
 pip install -e git+https://github.com/bmmeijers/grassfire/#egg=grassfire
 ```
 

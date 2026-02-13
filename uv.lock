@@ -1,0 +1,38 @@
+version = 1
+revision = 3
+requires-python = ">=3.8"
+
+[[package]]
+name = "geompreds"
+version = "1.0.3.dev0"
+source = { git = "https://github.com/bmmeijers/predicates/#d9e889381a1c647284f5458c5333ad41d2da8279" }
+
+[[package]]
+name = "grassfire"
+version = "0.1.dev0"
+source = { editable = "." }
+dependencies = [
+    { name = "geompreds" },
+    { name = "oseq" },
+    { name = "tri" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "geompreds", git = "https://github.com/bmmeijers/predicates/" },
+    { name = "oseq", git = "https://github.com/bmmeijers/oseq/" },
+    { name = "tri", git = "https://github.com/bmmeijers/tri/" },
+]
+
+[[package]]
+name = "oseq"
+version = "1.0.5.dev0"
+source = { git = "https://github.com/bmmeijers/oseq/#c3b59462d676b8bc66a3a537182cb38514393ded" }
+
+[[package]]
+name = "tri"
+version = "0.3.1.dev0"
+source = { git = "https://github.com/bmmeijers/tri/#6e1915d0207d510b04816663cf1282501dc1c03c" }
+dependencies = [
+    { name = "geompreds" },
+]
