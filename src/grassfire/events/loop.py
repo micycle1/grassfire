@@ -44,7 +44,7 @@ def choose_next_event(queue):
     if False:
         events = [first]
         for e in it:
-            # if e.tp == "flip" and 
+            # if e.tp == "flip" and
             if near_zero(e.time - first.time):
                 events.append(e)
             else:
@@ -77,7 +77,7 @@ def choose_next_event(queue):
 
     def check_direct(event):
         """ check the direct neighbours whether they will collapse """
-        
+
         current = event.triangle
         seen = set([current])
         visit = [current]
@@ -137,23 +137,23 @@ def log_queue_content(step, immediate, queue):
 # Main event loop
 # -----------------------------------------------------------------------------
 def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_digits=3):
-    """ The main event loop 
-    
+    """ The main event loop
+
     Args:
         queue: Event queue
         skel: Skeleton structure
         pause: Whether to pause for interactive visualization
         stop_after: Stop after this many steps (0 = no limit) - for testing/debugging
-        make_video: Whether to generate video frames - for testing/debugging  
+        make_video: Whether to generate video frames - for testing/debugging
         video_digits: Number of decimal digits for video timing - for testing/debugging
     """
     if stop_after != 0:
         logging.debug("Stopping for the first time after step#{}".format(stop_after))
-    
+
     # Import make_frames if video generation is enabled (avoid repeated imports in loop)
     if make_video:
         from grassfire.tests2.test_event_loop_debugging import make_frames
-    
+
     # -- Clean out debug visualization files (only in pause/debug mode)
     # NOTE: The /tmpfast/ file operations are debugging artifacts for interactive visualization
     if pause:
@@ -168,7 +168,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         ]:
             with open(file_nm, 'w') as fh:
                 pass
-    
+
     # -- visualize
     NOW = prev_time = 0. #= 5e-6
     step = 0
@@ -187,7 +187,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     for i, e in enumerate(queue):
         logging.debug("{0:5d} {1}".format(i, e))
     logging.debug("=" * 80)
-    
+
     if make_video:
         make_frames(NOW, video_digits, skel, queue, immediate)
     check_bisectors(skel, 0.)
@@ -245,7 +245,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                 if also:
                     logging.debug([n.info for n in also])
             check_direct(evt)
-            
+
             # Debug: Write current event to file for visualization
             with open('/tmpfast/current_event.wkt', 'w') as fh:
                 fh.write("pos;wkt;evttype;evttime;tritype;id;n0;n1;n2;finite;info;wavefront_directions\n")

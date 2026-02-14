@@ -84,7 +84,7 @@ def coefficients_from_points(p, q):
     when a = 0, then the line is horizontal
     when b = 0, then the line is vertical
 
-    see also: 
+    see also:
     https://www.mathcentre.ac.uk/resources/uploaded/mc-ty-strtlines-2009-1.pdf
     """
     (px, py) = p
@@ -128,7 +128,7 @@ def coefficients_perpendicular_through_point(la, lb, px, py):
     return tuple(map(float, (a, b, c)))
 
 def coefficients_bisector_of_lines(pa, pb, pc, qa, qb, qc):
-    # see: 
+    # see:
     # https://math.stackexchange.com/questions/38665/equation-of-angle-bisector-given-the-equations-of-two-lines-in-2d
     # https://www.math-only-math.com/equations-of-the-bisectors-of-the-angles-between-two-straight-lines.html
     #
@@ -164,7 +164,7 @@ class Line2:
         nrm = norm(self.w)
 #        print(f'norm {nrm}')
         self.b /= nrm
-        self.w = unit(self.w)  
+        self.w = unit(self.w)
 
     def __repr__(self):
         return "Line2(w={}, b={})".format(self.w, self.b)
@@ -178,7 +178,7 @@ class Line2:
         """ perp line """
         # line perpendicular to self, passing through pt,
         # the direction of the resulting line is rotated
-        # counterclockwise by 90 degrees. 
+        # counterclockwise by 90 degrees.
         coeff = coefficients_perpendicular_through_point(self.w[0], self.w[1],
                                                          through[0], through[1])
         return Line2(coeff[:2], coeff[2])

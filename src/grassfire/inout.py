@@ -86,7 +86,7 @@ def output_offsets(skel, now=1000, ct=5):
     """ """
     logging.debug("offsets for t={}, ct={}".format(now, ct))
     # now = 10
-    # inc = 0.005 # 
+    # inc = 0.005 #
     inc = now / float(ct)
     times = [t*inc for t in range(ct)]
     with open("/tmpfast/offsetsl.wkt", "w") as fh:
@@ -94,9 +94,9 @@ def output_offsets(skel, now=1000, ct=5):
         for t in times:
             for v in skel.vertices:
                 if (v.starts_at <= t and v.stops_at > t) or \
-                    (v.starts_at <= t and v.stops_at is None): 
+                    (v.starts_at <= t and v.stops_at is None):
                     try:
-                        s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]});{2};{3};{4}".format(v.visualize_at(t), 
+                        s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]});{2};{3};{4}".format(v.visualize_at(t),
                                                                               v.left_at(t).visualize_at(t),
                                                                               t,
                                                                               id(v), id(v.left_at(t)))
@@ -113,7 +113,7 @@ def output_offsets(skel, now=1000, ct=5):
                     (v.starts_at <= t and v.stops_at is None):
                 # finite ranges only (not None is filtered out)
                     try:
-                        s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]});{2};{3};{4}".format(v.visualize_at(t), 
+                        s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]});{2};{3};{4}".format(v.visualize_at(t),
                                                                               v.right_at(t).visualize_at(t),
                                                                               t,
                                                                               id(v), id(v.right_at(t)))
@@ -136,7 +136,7 @@ def output_skel(skel, when):
                 fh.write(s)
                 fh.write(";True;" + str(dist(v.start_node.pos, v.stop_node.pos)) + "\n")
             else:
-                s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format(v.visualize_at(v.starts_at), 
+                s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format(v.visualize_at(v.starts_at),
                                                                       v.visualize_at(when))
                 fh.write(s)
                 fh.write(";False;" + str(dist(v.visualize_at(v.starts_at), v.visualize_at(when))) + "\n")
@@ -162,7 +162,7 @@ def notify_qgis():
         fh.write("{}".format(random.randint(0, 1000)))
     os.system("touch {}".format(file_nm))
     print('Notified QGIS via file: {}'.format(file_nm))
-    
+
     time.sleep(0.01)
     if not _is_hook_qgis_shown:
         enter_in_qgis = """

@@ -244,11 +244,11 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
 
 def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, immediate, pause):
     """Handles triangle collapse, where exactly 1 edge collapses
-    
+
     One of the vertices of the triangle moves *infinitely* fast.
 
     There are 2 cases handled in this function
-    
+
     a. triangle with long left leg, short right leg
     b. triangle with long right leg, short left leg
 
@@ -264,7 +264,7 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
     logging.debug("Edge with inf fast vertex collapsing! {0}".format(t.neighbours[e] is None))
     assert pivot.inf_fast
     # vertices, that are not inf fast, need to stop
-    # FIXME: this is not necessarily correct ... 
+    # FIXME: this is not necessarily correct ...
     #  where they need to stop depends on the configuration
     #  -- now they are *always* snapped to same location
 
@@ -316,7 +316,7 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
     n = t.neighbours[e]
     # second check:
     # is vertex infinitely fast?
-    # in this case, both sides of the new vertex 
+    # in this case, both sides of the new vertex
     # should collapse to be infinitely fast!
     # is_inf_fast_a = is_infinitely_fast(get_fan(a, v2, cw), now)
     # is_inf_fast_b = is_infinitely_fast(get_fan(b, v1, ccw), now)
@@ -359,7 +359,7 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
             schedule_immediately(n, now, queue, immediate)
-    
+
     # process parallel fan, only if the fan has all un-dealt with triangles
     if kv and kv.inf_fast:
 #        # fan - cw
@@ -407,7 +407,7 @@ def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, im
     # there should be 1 edge with zero length, and other 2 edges should have length?
     # can it also be that this handler deals with collapse to point ???
 
-    # does not hold! -> 
+    # does not hold! ->
 
     # triangle can also be like:
     # *-------------------------*
@@ -510,7 +510,7 @@ def handle_parallel_edge_event_3tri(t, e, pivot, now, step, skel, queue, immedia
         v2.stop_node = sk_node
         v2.stops_at = now
 
-    
+
 
 
     # FIXME:

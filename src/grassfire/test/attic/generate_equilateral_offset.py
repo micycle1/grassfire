@@ -1,5 +1,5 @@
 
-from math import sqrt 
+from math import sqrt
 
 from operator import add, sub, mul, truediv
 

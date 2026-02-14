@@ -300,25 +300,25 @@ segments = (
 #         conv.add_segment(*line)
 #     print conv.points
 #     skel = calc_skel(conv, pause=True, output=True)
- 
+
 # with open("/tmp/out.wkt", "w") as fh:
 #     print >> fh, "wkt\n"
 #     for line in segments:
 #         print >> fh, "LINESTRING({0[0][0]} {0[0][1]}, {0[1][0]} {0[1][1]})\n".format(line)
 
-# 
+#
 ###############
 #with open("/home/martijn/Documents/work/2016-01_grassfire_for_building_generalization/data/goes_zeeland/in-out/inwards_0276.geojson") as fh: #outwards_0276.geojson") as fh:
 # with open("/home/martijn/Documents/work/2016-01_grassfire_for_building_generalization/data/goes_zeeland/input_outline.geojson") as fh: #outwards_0276.geojson") as fh:
 #     s = fh.read()
-# # #   
+# # #
 # import json
 # x = json.loads(s)
 # # parse segments from geo-json
 # segments = []
 # for y in x['features']:
 #     segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-# # 
+# #
 # # # convert to triangulation input
 conv = ToPointsAndSegments()
 for line in segments:

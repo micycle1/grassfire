@@ -678,7 +678,7 @@ for tid in triangles:
         continue
     interior[tid] = tri
     #0.1175049556691678126485456
-    
+
     print tri.str_at(time)
 
 print interior

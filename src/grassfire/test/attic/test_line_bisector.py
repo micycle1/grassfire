@@ -8,10 +8,10 @@ from grassfire.calc import vector, vector_mul_scalar, normalize, rotate90cw, rot
 from operator import add, mul
 
 def perp_dot(v1, v2):
-    # return the area of the parallelogram between the two vectors, 
-    # this area is signed and can be used to determine whether rotating 
-    # from V1 to V2 moves in an counter clockwise or clockwise direction. 
-    # It should also be noted that this is the determinant of the 2x2 matrix 
+    # return the area of the parallelogram between the two vectors,
+    # this area is signed and can be used to determine whether rotating
+    # from V1 to V2 moves in an counter clockwise or clockwise direction.
+    # It should also be noted that this is the determinant of the 2x2 matrix
     # built from these two vectors.
     return (v1[0]*v2[1]) - (v1[1]*v2[0])
 
@@ -70,7 +70,7 @@ def do():
     ring = []
     pi2 = 2 * pi
     ct = 8
-    alpha = pi / ct 
+    alpha = pi / ct
     for i in range(ct+1):
         ring.append( (cos(pi+i*alpha), sin(pi+i*alpha)))
     ring.append(ring[0])
@@ -82,7 +82,7 @@ def do():
     segments = []
     for segment in zip(ring[:-1], ring[1:]+[ring[0]]):
         segments.append(segment)
-    
+
     for i in range(len(segments)):
         for j in range(i+1, len(segments)):
             si = segments[i]
@@ -101,7 +101,7 @@ def do2():
     segments = []
     for segment in zip(ring[:-1], ring[1:]+[ring[0]]):
         segments.append(segment)
-    
+
     for i in range(len(segments)):
         for j in range(i+1, len(segments)):
             si = segments[i]

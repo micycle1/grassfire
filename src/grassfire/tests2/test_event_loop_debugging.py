@@ -16,26 +16,26 @@ SIGNAL_RANGE = int(1e6)   # Random signal range for frame synchronization
 
 def make_frames(now, digits, skel, queue, immediate):
     """Generate frames for video visualization during event loop execution.
-    
+
     This is a testing/debugging utility that was embedded in the event loop.
     It creates visualization frames by writing to /tmpfast/ directory.
-    
+
     Args:
         now: Current time in the event loop
         digits: Number of digits for rounding time values
         skel: Skeleton structure being computed
         queue: Event queue
         immediate: Immediate events queue
-        
+
     Note:
         This function assumes T >= N (next event time >= current time).
         If delta is negative, no frames will be generated.
     """
     from grassfire.inout import visualize
-    
+
     if immediate:
         return
-    
+
     scale = pow(10, digits)
     N = round(now, digits)
     try:
@@ -44,11 +44,11 @@ def make_frames(now, digits, skel, queue, immediate):
     except StopIteration:
         # Use a small default time delta when queue is empty
         T = N + DEFAULT_TIME_DELTA
-    
+
     delta = T - N
     if delta <= 0:
         return  # No frames to generate if next event is not in the future
-    
+
     times = int(delta * scale)
     for t in range(1, times):
         print(".")

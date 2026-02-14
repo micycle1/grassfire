@@ -17,7 +17,7 @@ class TestCollapseTime(unittest.TestCase):
 #             raw_input(str(t) + ' paused')
 
     def test_bug7(self):
-        """ Tests to handle 
+        """ Tests to handle
         https://bitbucket.org/bmmeijers/grassfire/issues/7/incorrect-event-time-calculation-leads-to
         """
         evt = compute_event_1triangle(self.triangle, now=self.now, sieve=find_gt)
@@ -38,5 +38,5 @@ if __name__ == "__main__":
         formatter = logging.Formatter('%(asctime)s - %(message)s')
         ch.setFormatter(formatter)
         root.addHandler(ch)
- 
+
     unittest.main(verbosity=2)

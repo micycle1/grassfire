@@ -16,7 +16,7 @@ def main():
     ####l = Line2.from_points( (10, 0), (0, 0) )
     ####print(l)
 
-    ####l = Line2.from_points( (10, 1), (0, 2) ) 
+    ####l = Line2.from_points( (10, 1), (0, 2) )
     ####print(l)
 
     ####lt = l.translate( (1.0, 1.5) )
@@ -25,10 +25,10 @@ def main():
     ####print(l.intersection(lt))
 
 
-    ####k = Line2.from_points( (10, 0), (0, 0) ) 
+    ####k = Line2.from_points( (10, 0), (0, 0) )
     ####print(l)
 
-    ####l = Line2.from_points( (0, 10), (0, 0) ) 
+    ####l = Line2.from_points( (0, 10), (0, 0) )
     ####print(l)
 
     ####print(k.intersection(l))
@@ -240,7 +240,7 @@ def create_bevel_wavefront(first, last):
 
 
 def test_wf():
-    # --- 
+    # ---
     left = WaveFront(start=(-1,1), end= (0,0))
     right = WaveFront(start=(0,0), end=(1,1))
     print(left)
@@ -249,7 +249,7 @@ def test_wf():
     bisector = wf_intersect.get_bisector()
     print(bisector)
 
-    # --- 
+    # ---
     left = WaveFront(start=(0,0), end= (10,0))
     right = WaveFront(start=(10,0), end=(20,0))
     print(left)
@@ -258,7 +258,7 @@ def test_wf():
     bisector = wf_intersect.get_bisector()
     print(bisector)
 
-    # --- 
+    # ---
     left = WaveFront(start=(0,0), end=(0,10))
     right = WaveFront(start=(0,10), end=(0,0))
     print(left)

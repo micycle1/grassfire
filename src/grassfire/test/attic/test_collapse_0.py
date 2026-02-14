@@ -26,7 +26,7 @@ class TestCollapseTime0TriangleSegment(unittest.TestCase):
         v.velocity = (0, -1.)
         V.append(v)
         k.vertices = V
-        # mock the neighbours, 
+        # mock the neighbours,
         # to determine correctly the triangle type
         k.neighbours = [True, True, True]
         self.tri = k

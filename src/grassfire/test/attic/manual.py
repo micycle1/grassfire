@@ -11,10 +11,10 @@ from qgis._core import QGis
 if __name__ == "__main__":
     import logging
     import sys
- 
+
     root = logging.getLogger()
     root.setLevel(logging.DEBUG)
- 
+
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -39,7 +39,7 @@ def test_cocircular():
 # test_cocircular()
 
 def test_cocircular1():
-    # FIXME: Point 
+    # FIXME: Point
     ok = (3.8,0.8) # this works
     fail = (4,1) # substitute with this and we get a lot of simultaneous events!
     conv = ToPointsAndSegments()
@@ -209,7 +209,7 @@ def test_circular():
     ring = []
     pi2 = 2 * pi
     ct = 10
-    alpha = pi2 / ct 
+    alpha = pi2 / ct
     for i in range(ct):
         ring.append( (cos(i* alpha), sin(i* alpha)))
     ring.append(ring[0])
@@ -242,7 +242,7 @@ def test_bottom_circle():
     ring = []
     pi2 = 2 * pi
     ct = 8
-    alpha = pi / ct 
+    alpha = pi / ct
     print degrees(alpha)
     for i in range(ct+1):
         ring.append( (cos(pi+i*alpha), sin(pi+i*alpha)))
@@ -258,7 +258,7 @@ def test_bottom_circle_top_square():
     ring = []
     pi2 = 2 * pi
     ct = 6
-    alpha = pi / ct 
+    alpha = pi / ct
     print degrees(alpha)
     for i in range(ct+1):
         ring.append( (cos(pi+i*alpha), sin(pi+i*alpha)))
@@ -443,10 +443,10 @@ def test_crash_vertex():
 def test_2triangle():
     from math import sqrt
     conv = ToPointsAndSegments()
-    polygon = [[(1,0), 
+    polygon = [[(1,0),
                 #(-5, 0), (-4.25, -6.65),# (-1,-0.9),
-                (1, -10), (11,-10), 
-                #(11,0), 
+                (1, -10), (11,-10),
+                #(11,0),
                 (11, 10), (1,10), (1,2), (1-(sqrt(3)),1), (1,0)]]
     conv.add_polygon(polygon)
     calc_skel(conv)
@@ -455,10 +455,10 @@ def test_2triangle():
 def test_2triangle_eq_sides():
     from math import sqrt
     conv = ToPointsAndSegments()
-    polygon = [[(1,0), 
+    polygon = [[(1,0),
                 (-5, 0), (-4.25, -6.65),# (-1,-0.9),
-                (1, -10), (11,-10), 
-                #(11,0), 
+                (1, -10), (11,-10),
+                #(11,0),
                 (11, 10), (1,10), (1,2), (1-(sqrt(3)),1), (1,0)]]
     conv.add_polygon(polygon)
     calc_skel(conv)
@@ -484,7 +484,7 @@ def test4_3_3():
     # a -> b constrained
 
     # FIXME: would this work with triangle at terminal vertex ?
-    # the problem could be that there is no support line for the 'constrained' 
+    # the problem could be that there is no support line for the 'constrained'
     # edge
 
     print tri
@@ -500,10 +500,10 @@ def test4_3_3():
     distance_v_e = dot(Mv, n)
     print "dist", distance_v_e
     s = c.velocity
-    # different from section 4.3.3: we need to negate n, so that we obtain s' 
+    # different from section 4.3.3: we need to negate n, so that we obtain s'
 #     neg_n = tuple([-i for i in n])
     crash_time = distance_v_e / (1 - dot(s, n))
-    print "time vertex crashes on edge:", crash_time 
+    print "time vertex crashes on edge:", crash_time
     coeff = area_collapse_time_coeff(a, b, c)
     print solve_quadratic(coeff[0], coeff[1], coeff[2])
     import matplotlib.pyplot as plt
@@ -725,10 +725,10 @@ def helper_make_test_collapse_time():
     from tri import triangulate, ToPointsAndSegments
     from grassfire import init_skeleton
 #     conv = ToPointsAndSegments()
-#     polygon = [[(1,0), 
+#     polygon = [[(1,0),
 #                 (-5, 0), (-4.25, -6.65),# (-1,-0.9),
-#                 (1, -10), (11,-10), 
-#                 #(11,0), 
+#                 (1, -10), (11,-10),
+#                 #(11,0),
 #                 (11, 10), (1,10), (1,2), (1-(sqrt(3)),1), (1,0)]]
 #     from simplegeom.wkt import loads
 #     p = """
@@ -753,7 +753,7 @@ def helper_make_test_collapse_time():
     conv.add_polygon([ring])
 
 
-    
+
 
     conv = ToPointsAndSegments()
     ring = [(0,0), (3,0), (3.8,2), (4,0), (6,0), (6.3, 2), (7,0), (10,0), (10,5), (7,5), (6.5, 3), (6,5), (4,5), (3.5,3), (3,5), (0,5), (0,0)]
@@ -864,11 +864,11 @@ def output_triangles_at_T(tri, T, fh):
     for t in tri:
         if t is None:
             continue
-        fh.write("{0};{6};{1};{2[0]};{2[1]};{2[2]};{3[0]};{3[1]};{3[2]};{4};{5}\n".format(id(t), 
-                                                                                      t.str_at(T), 
-                                                                                      [id(n) for n in t.neighbours], 
-                                                                                      [id(v) for v in t.vertices], 
-                                                                                      t.is_finite, 
+        fh.write("{0};{6};{1};{2[0]};{2[1]};{2[2]};{3[0]};{3[1]};{3[2]};{4};{5}\n".format(id(t),
+                                                                                      t.str_at(T),
+                                                                                      [id(n) for n in t.neighbours],
+                                                                                      [id(v) for v in t.vertices],
+                                                                                      t.is_finite,
                                                                                       t.info,
                                                                                       T))
 
@@ -920,7 +920,7 @@ def test_infinite3():
     # FIXME: BUG here with respect to generating infinite triangles
     # ==> Around (5,0) there should be infinite triangle!!
     # it seems to be there, but inserted at the wrong location.
-    # (so it remains flat from the start... -- can have to do with the is_quad 
+    # (so it remains flat from the start... -- can have to do with the is_quad
     # part of the creation of initial triangulation)
     skel = calc_skel(conv, pause = True, output = True)
     print skel.vertices
@@ -1054,7 +1054,7 @@ def watch2():
 #     test_tri_intermediate_pt_sharp()
 #     test_tri_2intermediate_pts()
 #     test_pointy_star()
-    
+
 #     test_2triangle_1side_collapse()
 
     # many simultaneous

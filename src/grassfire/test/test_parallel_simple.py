@@ -18,7 +18,7 @@ class TestSimpleParallelEvents(unittest.TestCase):
         """Simple parallel event
         """
         conv = ToPointsAndSegments()
-   
+
         lines = [
             [[0., 0.], [10., 0.]],
             [[10., 0.], [10., 10.]],
@@ -58,15 +58,15 @@ class TestSimpleParallelEvents(unittest.TestCase):
         s = """{
 "type": "FeatureCollection",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-                                                                                             
+
 "features": [
-             
+
 { "type": "Feature", "properties": { "id": 140092307709904.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.95871967752, -0.627450761189 ], [ -0.98800624377, -0.432206986189 ] ] } },
 { "type": "Feature", "properties": { "id": 140092307712976.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.98800624377, -0.432206986189 ], [ -0.985872786033, -0.431940303972 ] ] } },
 { "type": "Feature", "properties": { "id": 140092307713104.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.993971487578, -0.378572900681 ], [ -1.02090042121, -0.181094054061 ] ] } },
 { "type": "Feature", "properties": { "id": 140092307782672.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.985872786033, -0.431940303972 ], [ -0.991522629252, -0.37826679339 ] ] } },
 { "type": "Feature", "properties": { "id": 140092307782672.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.991522629252, -0.37826679339 ], [ -0.993971487578, -0.378572900681 ] ] } },
-             
+
 { "type": "Feature", "properties": { "id": 140092307713104.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -1.02090042121, -0.181094054061 ], [5, 0] ] } },
 { "type": "Feature", "properties": { "id": 140092307709904.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ -0.95871967752, -0.627450761189 ], [5,0]] } }
 ]
@@ -108,7 +108,7 @@ class TestSimpleParallelEvents(unittest.TestCase):
         """Simple parallel event, starting from wavefront side
         """
         conv = ToPointsAndSegments()
-   
+
         lines = [
             [[51046.4, 391515.7], [51046.3, 391516.65]],
             [[51047.95, 391513.05], [51047.55, 391515.85]],
@@ -174,8 +174,8 @@ class TestSimpleParallelEvents(unittest.TestCase):
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
                 assert at_same_location((v.stop_node, v), v.stops_at), "{} {} {}".format(id(v), v.stop_node.pos, v.position_at(v.stops_at) )
-  
-  
+
+
     def test_square(self):
         conv = ToPointsAndSegments()
         polygon = [[(0,0), (10,0), (10,10), (0,10), (0,0)]]
@@ -193,8 +193,8 @@ class TestSimpleParallelEvents(unittest.TestCase):
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None:
                 assert at_same_location((v.stop_node, v), v.stops_at)
-  
-  
+
+
     def test_rectangle(self):
         conv = ToPointsAndSegments()
         polygon = [[(0,0), (10,0), (10,5), (0,5), (0,0)]]
@@ -234,8 +234,8 @@ class TestSimpleParallelEvents(unittest.TestCase):
                     "{} {} {}".format(id(v),
                                       v.stop_node.pos,
                                       v.position_at(v.stops_at) )
-  
-  
+
+
     def test_dent_unequal_bottom(self):
         conv = ToPointsAndSegments()
         polygon = [[(-0.5, 0), (10., 0), (10,20), (0,20.), (0,11.), (-1,11), (-1,10), (-0.5,10), (-0.5,0)]]
