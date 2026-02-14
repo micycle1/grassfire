@@ -6,49 +6,6 @@ from grassfire.calc import near_zero
 
 import logging
 
-#_s = 27
-#_factor = 2**_s + 1
-
-#def split(a):
-#    c = float(_factor * a) # factor= 2**s+ 1
-#    x = float(c - (c -a))
-#    y = float(a - x)
-#    return x, y
-
-
-#def two_product(a, b):
-#    x = a * b
-#    a1, a2 = split(a)
-#    b1, b2 = split(b)
-#    y = a2*b2 -(((x - a1*b1)- a2*b1) - a1 *b2)
-#    return x,y
-
-
-#def two_sum(a, b):
-#    x = (a + b)
-#    z = (x - a)
-#    y = ((a - (x - z)) + (b - z))
-#    return x, y
-
-
-#def accurate_dot(x, y):
-#    n = len(x)
-##    if 2*n*eps>=1,error('inclusion failed'),end
-#    [p, s] = two_product(x[0], y[0])
-##    e = abs(s)
-#    for i in range(1, n):
-#        [h, r] = two_product(x[i], y[i])
-#        [p, q] = two_sum(p, h)
-#        t = (q + r)
-#        s = (s + t)
-##        e = (e + abs(t))
-#    res = (p + s)
-#    return res
-
-# alias accurate dot function
-#dot = accurate_dot
-
-
 def dot(v1, v2):
     """Returns dot product of v1 and v2 """
     assert len(v1) == len(v2), 'Vector dimensions should be equal'
@@ -290,23 +247,6 @@ class Line2:
             return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
         # should we project the start / end points on the line ??
         #http://www.sunshine2k.de/coding/java/PointOnLine/PointOnLine.html
-
-
-
-#        if self.w[0] == 0.0:
-#            # a = 0 , horizontal
-#            pass
-#        elif self.w[1] == 0.0:
-#            pass
-#        else:
-#            xmin = -2000.0
-#            xmax = +2000.0
-#            ymin = self.y_at_x(xmin)
-#            ymax = self.y_at_x(xmax)
-#            return (xmin, ymin), (xmax,ymax)
-
-
-
 class WaveFront:
     """ A line that remembers start and end point from which it is constructed """
     def __init__(self, start, end, line=None):
@@ -440,20 +380,5 @@ def rotate90cw(v):
     (x, y) -> (y, -x)
     """
     return (v[1], -v[0])
-
-
-# def as_wkt(p, q):
-#     return "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format(p, q)
-
-
-# class MovingLine(Line2):
-#     def __init__(self, w, b, kv_start, kv_end, normalize=True):
-#         self.kv_start = kv_start
-#         self.kv_end = kv_end
-#         super().__init__(w, b)
-
-#     def at_time(self, now):
-#         return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
-
 
 

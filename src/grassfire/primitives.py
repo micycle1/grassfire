@@ -293,17 +293,6 @@ class KineticTriangle(object):
             v = self.vertices[idx]
             if v is not None:
                 vertices.append(str(v))
-#             else:
-#                 orig_idx, dest_idx = (idx - 1) % 3, (idx + 1) % 3
-#                 orig, dest = self.vertices[orig_idx], self.vertices[dest_idx]
-#                 halfway = (orig.x + dest.x) * .5, (orig.y + dest.y) * .5
-#                 d = orig.distance(dest)
-#                 dx = dest.x - orig.x
-#                 dx /= d
-#                 dy = dest.y - orig.y
-#                 dy /= d
-#                 O = halfway[0] + dy, halfway[1] - dx
-#                 vertices.append("{0[0]} {0[1]}".format(O))
         if vertices:
             vertices.append(vertices[0])
         return "POLYGON(({0}))".format(", ".join(vertices))
@@ -321,48 +310,9 @@ class KineticTriangle(object):
     def visualize_at(self, t):
         """ """
         vertices = []
-#         if self.is_finite:
         for idx in range(3):
             v = self.vertices[idx]
             vertices.append("{0[0]} {0[1]}".format(v.visualize_at(t)))
-#         else:
-#             # -- find infinite vertex
-#             for infinite in range(3):
-#                 v = self.vertices[infinite]
-#                 if isinstance(v, InfiniteVertex):
-#                     break
-#             # -- finite
-#             for idx in range(3):
-#                 if idx == infinite:
-#                     # -- if infinite make halfway
-#                     idx = infinite
-#                     orig_idx, dest_idx = (idx - 1) % 3, (idx + 1) % 3
-#                     orig, dest = self.vertices[orig_idx], self.vertices[dest_idx]
-#                     ox, oy = orig.position_at(t)
-#                     dx, dy = dest.position_at(t)
-#                     d2 = orig.distance2_at(dest, t)
-#                     d = d2 ** 0.5
-#                     halfway = (ox + dx) * .5, (oy + dy) * .5
-#                     #d = orig.distance(dest)
-#                     deltax = dx - ox
-#                     deltay = dy - oy
-#                     if d != 0: # prevent division by zero (resulting in triangles with undetermined direction)
-#                         # normalize
-#                         deltax /= d
-#                         deltay /= d
-#                         # multiply with distance multiplied with sqrt(3) / 2
-#                         # (to get equilateral triangle)
-#                         sqrt3div2 = 0.866025404
-#                         deltax *= d * sqrt3div2
-#                         deltay *= d * sqrt3div2
-#                     print d
-#                     O = halfway[0] + deltay, halfway[1] - deltax
-#                     vertices.append("{0[0]} {0[1]}".format(O))
-#                 else:
-#                     # -- finite vertex
-#                     v = self.vertices[idx]
-#     #                if v is not None:
-#                     vertices.append("{0[0]} {0[1]}".format(v.position_at(t)))
         if vertices:
             vertices.append(vertices[0])
         return "POLYGON(({0}))".format(", ".join(vertices))
@@ -391,40 +341,3 @@ def test_perp():
     kt.vertices = [kva, kvb, kvc]
 
     print(( kt.str_at(10)))
-
-# test_perp()
-#     vec = tuple(map(sub, t.vertices[e], t.vertices[s]))
-#     vec = rotate90ccw(rotate90ccw(vec))
-#     opp_angle = atan2(vec[1], vec[0])
-#     while opp_angle < 0:
-#         opp_angle += 2 * pi
-#
-#     print opp_angle
-#     overlap = None
-#     for e in E:
-#         t = e.triangle
-#         start = e.side
-#         end = ccw(start)
-#         vec = tuple(map(sub, t.vertices[end], t.vertices[start]))
-#         angle = atan2(vec[1], vec[0])
-#         while angle <= 0:
-#             angle += 2 * pi
-#         print vec, angle
-#         if angle >= opp_angle:
-#             overlap = e
-#             break
-#     assert overlap is not None
-#     print "overlap", e.triangle
-
-
-#     with open("/tmp/kvertices.wkt", "w") as fh:
-#         output_kvertices(skel.vertices, fh)
-
-#         try:
-#             collapse_time_quadratic(tri)
-#
-#         except AttributeError:
-#             pass
-#     for tri in ktriangles:
-#         print tri
-#         collapse_time_dot(tri)
