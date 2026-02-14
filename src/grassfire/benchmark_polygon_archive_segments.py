@@ -1,5 +1,6 @@
 import argparse
 import time
+from statistics import mean
 
 import requests
 from tri.delaunay.helpers import ToPointsAndSegments
@@ -42,7 +43,12 @@ BASE_URL = "https://raw.githubusercontent.com/LingDong-/interesting-polygon-arch
 
 
 def load_coords(name):
-    return requests.get(BASE_URL + name).json()
+    try:
+        response = requests.get(BASE_URL + name, timeout=30)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as exc:
+        raise RuntimeError(f"failed to load polygon archive input '{name}'") from exc
 
 
 def calc_segments(coords):
@@ -73,7 +79,7 @@ def benchmark_total_skeleton_time(
             coords = load_coords_fn(name)
             calc_segments_fn(coords)
         totals.append(timer() - start)
-    return sum(totals) / len(totals), totals
+    return mean(totals), totals
 
 
 def main():
