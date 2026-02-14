@@ -188,9 +188,6 @@ def init_skeleton(dt):
 
     triangle2ktriangle = {}
     for idx, t in enumerate(dt.triangles, start = 1):
-        # skip the external triangle
-        # if t is dt.external:
-        #    continue
         k = KineticTriangle()
         k.info = idx
         triangle2ktriangle[t] = k
@@ -202,9 +199,6 @@ def init_skeleton(dt):
     # set up properly the neighbours of all kinetic triangles
     # blank out the neighbour, if a side is constrained
     unwanted = []
-    #it = TriangleIterator(dt)
-    # skip the external triangle (which is the first the iterator gives)
-#     next(it)
     for t in dt.triangles:
         k = triangle2ktriangle[t]
 
@@ -231,10 +225,6 @@ def init_skeleton(dt):
     # and link them to the kinetic triangles
     # also make sure that every kinetic vertex is related to a skeleton node
     kvertices = []
-#     ktri_no_apex = []
-#     one_ktri_between = {}
-#     with open("/tmp/bisectors.wkt", "w") as bisector_fh:
-#         print >> bisector_fh, "wkt"
     ct = 0
     for v in dt.vertices:
         assert v.is_finite, "infinite vertex found"

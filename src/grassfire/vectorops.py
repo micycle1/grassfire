@@ -73,26 +73,6 @@ def norm(a):
     """L2 norm"""
     return math.sqrt(norm2(a))
 
-# def length(v):
-#     """Euclidean length of vector"""
-#     return sqrt(sum([x**2 for x in v]))
-#
-#
-# def length2(v):
-#     """*squared* Euclidean length of vector"""
-#     return sum([x**2 for x in v])
-#
-#
-# def dist(start, end):
-#     """distance between two positons"""
-#     return length(map(sub, start, end))
-#
-#
-# def dist2(start, end):
-#     """squared distance between two positons"""
-#     return length2(map(sub, start, end))
-
-
 def dist(start, end):
     """Distance between two positons"""
     return norm(make_vector(end, start))
@@ -116,21 +96,6 @@ def cross(a, b):
         return a[0] * b[1] - a[1] * b[0]
     else:
         raise ValueError('Vectors must be 2D or 3D')
-
-
-# def distance2(a, b):
-#     """*Squared* Euclidean distance between 2 points"""
-#     if len(a) != len(b):
-#         raise ValueError('Point dimensions should be equal')
-#     s = 0
-#     for i in range(len(a)):
-#         s += (a[i] - b[i]) * (a[i] - b[i])
-#     return s
-#
-#
-# def distance(a, b):
-#     """Euclidean distance between 2 points"""
-#     return math.sqrt(distance2(a, b))
 
 
 def angle(v1, v2):
@@ -198,6 +163,5 @@ def rotate90cw(v):
     (x, y) -> (y, -x)
     """
     return (v[1], -v[0])
-
 
 

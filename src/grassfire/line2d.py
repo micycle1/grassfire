@@ -247,23 +247,6 @@ class Line2:
             return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
         # should we project the start / end points on the line ??
         #http://www.sunshine2k.de/coding/java/PointOnLine/PointOnLine.html
-
-
-
-#        if self.w[0] == 0.0:
-#            # a = 0 , horizontal
-#            pass
-#        elif self.w[1] == 0.0:
-#            pass
-#        else:
-#            xmin = -2000.0
-#            xmax = +2000.0
-#            ymin = self.y_at_x(xmin)
-#            ymax = self.y_at_x(xmax)
-#            return (xmin, ymin), (xmax,ymax)
-
-
-
 class WaveFront:
     """ A line that remembers start and end point from which it is constructed """
     def __init__(self, start, end, line=None):
@@ -397,19 +380,5 @@ def rotate90cw(v):
     (x, y) -> (y, -x)
     """
     return (v[1], -v[0])
-
-
-# def as_wkt(p, q):
-#     return "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format(p, q)
-
-
-# class MovingLine(Line2):
-#     def __init__(self, w, b, kv_start, kv_end, normalize=True):
-#         self.kv_start = kv_start
-#         self.kv_end = kv_end
-#         super().__init__(w, b)
-
-#     def at_time(self, now):
-#         return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
 
 
