@@ -104,6 +104,17 @@ with open("/tmp/skeleton.wkt", "w") as fh:
 # the resulting WKT files can be opened in QGIS (via: Layer > Add Delimited Text Layer)
 ```
 
+## Benchmark
+
+Run the polygon archive benchmark from the terminal:
+
+```bash
+python -m grassfire.benchmark_polygon_archive_segments --repeats 3
+python -m grassfire.benchmark_polygon_archive_segments --repeats 3 --profile
+```
+
+This runs skeleton generation for the same polygon archive inputs used by `tests/test_polygon_archive_segments.py` and reports `average_total_time`.
+
 
 ## Changelog
 
