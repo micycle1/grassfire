@@ -45,7 +45,7 @@ def make_frames(now, digits, skel, queue, immediate):
     
     times = int(delta * scale)
     for t in range(1, times):
-        print( ".")
+        print(".")
         cur = N + float(t) / float(scale)
         time.sleep(0.25)
         visualize(queue, skel, cur)

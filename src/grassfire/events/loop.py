@@ -207,6 +207,10 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     if stop_after != 0:
         logging.debug("Stopping for the first time after step#{}".format(stop_after))
     
+    # Import make_frames if video generation is enabled (avoid repeated imports in loop)
+    if make_video:
+        from grassfire.tests2.test_event_loop_debugging import make_frames
+    
     # -- Clean out debug visualization files (only in pause/debug mode)
     # NOTE: The /tmpfast/ file operations are debugging artifacts for interactive visualization
     if pause:
@@ -242,7 +246,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     logging.debug("=" * 80)
     
     if make_video:
-        from grassfire.tests2.test_event_loop_debugging import make_frames
         make_frames(NOW, video_digits, skel, queue, immediate)
 #     step = prev = 0.025
 #     FILTER_CT = 220
@@ -369,14 +372,13 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                     logging.debug("...")
         logging.debug("=" * 80)
         if make_video:
-            from grassfire.tests2.test_event_loop_debugging import make_frames
             make_frames(NOW, video_digits, skel, queue, immediate)
         if False and not immediate:
             # if we have immediate events, the linked list will not be
             # ok for a while
             try:
                 check_active_triangles(skel.triangles)
-            except AssertionError:
+            except AssertionError as err:
                 print ("{}".format(err))
                 if True:
                     visualize(queue, skel, NOW - 5e-4)
@@ -387,7 +389,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     if pause:
         visualize(queue, skel, NOW)
     if make_video:
-        from grassfire.tests2.test_event_loop_debugging import make_frames
         make_frames(NOW, video_digits, skel, queue, immediate)
 
     if pause:
