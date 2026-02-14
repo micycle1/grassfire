@@ -1,4 +1,6 @@
 import argparse
+import cProfile
+import pstats
 import time
 from statistics import mean
 
@@ -82,6 +84,24 @@ def benchmark_total_skeleton_time(
     return mean(totals), totals
 
 
+def run_benchmark(
+    repeats=3,
+    profile=False,
+    benchmark_fn=benchmark_total_skeleton_time,
+    profiler_factory=cProfile.Profile,
+):
+    if not profile:
+        average_total, totals = benchmark_fn(repeats=repeats)
+        return average_total, totals, None
+    profiler = profiler_factory()
+    profiler.enable()
+    try:
+        average_total, totals = benchmark_fn(repeats=repeats)
+    finally:
+        profiler.disable()
+    return average_total, totals, profiler
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Benchmark skeleton generation on polygon archive segment inputs."
@@ -92,12 +112,22 @@ def main():
         default=3,
         help="Number of full benchmark runs to average (default: 3).",
     )
+    parser.add_argument(
+        "--profile",
+        action="store_true",
+        help="Enable cProfile while running the benchmark.",
+    )
     args = parser.parse_args()
-    average_total, totals = benchmark_total_skeleton_time(repeats=args.repeats)
+    average_total, totals, profiler = run_benchmark(
+        repeats=args.repeats, profile=args.profile
+    )
     print(f"inputs={len(INPUT_NAMES)} repeats={args.repeats}")
     for i, total in enumerate(totals, start=1):
         print(f"run {i}: total_time={total:.6f}s")
     print(f"average_total_time={average_total:.6f}s")
+    if profiler is not None:
+        print("\nprofile_stats_top20_cumulative")
+        pstats.Stats(profiler).sort_stats("cumulative").print_stats(20)
 
 
 if __name__ == "__main__":

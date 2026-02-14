@@ -1,6 +1,9 @@
 import pytest
 
-from grassfire.benchmark_polygon_archive_segments import benchmark_total_skeleton_time
+from grassfire.benchmark_polygon_archive_segments import (
+    benchmark_total_skeleton_time,
+    run_benchmark,
+)
 
 
 def test_benchmark_total_skeleton_time_average():
@@ -29,3 +32,38 @@ def test_benchmark_total_skeleton_time_repeats_validation():
             load_coords_fn=lambda name: [],
             calc_segments_fn=lambda coords: [],
         )
+
+
+def test_run_benchmark_without_profiling():
+    avg, totals, profiler = run_benchmark(
+        repeats=1,
+        profile=False,
+        benchmark_fn=lambda repeats: (1.25, [1.25]),
+    )
+    assert avg == 1.25
+    assert totals == [1.25]
+    assert profiler is None
+
+
+def test_run_benchmark_with_profiling():
+    class FakeProfiler:
+        def __init__(self):
+            self.enabled = False
+            self.disabled = False
+
+        def enable(self):
+            self.enabled = True
+
+        def disable(self):
+            self.disabled = True
+
+    avg, totals, profiler = run_benchmark(
+        repeats=1,
+        profile=True,
+        benchmark_fn=lambda repeats: (2.5, [2.5]),
+        profiler_factory=FakeProfiler,
+    )
+    assert avg == 2.5
+    assert totals == [2.5]
+    assert profiler.enabled
+    assert profiler.disabled
