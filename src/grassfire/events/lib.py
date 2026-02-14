@@ -262,10 +262,7 @@ def replace_kvertex(t, v, newv, now, direction, queue, immediate):
             """)
             if t.event.tp == 'flip':
                 logging.debug(t.neighbours[t.event.side[0]]) # -- can have become None
-                # raw_input
-                # if t.neighbours.count(None) < 2:
                 logging.error('Error with current event -- as we do not handle flip now, we run the risk of inconsistency -- in fan: {0} $'.format(t.event))
-                    # raw_input('paused $$')
 
         side = t.vertices.index(v)
         fan.append(t)

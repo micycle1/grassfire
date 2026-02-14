@@ -172,35 +172,7 @@ def choose_next_event(queue):
     return evt
 
 
-def make_frames(now, digits, skel, queue, immediate):
-    import random
-    import time
-    if immediate:
-        return
-    else:
-        scale = pow(10, digits)
-        N = round(now, digits)
-        try:
-            peek = next(iter(queue))
-            T = round(peek.time, digits)
-        except StopIteration:
-            T = N + 0.2
-        # print T, N
-        delta = T-N
-        # print delta
-        times = int(delta * scale)
-        # print times
-        for t in range(1, times):
-            print( ".")
-            cur = N + float(t) / float(scale)
-#             print N + TIME / scale
-            time.sleep(0.25)
-            visualize(queue, skel, cur) # N + TIME / scale)
-            time.sleep(0.5)
-            with open("/tmpfast/signal", "w") as fh:
-                # FIXME -- write a number for the frames to the file
-                fh.write("{0}".format(random.randint(0, int(1e6))))
-            time.sleep(0.25)
+
 
 
 def log_queue_content(step, immediate, queue):
@@ -221,19 +193,21 @@ def log_queue_content(step, immediate, queue):
 
 # Main event loop
 # -----------------------------------------------------------------------------
-def event_loop(queue, skel, pause=False):
-    """ The main event loop """
-
-    STOP_AFTER = 14830 #007285
-    STOP_AFTER = 14569 #007285
-
-    STOP_AFTER = 14851 #007285
-
-    STOP_AFTER = 104700 #007285
+def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_digits=3):
+    """ The main event loop 
+    
+    Args:
+        queue: Event queue
+        skel: Skeleton structure
+        pause: Whether to pause for interactive visualization
+        stop_after: Stop after this many steps (0 = no limit) - for testing/debugging
+        make_video: Whether to generate video frames - for testing/debugging  
+        video_digits: Number of decimal digits for video timing - for testing/debugging
+    """
+    STOP_AFTER = stop_after
     if STOP_AFTER != 0:
         logging.debug("Stopping for the first time after step#{}".format(STOP_AFTER))
-    VIDEO_DIGITS = 3
-    make_video = False
+    VIDEO_DIGITS = video_digits
     # -- clean out files for visualization
     if pause:
         for file_nm in [
@@ -268,6 +242,7 @@ def event_loop(queue, skel, pause=False):
     logging.debug("=" * 80)
     
     if make_video:
+        from grassfire.tests2.test_event_loop_debugging import make_frames
         make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
 #     step = prev = 0.025
 #     FILTER_CT = 220
@@ -329,9 +304,6 @@ def event_loop(queue, skel, pause=False):
                     logging.debug([n.info for n in also])
             check_direct(evt)
             
-            # visualize(queue, skel, NOW - 1e-5)
-            # notify_qgis()
-            # raw_input(str(step) + ' > before event (time rewinded)')
             with open('/tmpfast/current_event.wkt', 'w') as fh:
                 fh.write("pos;wkt;evttype;evttime;tritype;id;n0;n1;n2;finite;info;wavefront_directions\n")
                 fh.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}\n".format(
@@ -351,30 +323,6 @@ def event_loop(queue, skel, pause=False):
                 )
 
             interactive_visualize(queue, skel, step, NOW)
-
-            # visualize(queue, skel, NOW)
-            # notify_qgis()
-            # user_input = raw_input(str(step) + ' > before event (time as-is); "r" to rewind, any other key to continue$ ')
-            # if user_input == 'r':
-            #     visualize(queue, skel, NOW - 1e-5)
-            #     notify_qgis()
-            #     user_input = raw_input(str(step) + '  - Rewinded time; "r" to rewind, any other key to continue$ ')
-            #     if user_input == 'r':
-            #         visualize(queue, skel, 0)
-            #         notify_qgis()
-            #         user_input = raw_input(str(step) + '  - Rewinded time; paused - press a key to continue$ ')
-
-        #         if parallel:
-        #             evt = parallel.popleft()
-        #             # print edge, direction, now
-        #             handle_parallel_event(evt, skel, queue, immediate, parallel)
-        #             visualize(queue, skel, now)
-        #             raise NotImplementedError("stop here")
-        #         else:
-
-
-#            try:
-#                check_bisectors(skel, NOW)
         # precondition: this triangle has not yet been dealt with before
         if evt.triangle.stops_at is not None:
             logging.warn("Already stopped {}, but still queued".format(
@@ -389,7 +337,6 @@ def event_loop(queue, skel, pause=False):
             elif len(evt.side) == 1 and evt.triangle.type == 3:
                 # collapse 3-triangle to line, as just 1 side collapses
                 handle_edge_event_1side(evt, step, skel, queue, immediate, pause and step >= STOP_AFTER)
-#                raise NotImplementedError("3-triangle collapsing to line")
             elif len(evt.side) == 2:
                 raise ValueError("Impossible configuration, triangle [{}] with 2 sides collapsing cannot happen".format(evt.triangle.info))
             else:
@@ -402,24 +349,8 @@ def event_loop(queue, skel, pause=False):
         if False:
             log_queue_content(step, immediate, queue)
 
-        # if pause and step >= STOP_AFTER:
-        #     visualize(queue, skel, NOW)#- 0.0001)
-        #     notify_qgis()
-        #     raw_input(str(step) + ' > after event (time as-is)')
-            # visualize(queue, skel, NOW - 0.1)
-            # notify_qgis()
-            # raw_input(str(step) + ' > after event (rewinded)')
-          # visualize(queue, skel, NOW - 0.0000000001)
-
-#         check_ktriangles(skel.triangles, NOW)
-                # check_wavefront_links(skel.triangles)
-                # check_kinetic_vertices(skel.triangles)
-#                check_active_triangles(skel.triangles)
-
         if False and ((step % 100 == 0) or step >= STOP_AFTER):
             check_active_triangles_orientation(skel.triangles, NOW)
-            if pause and step >= STOP_AFTER:
-                raw_input(str(step) + ' > after event (orientation checked)')
 
         if False:  # len(queue) < FILTER_CT:
             logging.debug("=" * 80)
@@ -437,32 +368,25 @@ def event_loop(queue, skel, pause=False):
                     logging.debug("...")
         logging.debug("=" * 80)
         if make_video:
+            from grassfire.tests2.test_event_loop_debugging import make_frames
             make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
-            # raw_input("paused...")
         if False and not immediate:
             # if we have immediate events, the linked list will not be
             # ok for a while
             try:
-                # check_wavefront_links(skel.triangles)
-                # check_kinetic_vertices(skel.triangles)
                 check_active_triangles(skel.triangles)
             except AssertionError:
                 print ("{}".format(err))
                 if True:
                     visualize(queue, skel, NOW - 5e-4)
-                    to_continue = raw_input('continue? [y|n]')
-                    if to_continue == 'y':
-                        pass
-                    else:
-                        break
+                    # Interactive debugging removed - use pause mode instead
+                    break
                 else:
                     raise
-#     if pause:
-#         for t in range(3):
-#             NOW += t
     if pause:
         visualize(queue, skel, NOW)
     if make_video:
+        from grassfire.tests2.test_event_loop_debugging import make_frames
         make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
 
     if pause:
