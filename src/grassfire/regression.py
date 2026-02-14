@@ -16,12 +16,12 @@ def _generalised_sum(data, func):
     Return a two-tuple of the length of data and the sum of func() of the
     items of data. If func is None, use just the sum of items of data.
     """
-    count = len(data)
+    values = list(data)
     if func is None:
-        total = math.fsum(data)
+        total = math.fsum(values)
     else:
-        total = math.fsum(func(x) for x in data)
-    return count, total
+        total = math.fsum(func(x) for x in values)
+    return len(values), total
 
 
 def _SS(data, m):
@@ -192,7 +192,7 @@ def adjust(data):
     Returns tuple of mean, list of adjusted values
     """
     mu = mean(data)
-    return mu, map(lambda x: (x-mu), data)
+    return mu, [x - mu for x in data]
 
 
 def regress(pts):
@@ -274,7 +274,7 @@ def _test1():
         #plt.scatter(xsadj, ysadj, c='green', marker='o', label = 'adjusted')
         # plt.scatter(nxs, nys, label = 'new')
     #plt.legend()
-    plt.show()
+    # plt.show()
 
 
 def _test2():
