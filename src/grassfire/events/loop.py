@@ -208,20 +208,22 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     if STOP_AFTER != 0:
         logging.debug("Stopping for the first time after step#{}".format(STOP_AFTER))
     VIDEO_DIGITS = video_digits
-    # -- clean out files for visualization
+    
+    # -- Clean out debug visualization files (only in pause/debug mode)
+    # NOTE: The /tmpfast/ file operations are debugging artifacts for interactive visualization
     if pause:
         for file_nm in [
             "/tmpfast/sknodes_progress.wkt",
             "/tmpfast/bisectors_progress.wkt",
             "/tmpfast/segments_progress.wkt",
             '/tmpfast/queue.wkt',
-            # also contains next triangle to be visualised!
             "/tmpfast/vertices0_progress.wkt",
             "/tmpfast/vertices1_progress.wkt",
             '/tmpfast/ktri_progress.wkt',
         ]:
             with open(file_nm, 'w') as fh:
                 pass
+    
     # -- visualize
     NOW = prev_time = 0. #= 5e-6
     step = 0
@@ -304,6 +306,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                     logging.debug([n.info for n in also])
             check_direct(evt)
             
+            # Debug: Write current event to file for visualization
             with open('/tmpfast/current_event.wkt', 'w') as fh:
                 fh.write("pos;wkt;evttype;evttime;tritype;id;n0;n1;n2;finite;info;wavefront_directions\n")
                 fh.write("{0};{1};{2};{3};{4};{5};{6};{7};{8};{9};{10}\n".format(

@@ -24,6 +24,7 @@ def compute_crossing_bisector(left, right, now):
     if intersect.intersection_type() == LineLineIntersectionResult.POINT:
         v = intersect.result
 
+        # Debug: Write wavefront intersection to file for visualization
         with open("/tmpfast/wavefront_original_intersection.wkt", "w") as fh:
             fh.write("wkt")
             fh.write("\n")
@@ -47,6 +48,7 @@ def compute_crossing_bisector(left, right, now):
     if intersect.intersection_type() == LineLineIntersectionResult.LINE:
         bi = tuple(left.w)
     elif intersect.intersection_type() == LineLineIntersectionResult.POINT:
+        # Debug: Write wavefront intersection to file for visualization
         with open("/tmpfast/wavefront_intersection.wkt", "w") as fh:
             fh.write("wkt")
             fh.write("\n")
@@ -54,7 +56,6 @@ def compute_crossing_bisector(left, right, now):
             fh.write("\n")
         bi = make_vector(end=intersect.result, start=v)
     elif intersect.intersection_type() == LineLineIntersectionResult.NO_INTERSECTION:
-        # print('no intersection, parallel wavefronts - not overlapping?')
         logging.warning('no intersection, parallel wavefronts - not overlapping?  -- should we rotate the unit vec?')
         bi = tuple(left.w)
 

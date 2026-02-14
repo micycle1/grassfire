@@ -146,7 +146,7 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
     logging.debug(" direction: {}".format(direction))
     d, acos_d = angle_unit(u1, u2)
 
-# FIXME: replace with new api: line.at_time(0).visualize()  //  line.at_time(t).visualize()
+    # Debug: Write support lines for visualization (only in pause/debug mode)
     if pause:
         with open('/tmpfast/support_lines.wkt', 'w') as fh:
             from grassfire.inout import interactive_visualize
@@ -154,7 +154,6 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
             fh.write("\n")
 
             # -- bisector line --
-            # b = ul.bisector(ur)
             b = ul.translated(mul(ul.w,now)).bisector( ur.translated(mul(ur.w,now)) )
             bperp = b.perpendicular(sk_node.pos)
 
