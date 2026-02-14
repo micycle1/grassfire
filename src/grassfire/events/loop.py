@@ -379,7 +379,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
             try:
                 check_active_triangles(skel.triangles)
             except AssertionError as err:
-                print ("{}".format(err))
+                logging.error("{}".format(err))
                 if True:
                     visualize(queue, skel, NOW - 5e-4)
                     # Interactive debugging removed - use pause mode instead

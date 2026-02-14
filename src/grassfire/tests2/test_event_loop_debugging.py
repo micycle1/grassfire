@@ -7,6 +7,11 @@ not part of the core library functionality.
 
 import random
 import time
+import logging
+
+# Constants for video frame generation
+DEFAULT_TIME_DELTA = 0.2  # Default time delta when queue is empty
+SIGNAL_RANGE = int(1e6)   # Random signal range for frame synchronization
 
 
 def make_frames(now, digits, skel, queue, immediate):
@@ -37,7 +42,8 @@ def make_frames(now, digits, skel, queue, immediate):
         peek = next(iter(queue))
         T = round(peek.time, digits)
     except StopIteration:
-        T = N + 0.2
+        # Use a small default time delta when queue is empty
+        T = N + DEFAULT_TIME_DELTA
     
     delta = T - N
     if delta <= 0:
@@ -50,8 +56,9 @@ def make_frames(now, digits, skel, queue, immediate):
         time.sleep(0.25)
         visualize(queue, skel, cur)
         time.sleep(0.5)
+        # Write random signal for frame synchronization with external visualization
         with open("/tmpfast/signal", "w") as fh:
-            fh.write("{0}".format(random.randint(0, int(1e6))))
+            fh.write("{0}".format(random.randint(0, SIGNAL_RANGE)))
         time.sleep(0.25)
 
 
