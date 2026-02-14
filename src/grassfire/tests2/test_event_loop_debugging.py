@@ -21,30 +21,38 @@ def make_frames(now, digits, skel, queue, immediate):
         skel: Skeleton structure being computed
         queue: Event queue
         immediate: Immediate events queue
+        
+    Note:
+        This function assumes T >= N (next event time >= current time).
+        If delta is negative, no frames will be generated.
     """
     from grassfire.inout import visualize
     
     if immediate:
         return
-    else:
-        scale = pow(10, digits)
-        N = round(now, digits)
-        try:
-            peek = next(iter(queue))
-            T = round(peek.time, digits)
-        except StopIteration:
-            T = N + 0.2
-        delta = T-N
-        times = int(delta * scale)
-        for t in range(1, times):
-            print( ".")
-            cur = N + float(t) / float(scale)
-            time.sleep(0.25)
-            visualize(queue, skel, cur)
-            time.sleep(0.5)
-            with open("/tmpfast/signal", "w") as fh:
-                fh.write("{0}".format(random.randint(0, int(1e6))))
-            time.sleep(0.25)
+    
+    scale = pow(10, digits)
+    N = round(now, digits)
+    try:
+        peek = next(iter(queue))
+        T = round(peek.time, digits)
+    except StopIteration:
+        T = N + 0.2
+    
+    delta = T - N
+    if delta <= 0:
+        return  # No frames to generate if next event is not in the future
+    
+    times = int(delta * scale)
+    for t in range(1, times):
+        print( ".")
+        cur = N + float(t) / float(scale)
+        time.sleep(0.25)
+        visualize(queue, skel, cur)
+        time.sleep(0.5)
+        with open("/tmpfast/signal", "w") as fh:
+            fh.write("{0}".format(random.randint(0, int(1e6))))
+        time.sleep(0.25)
 
 
 # Testing constants that were hardcoded in loop.py

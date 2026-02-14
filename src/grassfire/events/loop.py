@@ -204,10 +204,8 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         make_video: Whether to generate video frames - for testing/debugging  
         video_digits: Number of decimal digits for video timing - for testing/debugging
     """
-    STOP_AFTER = stop_after
-    if STOP_AFTER != 0:
-        logging.debug("Stopping for the first time after step#{}".format(STOP_AFTER))
-    VIDEO_DIGITS = video_digits
+    if stop_after != 0:
+        logging.debug("Stopping for the first time after step#{}".format(stop_after))
     
     # -- Clean out debug visualization files (only in pause/debug mode)
     # NOTE: The /tmpfast/ file operations are debugging artifacts for interactive visualization
@@ -245,7 +243,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     
     if make_video:
         from grassfire.tests2.test_event_loop_debugging import make_frames
-        make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
+        make_frames(NOW, video_digits, skel, queue, immediate)
 #     step = prev = 0.025
 #     FILTER_CT = 220
     check_bisectors(skel, 0.)
@@ -280,7 +278,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                       " at time " +
                       "{0:.28g}".format(evt.time))
 
-        if pause and step >= STOP_AFTER:
+        if pause and step >= stop_after:
 
             def check_direct(event):
                 """ check the direct neighbours whether they will collapse """
@@ -339,20 +337,20 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                 handle_edge_event_3sides(evt, step, skel, queue, immediate)
             elif len(evt.side) == 1 and evt.triangle.type == 3:
                 # collapse 3-triangle to line, as just 1 side collapses
-                handle_edge_event_1side(evt, step, skel, queue, immediate, pause and step >= STOP_AFTER)
+                handle_edge_event_1side(evt, step, skel, queue, immediate, pause and step >= stop_after)
             elif len(evt.side) == 2:
                 raise ValueError("Impossible configuration, triangle [{}] with 2 sides collapsing cannot happen".format(evt.triangle.info))
             else:
-                handle_edge_event(evt, step, skel, queue, immediate, pause and step >= STOP_AFTER)
+                handle_edge_event(evt, step, skel, queue, immediate, pause and step >= stop_after)
         elif evt.tp == "flip":
             handle_flip_event(evt, step, skel, queue, immediate)
         elif evt.tp == "split":
-            handle_split_event(evt, step, skel, queue, immediate, pause and step >= STOP_AFTER)
+            handle_split_event(evt, step, skel, queue, immediate, pause and step >= stop_after)
 
         if False:
             log_queue_content(step, immediate, queue)
 
-        if False and ((step % 100 == 0) or step >= STOP_AFTER):
+        if False and ((step % 100 == 0) or step >= stop_after):
             check_active_triangles_orientation(skel.triangles, NOW)
 
         if False:  # len(queue) < FILTER_CT:
@@ -372,7 +370,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         logging.debug("=" * 80)
         if make_video:
             from grassfire.tests2.test_event_loop_debugging import make_frames
-            make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
+            make_frames(NOW, video_digits, skel, queue, immediate)
         if False and not immediate:
             # if we have immediate events, the linked list will not be
             # ok for a while
@@ -390,7 +388,7 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         visualize(queue, skel, NOW)
     if make_video:
         from grassfire.tests2.test_event_loop_debugging import make_frames
-        make_frames(NOW, VIDEO_DIGITS, skel, queue, immediate)
+        make_frames(NOW, video_digits, skel, queue, immediate)
 
     if pause:
         interactive_visualize(queue, skel, step, NOW)
