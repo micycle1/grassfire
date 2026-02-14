@@ -380,5 +380,3 @@ def rotate90cw(v):
     (x, y) -> (y, -x)
     """
     return (v[1], -v[0])
-
-

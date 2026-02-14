@@ -327,17 +327,3 @@ class KineticTriangle(object):
     def is_finite(self):
         return all([isinstance(vertex, KineticVertex)
                     for vertex in self.vertices])
-
-
-def test_perp():
-    kt = KineticTriangle()
-    kva, kvb, kvc = KineticVertex(), KineticVertex(), InfiniteVertex()
-    kva.origin = (0., 0.)
-    kvb.origin = (5., 0.)
-    kvc.origin = (2.5, 4.330127019)
-    kva.velocity = (0., 1.)
-    kvb.velocity = (0., 1.)
-    kvc.velocity = (0., 1.)
-    kt.vertices = [kva, kvb, kvc]
-
-    print(( kt.str_at(10)))

@@ -163,5 +163,3 @@ def r_squared(pts):
         den = math.sqrt(sqt)
         corr = num / den
     return corr
-
-

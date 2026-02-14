@@ -48,6 +48,3 @@ def get_box(pts):
         if pt[1] > ur[1]:
             ur[1] = pt[1]
     return tuple(ll), tuple(ur)
-
-
-

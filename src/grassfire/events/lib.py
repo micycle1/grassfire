@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from grassfire.primitives import SkeletonNode, KineticVertex
-
-from grassfire.collapse import compute_collapse_time, \
-    compute_new_edge_collapse_event
-from grassfire.calc import near_zero, is_close
-from grassfire.vectorops import mul, add, bisector, dist
-from grassfire.inout import notify_qgis, interactive_visualize
+from grassfire.calc import is_close, near_zero
+from grassfire.collapse import (compute_collapse_time,
+                                compute_new_edge_collapse_event)
+from grassfire.inout import interactive_visualize, notify_qgis
+from grassfire.primitives import KineticVertex, SkeletonNode
+from grassfire.vectorops import add, bisector, dist, mul
 
 # ------------------------------------------------------------------------------
 # Functions common for event handling
@@ -131,15 +130,16 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
     kv.start_node = sk_node
     kv.internal = internal
 
-    logging.debug('/=-= New vertex: {} [{}] =-=\\'.format(id(kv), kv.info))
+    logging.debug('== New vertex: {} [{}] =='.format(id(kv), kv.info))
     logging.debug('bisector calc')
     logging.debug(' ul: {}'.format(ul))
     logging.debug(' ur: {}'.format(ur))
     logging.debug(' sk_node.pos: {}'.format(sk_node.pos))
 
     # FIXME: only in pause mode!
-    from grassfire.vectorops import angle_unit, add
     import math
+
+    from grassfire.vectorops import add, angle_unit
     logging.debug(' >>> {}'.format(angle_unit(ul.w, ur.w)))
     u1, u2 = ul.w, ur.w
     direction = add(u1, u2)
@@ -171,7 +171,8 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
         logging.debug(" OVERRULED - vectors cancel each other out / angle ~180° -> parallel wavefront!")
         bi = (0, 0)
     else:
-        from grassfire.line2d import LineLineIntersector, make_vector, LineLineIntersectionResult
+        from grassfire.line2d import (LineLineIntersectionResult,
+                                      LineLineIntersector, make_vector)
         intersect = LineLineIntersector(ul, ur)
         tp = intersect.intersection_type()
         if tp == LineLineIntersectionResult.NO_INTERSECTION:
@@ -196,7 +197,7 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
     from grassfire.vectorops import norm
     magn_v = norm(kv.velocity)
     logging.debug(' magnitude of velocity: {}'.format(magn_v))
-    logging.debug('\=-= New vertex =-=/')
+    logging.debug('== New vertex ==')
 
     # if magn_v > 1000000:
     #     logging.debug(" OVERRULED - super fast vertex angle ~180° -> parallel wavefront!")
