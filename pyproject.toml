@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "grassfire"
 version = "0.1.dev0"
-description = ""
+description = "Straight skeleton by means of kinetic triangulation"
 readme = "README.md"
 license = "MIT"
 authors = [
@@ -17,9 +17,6 @@ dependencies = [
     "tri @ git+https://github.com/bmmeijers/tri/",
     "oseq @ git+https://github.com/bmmeijers/oseq/",
     "matplotlib>=3.7.5",
-    "ipykernel>=6.29.5",
-    "requests>=2.32.4",
-    "pytest>=8.3.5",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -37,6 +34,15 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/micycle1/grassfire"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.3.5",
+    "requests>=2.32.4",
+]
+dev = [
+    "ipykernel>=6.29.5",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true

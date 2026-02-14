@@ -15,4 +15,4 @@ jobs:
       - name: Install uv
         run: pip install uv
       - name: Run tests
-        run: uv run python -m pytest tests/test_polygon_archive_segments.py
+        run: uv run --extra test python -m pytest tests/test_polygon_archive_segments.py
