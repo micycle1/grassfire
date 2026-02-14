@@ -359,9 +359,7 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
             schedule_immediately(n, now, queue, immediate)
-    #visualize(queue, skel, now-1.0e-3)
     
-    #raw_input('continue after parallel -- one of two legs')
     # process parallel fan, only if the fan has all un-dealt with triangles
     if kv and kv.inf_fast:
 #        # fan - cw
