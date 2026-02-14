@@ -38,7 +38,7 @@ def test_run_benchmark_without_profiling():
     avg, totals, profiler = run_benchmark(
         repeats=1,
         profile=False,
-        benchmark_fn=lambda repeats: (1.25, [1.25]),
+        benchmark_fn=lambda repeats, profiler=None: (1.25, [1.25]),
     )
     assert avg == 1.25
     assert totals == [1.25]
@@ -60,7 +60,7 @@ def test_run_benchmark_with_profiling():
     avg, totals, profiler = run_benchmark(
         repeats=1,
         profile=True,
-        benchmark_fn=lambda repeats: (2.5, [2.5]),
+        benchmark_fn=lambda repeats, profiler=None: (2.5, [2.5]),
         profiler_factory=FakeProfiler,
     )
     assert avg == 2.5

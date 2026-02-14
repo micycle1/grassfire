@@ -71,16 +71,28 @@ def benchmark_total_skeleton_time(
     load_coords_fn=load_coords,
     calc_segments_fn=calc_segments,
     timer=time.perf_counter,
+    profiler=None,
 ):
     if repeats < 1:
         raise ValueError("repeats must be >= 1")
+    
+    # Pre-load coordinates to exclude from timing and profiling
+    loaded_coords = [load_coords_fn(name) for name in names]
+
     totals = []
+    
+    if profiler:
+        profiler.enable()
+        
     for _ in range(repeats):
         start = timer()
-        for name in names:
-            coords = load_coords_fn(name)
+        for coords in loaded_coords:
             calc_segments_fn(coords)
         totals.append(timer() - start)
+        
+    if profiler:
+        profiler.disable()
+        
     return mean(totals), totals
 
 
@@ -90,15 +102,11 @@ def run_benchmark(
     benchmark_fn=benchmark_total_skeleton_time,
     profiler_factory=cProfile.Profile,
 ):
-    if not profile:
-        average_total, totals = benchmark_fn(repeats=repeats)
-        return average_total, totals, None
-    profiler = profiler_factory()
-    profiler.enable()
-    try:
-        average_total, totals = benchmark_fn(repeats=repeats)
-    finally:
-        profiler.disable()
+    profiler = profiler_factory() if profile else None
+    
+    # Pass profiler into benchmark function so it can control scope
+    average_total, totals = benchmark_fn(repeats=repeats, profiler=profiler)
+    
     return average_total, totals, profiler
 
 
@@ -126,8 +134,8 @@ def main():
         print(f"run {i}: total_time={total:.6f}s")
     print(f"average_total_time={average_total:.6f}s")
     if profiler is not None:
-        print("\nprofile_stats_top20_cumulative")
-        pstats.Stats(profiler).sort_stats("cumulative").print_stats(20)
+        print("\nprofile_stats_cumulative")
+        pstats.Stats(profiler).sort_stats("cumulative").print_stats(30)
 
 
 if __name__ == "__main__":
