@@ -42,6 +42,7 @@ test = [
 ]
 dev = [
     "ipykernel>=6.29.5",
+    "grassfire[test]",  # includes all test dependencies
 ]
 
 [tool.hatch.metadata]

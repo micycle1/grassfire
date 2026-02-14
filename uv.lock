@@ -202,24 +202,34 @@ version = "0.1.dev0"
 source = { editable = "." }
 dependencies = [
     { name = "geompreds" },
-    { name = "ipykernel" },
     { name = "matplotlib" },
     { name = "oseq" },
+    { name = "tri" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "ipykernel" },
     { name = "pytest" },
     { name = "requests" },
-    { name = "tri" },
+]
+test = [
+    { name = "pytest" },
+    { name = "requests" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "geompreds", git = "https://github.com/bmmeijers/predicates/" },
-    { name = "ipykernel", specifier = ">=6.29.5" },
+    { name = "grassfire", extras = ["test"], marker = "extra == 'dev'" },
+    { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=6.29.5" },
     { name = "matplotlib", specifier = ">=3.7.5" },
     { name = "oseq", git = "https://github.com/bmmeijers/oseq/" },
-    { name = "pytest", specifier = ">=8.3.5" },
-    { name = "requests", specifier = ">=2.32.4" },
+    { name = "pytest", marker = "extra == 'test'", specifier = ">=8.3.5" },
+    { name = "requests", marker = "extra == 'test'", specifier = ">=2.32.4" },
     { name = "tri", git = "https://github.com/bmmeijers/tri/" },
 ]
+provides-extras = ["test", "dev"]
 
 [[package]]
 name = "idna"

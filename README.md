@@ -25,6 +25,9 @@ cd grassfire
 # Install dependencies and create a virtual environment
 uv sync
 
+# Or, to run the demo notebook
+uv sync --extra dev
+
 # Activate the virtual environment
 source .venv/bin/activate  # On Unix/macOS
 # or
