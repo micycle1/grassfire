@@ -46,7 +46,7 @@ class TestPSLGGrassfire(unittest.TestCase):
 #         assert len(skel.sk_nodes) == 2
     def test_sharp_v(self):
         """Sharp V-shaped polyline
- 
+
         Tests collapse of 2 triangle and handling of
         collapse of spoke
         """
@@ -62,7 +62,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.sk_nodes) == 4
 
 
- 
+
     def test_infinite2(self):
         """2 segments with terminal vertices at convex hull
         """
@@ -76,7 +76,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
         assert len(skel.segments()) == 11
         assert len(skel.sk_nodes) == 6
- 
+
     def test_cocirculair_2(self):
         """2 segments with terminal vertices at convex hull
         """
@@ -93,7 +93,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.segments()) == 16
         assert len(skel.sk_nodes) == 9
 
- 
+
     def test_2_vshape(self):
         from math import cos, sin, pi
         # misses event
@@ -119,7 +119,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.sk_nodes) == 10
 
 
- 
+
     def test_cocirculair_3(self):
         """
         """
@@ -140,7 +140,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.segments()) == 26
 
 
- 
+
     def test_cocirculair_4(self):
         """
         """
@@ -164,7 +164,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.segments()) == 36
 
 
- 
+
     def test_star_cocircular(self):
         """4 v-shape lines pointing towards center
         """
@@ -191,7 +191,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.sk_nodes) == 26, len(skel.sk_nodes)
 
 
- 
+
     def test_infinite3(self):
         """3 segments with terminal vertices at convex hull
         """
@@ -230,7 +230,7 @@ class TestPSLGGrassfire(unittest.TestCase):
 #         j = """{
 # "type": "FeatureCollection",
 # "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-#                                                                                          
+#
 # "features": [
 # { "type": "Feature", "properties": { "id": 19 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.481125224325, 0.5 ], [ 0.288675134595, 0.5 ] ] } },
 # { "type": "Feature", "properties": { "id": 20 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.288675134595, 0.5 ], [ 0.19245008973, 0.666666666667 ] ] } },
@@ -293,7 +293,7 @@ class TestPSLGGrassfire(unittest.TestCase):
         j = """{
 "type": "FeatureCollection",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-                                                                                      
+
 "features": [
 { "type": "Feature", "properties": { "id": 19 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.481125224325, 0.5 ], [ 0.288675134595, 0.5 ] ] } },
 { "type": "Feature", "properties": { "id": 20 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.288675134595, 0.5 ], [ 0.19245008973, 0.666666666667 ] ] } },
@@ -315,12 +315,12 @@ class TestPSLGGrassfire(unittest.TestCase):
             conv.add_segment(*line)
         # skeletonize / offset
         skel = calc_skel(conv, pause=True, output=True)
- 
+
     def test_another_parallel1(self):
         j = """{
 "type": "FeatureCollection",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-                                                                                     
+
 "features": [
 { "type": "Feature", "properties": { "id": 21 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.673575314055, 0.166666666667 ], [ 0.866025403784, 0.166666666667 ] ] } },
 { "type": "Feature", "properties": { "id": 25 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.673575314055, -0.166666666667 ], [ 0.5, -0.0 ] ] } },
@@ -344,12 +344,12 @@ class TestPSLGGrassfire(unittest.TestCase):
         skel = calc_skel(conv, pause=True, output=True)
 
 # # ##############################################################################
-# # # PARALLEL EDGES IN THE INPUT, leading to problems 
+# # # PARALLEL EDGES IN THE INPUT, leading to problems
 # # # (e.g. nodes not on correct location)
 # # ##############################################################################
-# #     
+# #
 
-# #    
+# #
 # #     def test_flipped_cshape(self):
 # #         """Parallel c-shape wavefront"""
 # #         conv = ToPointsAndSegments()
@@ -365,7 +365,7 @@ class TestPSLGGrassfire(unittest.TestCase):
 # #                          output=True)
 # #         assert len(skel.segments()) == 10
 # #         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-# #    
+# #
 #     def test_cshape_bottom(self):
 #         """Parallel c-shape wavefront with longer segment on bottom"""
 # #         # FIXME: missing piece of wavefront, after handling parallel fan
@@ -380,8 +380,8 @@ class TestPSLGGrassfire(unittest.TestCase):
 #         skel = calc_skel(conv, pause=True, output=True)
 #         assert len(skel.segments()) == 10
 #         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-# #    
-# #    
+# #
+# #
 # #     def test_cshape_top(self):
 # #         """Parallel c-shape wavefront with longer segment on top"""
 # #         # FIXME: missing piece of wavefront, after handling parallel fan
@@ -399,10 +399,10 @@ class TestPSLGGrassfire(unittest.TestCase):
 # #         # geometric embedding
 # #         positions = [n.pos for n in skel.sk_nodes]
 # #         assert frozenset(positions) == frozenset([(0.0, -0.3), (1.0, 0.3), (-1.0, 0.3), (-1.0, -0.3), (-0.7, 0.0), (0.3, 0.0)])
-# #    
-# #    
+# #
+# #
 
-# #   
+# #
 # #     def test_2parallel_eq(self):
 # #         """2 parallel wavefront having equal size"""
 # #         conv = ToPointsAndSegments()
@@ -413,7 +413,7 @@ class TestPSLGGrassfire(unittest.TestCase):
 # #             conv.add_point(line[1])
 # #             conv.add_segment(*line)
 # #         skel = calc_skel(conv, pause=True, output=True)
-# #     
+# #
 # #     def test_2parallel_not_eq(self):
 # #         """2 parallel wavefront having different size"""
 # #         conv = ToPointsAndSegments()
@@ -424,7 +424,7 @@ class TestPSLGGrassfire(unittest.TestCase):
 # #             conv.add_point(line[1])
 # #             conv.add_segment(*line)
 # #         skel = calc_skel(conv, pause=False, output=False)
-# #    
+# #
 # #     def test_2parallel_not_eq2(self):
 # #         """2 parallel wavefront having different size, other one above"""
 # #         conv = ToPointsAndSegments()
@@ -440,12 +440,12 @@ class TestPSLGGrassfire(unittest.TestCase):
     def test_half_U(self):
         """Misses event, and has disconnected vertex"""
         polys = [
-        [(38.3852, 32.0156), (39.2659501953, 32.0912681641), 
-         (42.1678701172, 35.1549208984), 
-         (42.2309, 35.9922), (42.2309, 47.834), 
-         (47.5316, 47.834), (47.5316, 35.7273), 
-         (47.4732092773, 34.7657740479), 
-         (47.3213726562, 33.8784173828),  
+        [(38.3852, 32.0156), (39.2659501953, 32.0912681641),
+         (42.1678701172, 35.1549208984),
+         (42.2309, 35.9922), (42.2309, 47.834),
+         (47.5316, 47.834), (47.5316, 35.7273),
+         (47.4732092773, 34.7657740479),
+         (47.3213726562, 33.8784173828),
          (38.3852, 32.0156)],
         ]
         conv = ToPointsAndSegments()

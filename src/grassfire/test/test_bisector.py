@@ -56,7 +56,7 @@ class TestCollapsedBisector(unittest.TestCase):
         """
         bi = bisector_unit((0,0), (1,0), (0,0.000001))
         assert bi == (-0.999999999999875, 4.999999999998125e-07)
-#   
+#
     def test_nearly_0degs_left(self):
         """Bisector to the left
         """

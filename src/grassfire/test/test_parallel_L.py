@@ -45,15 +45,15 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
                     "{} {} {}".format(id(v),
                                       v.stop_node.pos,
                                       v.position_at(v.stops_at) )
- 
- 
+
+
     def test_L_1(self):
-        poly = [[(0,0), (1,0), (2,0), (3,0), (4,0), 
-                 (5,0), 
-                 (5,-1), 
-                 (5,-2), 
-                 (5,-3), 
-                 (5,-4), (5,-5), (6,-5), (6,1), 
+        poly = [[(0,0), (1,0), (2,0), (3,0), (4,0),
+                 (5,0),
+                 (5,-1),
+                 (5,-2),
+                 (5,-3),
+                 (5,-4), (5,-5), (6,-5), (6,1),
                  (0,1), (0,0)
                  ]]
         # convert to triangulation input
@@ -79,8 +79,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
 
 
     def test_L_2(self):
-        poly = [[ 
-        (5,0), (5,-1), (5,-2), (5,-3), (5,-4), (5,-5), (7,-5), (7,0), 
+        poly = [[
+        (5,0), (5,-1), (5,-2), (5,-3), (5,-4), (5,-5), (7,-5), (7,0),
         (8,0), (9,0), (10,0), (11,0),
         (11,1), (5,1), (5,0)
         ]]

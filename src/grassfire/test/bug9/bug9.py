@@ -1,5 +1,5 @@
 import unittest
- 
+
 from tri.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 from grassfire.events import at_same_location
@@ -51,5 +51,5 @@ if __name__ == "__main__":
         formatter = logging.Formatter('%(asctime)s - %(message)s')
         ch.setFormatter(formatter)
         root.addHandler(ch)
- 
+
     unittest.main(verbosity=2)

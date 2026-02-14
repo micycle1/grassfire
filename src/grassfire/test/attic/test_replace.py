@@ -23,7 +23,7 @@ class TestRotateAndReplace(unittest.TestCase):
                 pass
         # init skeleton structure
         conv = ToPointsAndSegments()
-        polygon = [[(-2,-1), (-1,0), (1,0), (1.5,-.5), (1.2,.7), 
+        polygon = [[(-2,-1), (-1,0), (1,0), (1.5,-.5), (1.2,.7),
                     (.4,1.2), (-.6,1.1), (-1.7,.7), (-2,-1)]]
         conv.add_polygon(polygon)
         dt = triangulate(conv.points, None, conv.segments)

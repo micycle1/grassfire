@@ -5,9 +5,9 @@ from grassfire.primitives import KineticTriangle, KineticVertex
 
 class TestCollapseTime(unittest.TestCase):
     def setUp(self):
-        self.triangle = KineticTriangle(KineticVertex((0.7535965796935182, 0.41537586304902124), 
-                                                      (1.20214406777568, -0.6838702949507468), 
-                                                      (0.9700438684136995, 0.24292981157730573), 
+        self.triangle = KineticTriangle(KineticVertex((0.7535965796935182, 0.41537586304902124),
+                                                      (1.20214406777568, -0.6838702949507468),
+                                                      (0.9700438684136995, 0.24292981157730573),
                                                       (0.28688406971441127, -0.957965307589005)),
                                         KineticVertex((0.793056201639544, 0.32270148647248165),
                                                       (-0.13094220113388658, 1.1449829817969648),
@@ -41,5 +41,5 @@ if __name__ == "__main__":
         formatter = logging.Formatter('%(asctime)s - %(message)s')
         ch.setFormatter(formatter)
         root.addHandler(ch)
- 
+
     unittest.main(verbosity=2)

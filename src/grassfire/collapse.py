@@ -311,7 +311,7 @@ def compute_event_1triangle(tri, now, sieve):
                   tri.vertices[cw(wavefront_side)],
                   tri.vertices[wavefront_side]]
     # what are the times the triangle collapses
-    
+
     # vertex crash time of the opposite vertex into the wavefront edge
     times_vertex_crash = [vertex_crash_time(ow, dw, aw)]
     # check unhandled event flip/split event
@@ -369,7 +369,7 @@ def compute_event_1triangle(tri, now, sieve):
 
     # FLIP FIX not working
     # if time_area_collapse is not None and time_edge_collapse is not None and time_vertex_crash is not None and time_area_collapse < time_edge_collapse and time_area_collapse < time_vertex_crash:
-    #     time = time_area_collapse 
+    #     time = time_area_collapse
     #     sides = []
     #     for i, n in enumerate(tri.neighbours):
     #         if n is not None:
@@ -397,7 +397,7 @@ def compute_event_1triangle(tri, now, sieve):
             return None
         elif near_zero(time-now) == True:
             #raise NotImplementedError("time of flip is now -- can also be vertex crash")
-            
+
             # -- area collapses now
             # dependent on the geometric config we have several outcomes for a 1-triangle
             # -- one option is: the vertex opposite lies on the interior of the wavefront side
@@ -408,7 +408,7 @@ def compute_event_1triangle(tri, now, sieve):
                             tp="split",
                             tri_tp=tri.type)
         else:
-            
+
             # we assume a flip event because no edge, nor vertex crash time
             # but area collapse in the future
             # as we flip, take only the distances of unconstrained edges into account
@@ -672,15 +672,15 @@ def compute_event_2triangle(tri, now, sieve):
 ###        p0, p1, p2 = it
 ###        u, v = unitvecs(p0, p1, p2)
 ####        print(u, v)
-###        theta = signed_turn(u,v) 
+###        theta = signed_turn(u,v)
 ####        theta = signed_turn(p0, p1, p2)
-####        assert theta == theta2  
+####        assert theta == theta2
 ####        print("theta:", theta, theta2)
 ###        alpha = 0.5 * (math.pi - theta)
 ###        magnitude = math.sin(alpha)
 ####        print(alpha, math.degrees(alpha), magnitude)
 ###        # unit left / right of point moving in correct direction
-###        # FIXME: computed multiple times 
+###        # FIXME: computed multiple times
 ###        ul, ur = rotate90ccw(u), rotate90ccw(v)
 ###        direction = add(ul, ur)
 ###        # the 'velocity' of the kinetic vertices
@@ -985,7 +985,7 @@ def solve_quadratic_whatevery(A, B, C):
         return [div(2*C, (-B-d)), div((-B-d), 2*A)]
     else:
         return [div((-B+d), 2*A), div(2*C, (-B+d))]
- 
+
 
 
 def solve_quadratic(A, B, C):
@@ -1167,7 +1167,7 @@ def visualize_collapse(tri, T=0):
             bisector_fh.write(
                 "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})\n".format(
                     p1, add(p1, bi)))
-    
+
     with open("/tmp/ktris.wkt", "w") as fh:
         output_triangles_at_T([tri], T, fh)
 

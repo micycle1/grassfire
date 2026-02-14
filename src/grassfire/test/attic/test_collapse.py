@@ -246,7 +246,7 @@ class TestAllEqual(unittest.TestCase):
         assert not all_close(range(10))
 
     def test_all_equal3(self):
-        assert all_close([0.9212014878049224, 
+        assert all_close([0.9212014878049224,
             0.9212014878049224, 0.9212014878049225])
 
 
@@ -869,7 +869,7 @@ class TestEvent1Edge(unittest.TestCase):
         for time in times:
             print "", time
         from datetime import datetime, timedelta
-        
+
         with open("/tmp/kinetic.wkt","w") as fh:
             fh.write("start;end;wkt\n")
             prev = datetime(2015, 1, 1)
@@ -1243,7 +1243,7 @@ def show_all_times(times, o, d, a):
                 print "     ", X
                 print "     ", Y
                 # FIXME: by looking at the distances and knowledge on what
-                # side is what, we should be able to reliable decide what 
+                # side is what, we should be able to reliable decide what
                 # is the event that happens to this triangle!
                 if len(X) == 3 or len(Y) == 3:
                     print "flip/split", dists
@@ -1252,7 +1252,7 @@ def show_all_times(times, o, d, a):
                     print "collapse", dists
                 #
                 # to a line, three separate points
-                # no distance is near_zero! 
+                # no distance is near_zero!
                 # -> could be flip or split event
     print ""
 

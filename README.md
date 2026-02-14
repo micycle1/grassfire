@@ -66,7 +66,7 @@ Example code for calculating the skeleton of a simple polygon:
 from tri.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 
-# input that will be triangulated and 
+# input that will be triangulated and
 # for which a straight skeleton is constructed
 conv = ToPointsAndSegments()
 lines = [
@@ -87,7 +87,7 @@ with open("/tmp/input.wkt", "w") as fh:
         conv.add_point(end)
         conv.add_segment(start, end)
 
-# produce the skeleton 
+# produce the skeleton
 # note, this scales input to (-1,1)
 skel = calc_skel(conv, internal_only=True)
 

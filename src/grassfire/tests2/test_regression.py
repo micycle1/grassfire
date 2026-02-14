@@ -1,7 +1,7 @@
 """Tests for regression module"""
 
 from grassfire.regression import (
-    are_residuals_near_zero, 
+    are_residuals_near_zero,
     regress,
     mean,
     variance,

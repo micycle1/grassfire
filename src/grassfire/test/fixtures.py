@@ -3215,7 +3215,7 @@ def test_3tris_split():
 
 def koch_rec2():
     """Koch curve, 2nd recursion level
-    
+
     Note, contains 4 segments without length
     """
     ring = [
@@ -3276,7 +3276,7 @@ def koch_rec2():
 
 def test_capital_T():
     """Capital T, has more than one triangle in parallel fan
-            
+
     Exhibits infinite event loop because of flipping...
     """
     #    T
@@ -3646,9 +3646,9 @@ def mute_button_shape():
 
 
 def bottom_circle_top_square():
-    """Bottom half is a circle, top is squarish, leading to parallel 
+    """Bottom half is a circle, top is squarish, leading to parallel
     wavefronts.
-    
+
     Test contains kinetic vertex that is generated at certain time
     and later ended at same time; This means that segment does not
     have any length
@@ -3795,7 +3795,7 @@ def rocket():
     """Two 2-triangles collapse at same time, sharing one vertex, that
     should lead to 1 new skeleton node and only 1 new kinetic vertex
     (3 original vertices are stopped, with 2 at same processing step).
-    
+
     This test has a vertex that is started and stopped at the same time!
     """
     ###################################################

@@ -50,7 +50,7 @@ for start, end in zip(poly[:-1], poly[1:]):
 # #conv.add_point(poly[0])
 # #conv.add_point(poly[-1])
 # #conv.add_segment(poly[-1], poly[0])
-# 
+#
 start = timeit.default_timer()
 # skeletonize / offset
 print(start)

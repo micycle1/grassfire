@@ -118,7 +118,7 @@ def angle_unit(v1, v2):
     logging.debug("  › near zero? {}".format(near_zero(acos_d - math.pi)))
     logging.debug(" degrees(acos(d)): {}°".format(math.degrees(acos_d)))
     logging.debug("  › d < cos(179.999)? {}".format(d < math.cos(math.radians(179.9999)) ))
-    
+
     return d, acos_d
 
 
@@ -133,8 +133,8 @@ def bisector(u1, u2):
     direction = add(u1, u2)
     logging.debug(" direction: {}".format(direction))
     d, acos_d = angle_unit(u1, u2)
- 
-#    if all(map(near_zero, direction)) or near_zero(acos_d - math.pi): # 
+
+#    if all(map(near_zero, direction)) or near_zero(acos_d - math.pi): #
     if all(map(near_zero, direction)) or (near_zero(acos_d - math.pi) or d < math.cos(math.radians(179.9999))):
         logging.debug(" vectors cancel each other out / angle ~180° -> parallel wavefront!")
         return (0, 0)

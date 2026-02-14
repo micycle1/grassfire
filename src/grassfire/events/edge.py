@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 import logging
 
 from tri.delaunay.tds import cw, ccw, Edge
@@ -40,13 +40,13 @@ def get_bisector(head, mid, tail):
     b = make_vector(head, mid)
     logging.debug(a)
     logging.debug("should be tail: {}".format(add(mid, a)))
-    
+
     logging.debug(b)
     logging.debug("should be head: {}".format(add(mid, b)))
 
     logging.debug(add(mid, a) == tail)
     logging.debug(add(mid, b) == head)
-    
+
     res = add(unit(a), unit(b))
     logging.debug(res)
     return res
@@ -179,15 +179,15 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
     #         logging.debug('signs agree')
     #     else:
     #         logging.warning("""
-            
-            
-            
+
+
+
     #         BISECTOR SIGNS DISAGREE
-            
-            
-            
+
+
+
     #         """)
-            
+
     #         kv.velocity = (sign(bisector_check[0]) * abs(kv.velocity[0]), sign(bisector_check[1]) * abs(kv.velocity[1]))
     #         raise ValueError('bisector signs disagree')
 
@@ -238,7 +238,7 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
             import math
             if(near_zero(math.sqrt(orig.distance2_at(dest, now)))):
                 logging.info("collapsing neighbouring edge, as it is very tiny -- ccw")
-                schedule_immediately(fan_b[-1], now, queue, immediate) 
+                schedule_immediately(fan_b[-1], now, queue, immediate)
 
     if n is not None:
         logging.debug("*** neighbour n: schedule adjacent neighbour for *IMMEDIATE* processing")

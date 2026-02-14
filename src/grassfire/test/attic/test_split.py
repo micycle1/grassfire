@@ -1,15 +1,15 @@
 # import unittest
-# 
+#
 # from tri.delaunay import cw, ccw
 # from tri import ToPointsAndSegments, triangulate
-# 
+#
 # from grassfire.io import output_dt, output_offsets, output_skel
 # from grassfire.primitives import KineticTriangle, KineticVertex
 # from grassfire.initialize import init_skeleton
 # from grassfire.events import handle_split_event
-# 
+#
 # class TestSplice(unittest.TestCase):
-# 
+#
 #     def test_splice(self):
 #         conv = ToPointsAndSegments()
 #         #conv.add_point((8,2))
@@ -32,7 +32,7 @@
 #         found = None
 #         for v in skel.vertices:
 #             print v
-# 
+#
 #         for t in skel.triangles:
 #             if t.finite:
 #                 if [v.position_at(0) for v in t.vertices] == [(10.0, 0.0), (5.0, 4.0), (0.0, 0.0)]:
@@ -40,6 +40,6 @@
 #                     break
 #         assert found is not None
 #         handle_split_event(evt, skel, queue)
-# 
+#
 # if __name__ == '__main__':
 #     unittest.main()

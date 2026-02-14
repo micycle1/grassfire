@@ -10,9 +10,9 @@ from grassfire.line2d import WaveFrontIntersector
 
 
 def compute_crossing_bisector(left, right, now):
-    """given two wavefront lines and the time now compute 
+    """given two wavefront lines and the time now compute
     where these wavefronts would be at this moment
-    intersect them 
+    intersect them
 
     and from the original intersection point to this intersection
     point compute the vector that gives the bisector
@@ -178,7 +178,7 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     vb.wfl = v.wfl
     vb.wfr = v2.wfl
 #     logging.debug("""
-# -- BISECTOR BI   {} 
+# -- BISECTOR BI   {}
 #             bi_b {}
 #             vb.v {}""".format(BI, bi_b, vb.velocity)
 #     )
@@ -199,7 +199,7 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     va.wfr = v.wfr
 
 #     logging.debug("""
-# -- BISECTOR BI   {} 
+# -- BISECTOR BI   {}
 #             bi_a {}
 #             va.v {}""".format(BI, bi_a, va.velocity)
 #     )

@@ -18,7 +18,7 @@ if True:
     root.addHandler(ch)
 
 conv = ToPointsAndSegments()
-polygon = [[(0,3), (0.5,5), (9,8.5), (10,2), (6,4), (3.5,1), (0,3)]]  
+polygon = [[(0,3), (0.5,5), (9,8.5), (10,2), (6,4), (3.5,1), (0,3)]]
 conv.add_polygon(polygon)
 
 skel = calc_skel(conv, pause=True, output=True, shrink=True)

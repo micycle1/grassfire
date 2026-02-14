@@ -184,7 +184,7 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
             assert intersect_t.intersection_type() == 1
             bi = make_vector(end=intersect_t.result, start=pos_at_t0)
         elif tp == LineLineIntersectionResult.LINE:
-            # this would mean original overlapping wavefronts... 
+            # this would mean original overlapping wavefronts...
             # -> parallel at left / right of a kvertex
             # FIXME: would it be possible here to get to original position that defined the line?
             bi = tuple(ul.w[:])
@@ -202,7 +202,7 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
     #     logging.debug(" OVERRULED - super fast vertex angle ~180° -> parallel wavefront!")
     #     kv.velocity = (0,0)
 
-    
+
     # compute where this vertex would have been at time t=0
     # we set this vertex as infinitely fast, if velocity in one of the
     # directions is really high, or when the bisectors of adjacent
@@ -220,7 +220,7 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
 
 
 def get_fan(t, v, direction):
-    """Gets a list of triangles that are the fan of 
+    """Gets a list of triangles that are the fan of
     vertex *v*, while turning *direction*, starting at triangle *t*
 
     This function assumes that the fan is finite (i.e. passes
@@ -254,10 +254,10 @@ def replace_kvertex(t, v, newv, now, direction, queue, immediate):
         logging.debug(t.event)
         if t.event is not None and near_zero(now - t.event.time):
             logging.debug(near_zero(now - t.event.time))
-            logging.debug(""" 
-            
+            logging.debug("""
+
             SAME SAME TIME... ARE WE PARALLEL?
-            
+
             """)
             if t.event.tp == 'flip':
                 logging.debug(t.neighbours[t.event.side[0]]) # -- can have become None
@@ -272,7 +272,7 @@ def replace_kvertex(t, v, newv, now, direction, queue, immediate):
                 #repr(newv),
                 id(newv),
                 newv.info,
-                newv.inf_fast, 
+                newv.inf_fast,
                 side,
                 id(t),
                 t.info

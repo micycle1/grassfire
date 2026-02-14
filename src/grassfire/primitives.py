@@ -36,7 +36,7 @@ class Skeleton(object):
         # kinetic primitives --> (traced) wavefront
         self.vertices = []
         self.triangles = []
-        # when we 'shrink' the geometry to get more floating point accuracy, 
+        # when we 'shrink' the geometry to get more floating point accuracy,
         # we can get back with this object to the original location
         self.transform = None
 
@@ -155,7 +155,7 @@ class KineticVertex(object):
     def visualize_at(self, time):
         if not self.inf_fast:
             ## -- if it is a high velocity vertex, render it at its start node
-            # magn = norm(self.velocity)  
+            # magn = norm(self.velocity)
             # if magn > 10:
             #     return self.start_node.pos
             # else:

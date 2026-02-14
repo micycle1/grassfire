@@ -35,7 +35,7 @@ if cython_available:
 else:
     sys.stderr.write("Cython NOT available, building from .C sources\n")
     EXT_MODULES = []
-SCRIPTS = [] 
+SCRIPTS = []
 REQUIREMENTS = ["geompreds", "tri", "oseq"]
 DATA_FILES = []
 
@@ -65,6 +65,6 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Scientific/Engineering :: GIS",
-        "Topic :: Scientific/Engineering :: Information Analysis", 
+        "Topic :: Scientific/Engineering :: Information Analysis",
     ],
 )

@@ -6,7 +6,7 @@ from tri.delaunay.tds import cw, ccw, orient2d
 from grassfire.primitives import Skeleton, SkeletonNode
 from grassfire.primitives import InfiniteVertex, KineticTriangle, KineticVertex
 from grassfire.vectorops import make_vector, unit, bisector, rotate90ccw
-from grassfire.line2d import LineLineIntersectionResult, LineLineIntersector, Line2, WaveFront, WaveFrontIntersector 
+from grassfire.line2d import LineLineIntersectionResult, LineLineIntersector, Line2, WaveFront, WaveFrontIntersector
 
 def find_overlapping_triangle(E):
     """find overlapping triangle 180 degrees other way round
@@ -181,8 +181,8 @@ def init_skeleton(dt):
 
     internal_triangles = set()
     for _, depth, triangle in RegionatedTriangleIterator(dt):
-        if depth == 1: 
-            # FIXME: why not put the depth here as identifier into the triangle 
+        if depth == 1:
+            # FIXME: why not put the depth here as identifier into the triangle
             # holes can then be separated from others (and possibly calculated in parallel)
             internal_triangles.add(triangle)
 
@@ -300,7 +300,7 @@ def init_skeleton(dt):
 #                 logging.warning('no intersection, parallel wavefronts - not overlapping?')
 #                 bi = tuple(left.w)
 #             assert bi is not None
-            
+
 
             ur = right.line # unit_vectors[first.triangle][cw(first.side)]
             ul = left.line # unit_vectors[last.triangle][ccw(last.side)]
