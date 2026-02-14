@@ -6,49 +6,6 @@ from grassfire.calc import near_zero
 
 import logging
 
-#_s = 27
-#_factor = 2**_s + 1
-
-#def split(a):
-#    c = float(_factor * a) # factor= 2**s+ 1
-#    x = float(c - (c -a))
-#    y = float(a - x)
-#    return x, y
-
-
-#def two_product(a, b):
-#    x = a * b
-#    a1, a2 = split(a)
-#    b1, b2 = split(b)
-#    y = a2*b2 -(((x - a1*b1)- a2*b1) - a1 *b2)
-#    return x,y
-
-
-#def two_sum(a, b):
-#    x = (a + b)
-#    z = (x - a)
-#    y = ((a - (x - z)) + (b - z))
-#    return x, y
-
-
-#def accurate_dot(x, y):
-#    n = len(x)
-##    if 2*n*eps>=1,error('inclusion failed'),end
-#    [p, s] = two_product(x[0], y[0])
-##    e = abs(s)
-#    for i in range(1, n):
-#        [h, r] = two_product(x[i], y[i])
-#        [p, q] = two_sum(p, h)
-#        t = (q + r)
-#        s = (s + t)
-##        e = (e + abs(t))
-#    res = (p + s)
-#    return res
-
-# alias accurate dot function
-#dot = accurate_dot
-
-
 def dot(v1, v2):
     """Returns dot product of v1 and v2 """
     assert len(v1) == len(v2), 'Vector dimensions should be equal'
@@ -454,6 +411,5 @@ def rotate90cw(v):
 
 #     def at_time(self, now):
 #         return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
-
 
 

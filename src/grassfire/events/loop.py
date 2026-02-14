@@ -28,18 +28,6 @@ def choose_next_event(queue):
     we pick a non-flipping event first. -- This is not okay
     -> we do not handle items in their correct order, and hence this leads to problems
     """
-    # it = iter(queue)
-    # first = next(it)
-    # events = [first]
-    # item = events[0]
-    # queue.remove(item)
-    # return item    
-
-        # # return the first item, sorted on type (non-flipping events first)
-        # for item in sorted(events, key=sort_key):
-        #     break
-
-
     def sort_key(evt):
         """Key for sorting; first by event type, when these equal by time"""
         types = {'flip': 2, 'split': 1, 'edge': 0}
@@ -63,8 +51,6 @@ def choose_next_event(queue):
                 break
 
         logging.debug("Multiple Events to pick next event from ...")
-        # logging.debug("\n - " +
-        #               "\n - ".join(map(str, events)))
         if len(events) == 1:
             # just one event happening now
             item = events[0]
@@ -84,44 +70,11 @@ def choose_next_event(queue):
             item = dist_events[0][1]
             # item = events[0]
         else:
-    ##        pts = []
-    ##        for evt in events:
-    ##            pts.extend([v.position_at(first.time)
-    ##                        for v in evt.triangle.vertices])
-    ##        on_straight_line = are_residuals_near_zero(pts)
-    ##         print pts
-    ##         for pt in pts:
-    ##             print "POINT({0[0]} {0[1]})".format(pt)
-    ##         metric = r_squared(pts)
-    ##         logging.debug('metric {0}'.format(metric))
-    ## #        import numpy as np
-    ##         x = np.array([pt[0] for pt in pts])
-    ##         y = np.array([pt[1] for pt in pts])
-    ##         A = np.vstack([x, np.ones(len(x))]).T
-    ##         res = np.linalg.lstsq(A, y)
-    ##         print res
-
-            # if not on_straight_line:
-            #     logging.debug('pick first event')
-            #     # points should be on straight line to exhibit infinite flipping
-            #     # if this is not the case, we return the first event
-            #     item = events[0]
-            # else:
-    #        logging.debug('pick non-flip event (vertices on straight line)')
-            
-
-            ##item = events[0]
-
             # # return the first item, sorted on type (non-flipping events first)
             for item in sorted(events, key=sort_key):
                 break
 
 
-    ## FIXME: 
-    ## BUG: this code leads to problems in removing events from the queue
-    ## my assumption is that:
-    ## 1. we can navigate onto a triangle that already has been dealt with
-    ## 2. the event on the triangle has not been updated properly (old event)
     def check_direct(event):
         """ check the direct neighbours whether they will collapse """
         
@@ -139,10 +92,6 @@ def choose_next_event(queue):
                     if near_zero(n.event.time - event.time):
                         also.append(n)
                         visit.append(n)
-                # elif n is not None and n.event is None:
-                #     # not sure -- should we visit 'uncollapsable' triangles to check if their neighbours can collapse?
-                #     seen.add(n)
-                #     visit.append(n)
         events = [event] + [n.event for n in also]
         if events and all([_.tp == 'flip' for _ in events]):
             logging.debug("Only flip events, picking flip event with longest side, should guarantee progress")
@@ -163,12 +112,6 @@ def choose_next_event(queue):
     evt = first
     queue.remove(evt)
 
-    # evt = check_direct(evt)
-    # try:
-    #     queue.remove(evt)
-    # except:
-    #     print(evt)
-    #     raise
     return evt
 
 
@@ -247,8 +190,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
     
     if make_video:
         make_frames(NOW, video_digits, skel, queue, immediate)
-#     step = prev = 0.025
-#     FILTER_CT = 220
     check_bisectors(skel, 0.)
     check_active_triangles_orientation(skel.triangles, 0)
     guard = 0
@@ -256,8 +197,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         guard += 1
         if guard > 50000:
             raise ValueError('loop with more than 50_000 events stopped')
-        #         if len(queue) < FILTER_CT:
-        #             pause = True
         step += 1
         if pause:
             log_queue_content(step, immediate, queue)
