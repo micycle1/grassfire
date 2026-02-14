@@ -11,11 +11,13 @@ license = "MIT"
 authors = [
     { name = "Martijn Meijers", email = "b.m.meijers@tudelft.nl" }
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.8,<3.9"
 dependencies = [
     "geompreds @ git+https://github.com/bmmeijers/predicates/",
     "tri @ git+https://github.com/bmmeijers/tri/",
     "oseq @ git+https://github.com/bmmeijers/oseq/",
+    "matplotlib>=3.7.5",
+    "ipykernel>=6.29.5",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -33,6 +35,9 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/micycle1/grassfire"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/grassfire"]
