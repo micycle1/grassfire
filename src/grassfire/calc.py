@@ -1,14 +1,3 @@
-# turn angle between two vectors... oriented away from same points
-#
-# atan2(v2.y, v2.x) - atan2(v1.y, v1.x)
-# add 2pi until positive
-
-# from itertools import imap
-# from operator import add, sub, mul, truediv
-# from math import pi, atan2, degrees, hypot, sin, sqrt
-# from tri.delaunay import orient2d
-# import logging
-
 import math
 
 

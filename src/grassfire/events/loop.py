@@ -15,7 +15,6 @@ from grassfire.events.edge import handle_edge_event, handle_edge_event_3sides, h
 from grassfire.events.split import handle_split_event
 from grassfire.events.check import check_wavefront_links, check_kinetic_vertices, check_active_triangles, check_bisectors, check_active_triangles_orientation
 
-# from grassfire.events.lib import notify_qgis
 from grassfire.inout import visualize, interactive_visualize
 
 
@@ -376,42 +375,6 @@ def event_loop(queue, skel, pause=False):
 
 #            try:
 #                check_bisectors(skel, NOW)
-#            except AssertionError:
-#                visualize(queue, skel, NOW - 5e-4)
-#                raise
-###
-
-#             peek = next(iter(queue))
-#             NOW = peek.time
-#             if pause and False:  # visualize progressively
-#                 #                 if peek.tp == "flip":
-#                 #                     ct = 2
-#                 #                 else:
-#                 ct = 10
-#                 # -- use this for getting progress visualization
-#                 delta = NOW - prev_time
-#                 if near_zero(delta):
-#                     ct = 1
-#                 step_time = delta / ct
-#                 for i in range(ct - 1):  # ct - 2): # stop 1 step before
-#                     print "."
-#                     prev_time += step_time
-#                     visualize(queue, skel, prev_time + step_time)
-#                     sleep(0.5)
-#             if pause and False:  # and (ct % 10) == 0:
-#                 visualize(queue, skel, NOW)
-#                 # import random
-#                 # with open("/tmp/signal", "w") as fh:
-#                 #    fh.write("{}".format(random.randint(0,1000)))
-#                 os.system("touch /tmp/signal")
-#                 sleep(2.)
-# #             if NOW > prev:
-# #                 visualize(queue, skel, NOW)
-# #                 prev += step
-#            ##evt = queue.popleft()
-#            #prev_time = NOW
-
-
         # precondition: this triangle has not yet been dealt with before
         if evt.triangle.stops_at is not None:
             logging.warn("Already stopped {}, but still queued".format(
