@@ -182,7 +182,8 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
             ul_t = ul.translated(ul.w)
             ur_t = ur.translated(ur.w)
             intersect_t = LineLineIntersector(ul_t, ur_t)
-            assert intersect_t.intersection_type() == 1
+            intersect_result_t = intersect_t.intersection_type()
+            assert intersect_result_t == LineLineIntersectionResult.POINT
             bi = make_vector(end=intersect_t.result, start=pos_at_t0)
         elif tp == LineLineIntersectionResult.LINE:
             # this would mean original overlapping wavefronts...
@@ -191,6 +192,8 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
             bi = tuple(ul.w[:])
             neg_velo = mul(mul(bi, -1.0), now)
             pos_at_t0 = add(sk_node.pos, neg_velo)
+        else: # Handle unexpected case to avoid unbound variable
+             raise RuntimeError(f"Unknown intersection type: {tp}")
 
     kv.velocity = bi #was: bisector(ul, ur)
     logging.debug(' kv.velocity: {}'.format(kv.velocity))

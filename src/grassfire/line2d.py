@@ -273,27 +273,31 @@ class WaveFrontIntersector:
     def get_bisector(self):
         # configuration at time t=0
         intersector = LineLineIntersector(self.left.line, self.right.line)
-        if intersector.intersection_type() == LineLineIntersectionResult.LINE:
+        res = intersector.intersection_type()
+        if res == LineLineIntersectionResult.LINE:
             # parallel = True; intersect = True
             bi = add(mul(self.left.line.w, 0.5), mul(self.right.line.w, 0.5))
             # the magnitude of the bisector here is either:
             #
             #  a) near 0.0 -> wavefronts moving in opposite direction
             #  b) near 2.0 -> wavefronts moving in same direction
-        elif intersector.intersection_type() == LineLineIntersectionResult.POINT:
+        elif res == LineLineIntersectionResult.POINT:
             # parallel = False; intersect = True
             # configuration at time t = 1 (line.w == unit vector)
             left_translated = self.left.line.translated(self.left.line.w)
             right_translated = self.right.line.translated(self.right.line.w)
 
             intersector_inner = LineLineIntersector(left_translated, right_translated)
-            assert intersector_inner.intersection_type() == LineLineIntersectionResult.POINT
+            inner_res = intersector_inner.intersection_type()
+            assert inner_res == LineLineIntersectionResult.POINT
             bi = make_vector(end=intersector_inner.result, start=intersector.result)
-        elif intersector.intersection_type() == LineLineIntersectionResult.NO_INTERSECTION:
+        elif res == LineLineIntersectionResult.NO_INTERSECTION:
             # parallel = True; intersect = False
             added = add(self.left.line.w, self.right.line.w)
             bi = added
             # assert near_zero(magn)
+        else:
+            raise RuntimeError(f"Unknown intersection type: {res}")
         magn = norm(bi)
         logging.debug("magnitude of bisector: {}".format(magn))
         return bi
