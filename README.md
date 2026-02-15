@@ -6,7 +6,7 @@ Grassfire - straight skeleton by means of kinetic triangulation
 
 The code in this package depends on a few other packages:
 
-- [tri](https://github.com/bmmeijers/tri/)
+- [triangle](https://rufat.be/triangle/)
 - [geompreds](https://github.com/bmmeijers/predicates/)
 
 ### Using uv (recommended)
@@ -39,7 +39,7 @@ You can install them with pip (I'd suggest to make a virtualenv):
 
 ```bash
 pip install -e git+https://github.com/bmmeijers/predicates/#egg=geompreds
-pip install -e git+https://github.com/bmmeijers/tri/#egg=tri
+pip install triangle
 ```
 
 After that you should be able to install grassfire:

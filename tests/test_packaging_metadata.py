@@ -19,3 +19,11 @@ def test_python_requirement_matches_supported_dependency_range():
     match = re.search(r'^requires-python = "([^"]+)"$', content, re.MULTILINE)
     assert match is not None
     assert match.group(1) == ">=3.8,<3.9"
+
+
+def test_runtime_dependency_uses_triangle_not_tri():
+    pyproject = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    content = pyproject.read_text(encoding="utf-8")
+
+    assert '"triangle"' in content
+    assert '"tri @ git+https://github.com/bmmeijers/tri/"' not in content
