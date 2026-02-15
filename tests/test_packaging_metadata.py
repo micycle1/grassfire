@@ -23,7 +23,11 @@ def test_python_requirement_matches_supported_dependency_range():
 
 def test_runtime_dependency_uses_triangle_not_tri():
     pyproject = Path(__file__).resolve().parents[1] / "pyproject.toml"
+    setup_py = Path(__file__).resolve().parents[1] / "setup.py"
     content = pyproject.read_text(encoding="utf-8")
+    setup_content = setup_py.read_text(encoding="utf-8")
 
     assert '"triangle"' in content
     assert '"tri @ git+https://github.com/bmmeijers/tri/"' not in content
+    assert 'REQUIREMENTS = ["geompreds", "triangle"]' in setup_content
+    assert 'REQUIREMENTS = ["geompreds", "tri"]' not in setup_content
