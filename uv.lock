@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = "==3.8.*"
 
 [[package]]
@@ -203,7 +203,6 @@ source = { editable = "." }
 dependencies = [
     { name = "geompreds" },
     { name = "matplotlib" },
-    { name = "oseq" },
     { name = "tri" },
 ]
 
@@ -224,7 +223,6 @@ requires-dist = [
     { name = "grassfire", extras = ["test"], marker = "extra == 'dev'" },
     { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=6.29.5" },
     { name = "matplotlib", specifier = ">=3.7.5" },
-    { name = "oseq", git = "https://github.com/bmmeijers/oseq/" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=8.3.5" },
     { name = "requests", marker = "extra == 'test'", specifier = ">=2.32.4" },
     { name = "tri", git = "https://github.com/bmmeijers/tri/" },
@@ -462,11 +460,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/42/e7/4bf953c6e05df90c6d351af69966384fed8e988d0e8c54dad7103b59f3ba/numpy-1.24.4-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:95f7ac6540e95bc440ad77f56e520da5bf877f87dca58bd095288dce8940532a", size = 16705744, upload-time = "2023-06-26T13:33:36.703Z" },
     { url = "https://files.pythonhosted.org/packages/fc/dd/9106005eb477d022b60b3817ed5937a43dad8fd1f20b0610ea8a32fcb407/numpy-1.24.4-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:e98f220aa76ca2a977fe435f5b04d7b3470c0a2e6312907b37ba6068f26787f2", size = 14734290, upload-time = "2023-06-26T13:34:05.409Z" },
 ]
-
-[[package]]
-name = "oseq"
-version = "1.0.5.dev0"
-source = { git = "https://github.com/bmmeijers/oseq/#c3b59462d676b8bc66a3a537182cb38514393ded" }
 
 [[package]]
 name = "packaging"
