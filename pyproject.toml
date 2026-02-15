@@ -14,6 +14,7 @@ authors = [
 requires-python = ">=3.8,<3.9"
 dependencies = [
     "geompreds @ git+https://github.com/bmmeijers/predicates/",
+    "tri @ git+https://github.com/bmmeijers/tri/",
     "triangle",
     "matplotlib>=3.7.5",
 ]
