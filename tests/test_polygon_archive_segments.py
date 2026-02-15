@@ -2,7 +2,7 @@ import logging
 
 import pytest
 import requests
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 
 from grassfire import calc_skel
 from grassfire.test.intersection import segments_intersecting

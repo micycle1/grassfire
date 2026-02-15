@@ -1,9 +1,9 @@
 import logging
 
-from tri.delaunay.tds import ccw, cw, Edge
+from triangle.delaunay.tds import ccw, cw, Edge
 
 # flip dependencies
-from tri.delaunay.tds import apex, orig, dest
+from triangle.delaunay.tds import apex, orig, dest
 
 from grassfire.events.lib import stop_kvertices, update_circ, \
     compute_new_kvertex, replace_kvertex, schedule_immediately, \

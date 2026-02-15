@@ -1,7 +1,7 @@
 import logging
 
-from tri.delaunay.iter import RegionatedTriangleIterator, StarEdgeIterator, Edge
-from tri.delaunay.tds import cw, ccw, orient2d
+from triangle.delaunay.iter import RegionatedTriangleIterator, StarEdgeIterator, Edge
+from triangle.delaunay.tds import cw, ccw, orient2d
 
 from grassfire.primitives import Skeleton, SkeletonNode
 from grassfire.primitives import InfiniteVertex, KineticTriangle, KineticVertex

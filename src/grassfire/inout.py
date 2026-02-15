@@ -1,6 +1,6 @@
-from tri.delaunay.inout import output_triangles, output_vertices, output_edges
-from tri.delaunay.tds import Edge
-from tri.delaunay.iter import TriangleIterator, FiniteEdgeIterator
+from triangle.delaunay.inout import output_triangles, output_vertices, output_edges
+from triangle.delaunay.tds import Edge
+from triangle.delaunay.iter import TriangleIterator, FiniteEdgeIterator
 import logging
 
 from grassfire.vectorops import mul, dist, add, unit, norm

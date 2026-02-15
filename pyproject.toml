@@ -14,8 +14,6 @@ authors = [
 requires-python = ">=3.8,<3.9"
 dependencies = [
     "geompreds @ git+https://github.com/bmmeijers/predicates/",
-    "tri @ git+https://github.com/bmmeijers/tri/",
-    "triangle",
     "matplotlib>=3.7.5",
 ]
 classifiers = [
@@ -49,7 +47,7 @@ dev = [
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/grassfire"]
+packages = ["src/grassfire", "src/triangle"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

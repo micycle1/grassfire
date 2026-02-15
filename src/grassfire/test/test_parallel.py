@@ -1,6 +1,6 @@
 import unittest
 
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 from grassfire.events import at_same_location
 from grassfire.test.intersection import segments_intersecting

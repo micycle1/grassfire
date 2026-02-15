@@ -2,7 +2,7 @@
 
 """
 
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 
 # def func():
 #     """ """

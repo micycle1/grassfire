@@ -4,7 +4,7 @@ from grassfire.collapse import compute_collapse_time, all_close,\
     collapse_time_edge, vertex_crash_time, area_collapse_time_coeff,\
     solve_quadratic, area_collapse_times, get_unique_times
 from grassfire.primitives import KineticTriangle, KineticVertex, InfiniteVertex
-from tri.delaunay import orient2d, cw, ccw
+from triangle.delaunay import orient2d, cw, ccw
 from grassfire.calc import near_zero, all_close_clusters
 import bisect
 

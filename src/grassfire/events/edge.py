@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from tri.delaunay.tds import cw, ccw, Edge
+from triangle.delaunay.tds import cw, ccw, Edge
 
 from grassfire.events.lib import stop_kvertices, compute_new_kvertex, \
     update_circ, replace_kvertex, schedule_immediately, near_zero
