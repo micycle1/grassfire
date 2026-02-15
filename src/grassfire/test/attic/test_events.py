@@ -1,6 +1,6 @@
 import unittest
 
-from oseq import OrderedSequence
+from grassfire.ordered_sequence import OrderedSequence
 
 from grassfire.primitives import Event
 from grassfire.events import compare_event_by_time
