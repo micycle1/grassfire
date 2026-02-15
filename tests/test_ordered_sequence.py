@@ -35,3 +35,11 @@ def test_ordered_sequence_remove_removes_single_item():
     queue.remove(2)
 
     assert list(queue) == [2]
+
+
+def test_ordered_sequence_discard_ignores_missing_item():
+    queue = OrderedSequence(cmp=_cmp_int)
+    queue.add(1)
+    queue.discard(2)
+
+    assert list(queue) == [1]

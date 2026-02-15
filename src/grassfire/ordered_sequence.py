@@ -25,6 +25,12 @@ class OrderedSequence:
                 return
         raise ValueError("item not found in ordered sequence")
 
+    def discard(self, item):
+        try:
+            self.remove(item)
+        except ValueError:
+            pass
+
     def __iter__(self):
         return iter(self._items)
 
