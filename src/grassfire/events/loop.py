@@ -1,8 +1,8 @@
 import logging
 from collections import deque
 
-from oseq import OrderedSequence
 from tri.delaunay.tds import Edge
+from grassfire.ordered_sequence import OrderedSequence
 
 from grassfire.calc import near_zero
 from grassfire.collapse import compute_collapse_time, find_gt

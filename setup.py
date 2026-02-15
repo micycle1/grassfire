@@ -36,7 +36,7 @@ else:
     sys.stderr.write("Cython NOT available, building from .C sources\n")
     EXT_MODULES = []
 SCRIPTS = []
-REQUIREMENTS = ["geompreds", "tri", "oseq"]
+REQUIREMENTS = ["geompreds", "tri"]
 DATA_FILES = []
 
 setup(
