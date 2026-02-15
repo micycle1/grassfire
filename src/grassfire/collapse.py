@@ -2,7 +2,7 @@ import bisect
 import logging
 import math
 
-from tri.delaunay.tds import cw, ccw, Edge
+from triangle.delaunay.tds import cw, ccw, Edge
 
 from grassfire.calc import get_unique_times, near_zero
 from grassfire.inout import output_edges_at_T, output_triangles_at_T, output_vertices_at_T

@@ -2,7 +2,7 @@ import unittest
 from math import sqrt
 from grassfire.collapse import compute_event
 from grassfire.primitives import KineticTriangle, KineticVertex, InfiniteVertex
-from tri.delaunay import cw, ccw, orient2d
+from triangle.delaunay import cw, ccw, orient2d
 from grassfire.calc import near_zero, all_close_clusters
 
 import logging

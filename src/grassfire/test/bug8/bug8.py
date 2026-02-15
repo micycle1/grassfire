@@ -13,7 +13,7 @@ if True:
 #     ch.setFormatter(formatter)
 #     root.addHandler(ch)
 
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 
 import timeit

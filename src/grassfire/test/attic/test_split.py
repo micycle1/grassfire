@@ -1,7 +1,7 @@
 # import unittest
 #
-# from tri.delaunay import cw, ccw
-# from tri import ToPointsAndSegments, triangulate
+# from triangle.delaunay import cw, ccw
+# from triangle import ToPointsAndSegments, triangulate
 #
 # from grassfire.io import output_dt, output_offsets, output_skel
 # from grassfire.primitives import KineticTriangle, KineticVertex

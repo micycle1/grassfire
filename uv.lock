@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = "==3.8.*"
 
 [[package]]
@@ -203,8 +203,7 @@ source = { editable = "." }
 dependencies = [
     { name = "geompreds" },
     { name = "matplotlib" },
-    { name = "oseq" },
-    { name = "tri" },
+    { name = "triangle" },
 ]
 
 [package.optional-dependencies]
@@ -224,10 +223,9 @@ requires-dist = [
     { name = "grassfire", extras = ["test"], marker = "extra == 'dev'" },
     { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=6.29.5" },
     { name = "matplotlib", specifier = ">=3.7.5" },
-    { name = "oseq", git = "https://github.com/bmmeijers/oseq/" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=8.3.5" },
     { name = "requests", marker = "extra == 'test'", specifier = ">=2.32.4" },
-    { name = "tri", git = "https://github.com/bmmeijers/tri/" },
+    { name = "triangle", specifier = ">=20250106" },
 ]
 provides-extras = ["test", "dev"]
 
@@ -462,11 +460,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/42/e7/4bf953c6e05df90c6d351af69966384fed8e988d0e8c54dad7103b59f3ba/numpy-1.24.4-pp38-pypy38_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:95f7ac6540e95bc440ad77f56e520da5bf877f87dca58bd095288dce8940532a", size = 16705744, upload-time = "2023-06-26T13:33:36.703Z" },
     { url = "https://files.pythonhosted.org/packages/fc/dd/9106005eb477d022b60b3817ed5937a43dad8fd1f20b0610ea8a32fcb407/numpy-1.24.4-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:e98f220aa76ca2a977fe435f5b04d7b3470c0a2e6312907b37ba6068f26787f2", size = 14734290, upload-time = "2023-06-26T13:34:05.409Z" },
 ]
-
-[[package]]
-name = "oseq"
-version = "1.0.5.dev0"
-source = { git = "https://github.com/bmmeijers/oseq/#c3b59462d676b8bc66a3a537182cb38514393ded" }
 
 [[package]]
 name = "packaging"
@@ -764,11 +757,18 @@ wheels = [
 ]
 
 [[package]]
-name = "tri"
-version = "0.3.1.dev0"
-source = { git = "https://github.com/bmmeijers/tri/#6e1915d0207d510b04816663cf1282501dc1c03c" }
+name = "triangle"
+version = "20250106"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "geompreds" },
+    { name = "numpy" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ba/8c/f394996cbc8c4ebca309b8d33c923bed831dfae7271408e42c6ed222ffa9/triangle-20250106-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:81ea44b0b04e2827e62b24fb7c248497a997b2254566b27fde8d71bc674fe39f", size = 1438811, upload-time = "2025-01-07T04:54:09.02Z" },
+    { url = "https://files.pythonhosted.org/packages/5c/eb/2c79fcf78bd7002f6dc62796cc226e706417e8dbb7e65c9e61186e044062/triangle-20250106-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:34e9d8f25a88abce5d41f656461d86295ae882e083b215198dbcbad6e7f2fd02", size = 2078013, upload-time = "2025-01-07T04:56:19.692Z" },
+    { url = "https://files.pythonhosted.org/packages/72/3e/a0c471bd8c6aa87ecd12d55931324c519ca01ba9c3d74544f0104f9ed20b/triangle-20250106-cp38-cp38-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6c923bd6d621d689bfe9c0cc066d6a119bdf4fc937aaf1f83bc05103d99fda2c", size = 2002280, upload-time = "2025-01-07T04:56:21.305Z" },
+    { url = "https://files.pythonhosted.org/packages/c9/16/97b71b462b3a5ccfcd94a1c1cbe73fca3e17296406de573432b23fb17705/triangle-20250106-cp38-cp38-win32.whl", hash = "sha256:0488dc08fbd35ed814b4c0041c63ffcf883b3941b67bb33e252576b11720f49f", size = 1407658, upload-time = "2025-01-07T05:00:28.289Z" },
+    { url = "https://files.pythonhosted.org/packages/5d/61/043e7601c424eaa094f88d570866fca86ff1a3131febe62fb8e06c89cca3/triangle-20250106-cp38-cp38-win_amd64.whl", hash = "sha256:8349e320ac5a93d64e46774a3de1695c9a881e7eb020c0d438ee27edd27243c5", size = 1426881, upload-time = "2025-01-07T05:00:29.939Z" },
 ]
 
 [[package]]

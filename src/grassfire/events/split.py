@@ -1,5 +1,5 @@
 import logging
-from tri.delaunay.tds import cw, ccw
+from triangle.delaunay.tds import cw, ccw
 
 from grassfire.events.lib import stop_kvertices, compute_new_kvertex, \
         update_circ, replace_kvertex, near_zero

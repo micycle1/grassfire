@@ -5,7 +5,7 @@ import time
 from statistics import mean
 
 import requests
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 
 from grassfire import calc_skel
 

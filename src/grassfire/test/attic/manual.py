@@ -3,7 +3,7 @@
 from grassfire import ToPointsAndSegments, calc_skel, init_event_list, event_loop
 from grassfire.collapse import compute_collapse_time
 
-from tri.delaunay import Edge, output_edges
+from triangle.delaunay import Edge, output_edges
 import time
 from qgis._core import QGis
 
@@ -722,7 +722,7 @@ def test_ordering():
 
 def helper_make_test_collapse_time():
     from math import sqrt
-    from tri import triangulate, ToPointsAndSegments
+    from triangle import triangulate, ToPointsAndSegments
     from grassfire import init_skeleton
 #     conv = ToPointsAndSegments()
 #     polygon = [[(1,0),

@@ -1,4 +1,4 @@
-from tri.delaunay.tds import cw, ccw, orient2d
+from triangle.delaunay.tds import cw, ccw, orient2d
 
 from grassfire.vectorops import add
 from grassfire.calc import near_zero

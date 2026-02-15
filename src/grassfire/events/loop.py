@@ -1,7 +1,7 @@
 import logging
 from collections import deque
 
-from tri.delaunay.tds import Edge
+from triangle.delaunay.tds import Edge
 from grassfire.ordered_sequence import OrderedSequence
 
 from grassfire.calc import near_zero

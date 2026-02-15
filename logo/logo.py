@@ -1,7 +1,7 @@
 """Code for creating the grassfire logo
 """
 
-from tri import ToPointsAndSegments
+from triangle import ToPointsAndSegments
 from grassfire import calc_skel
 
 if True:

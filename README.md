@@ -64,7 +64,7 @@ Example code for calculating the skeleton of a simple polygon:
 ```
 #!python
 
-from tri.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 
 # input that will be triangulated and

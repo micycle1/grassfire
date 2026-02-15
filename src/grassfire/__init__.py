@@ -1,7 +1,7 @@
-from tri.delaunay.helpers import ToPointsAndSegments
-from tri.delaunay.insert_kd import triangulate
-from tri.delaunay.iter import FiniteEdgeIterator, TriangleIterator
-from tri.delaunay.inout import output_triangles
+from triangle.delaunay.helpers import ToPointsAndSegments
+from triangle.delaunay.insert_kd import triangulate
+from triangle.delaunay.iter import FiniteEdgeIterator, TriangleIterator
+from triangle.delaunay.inout import output_triangles
 
 from grassfire.inout import output_offsets, output_skel
 from grassfire.initialize import init_skeleton, internal_only_skeleton

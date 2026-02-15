@@ -1,4 +1,4 @@
-from tri import ToPointsAndSegments
+from triangle import ToPointsAndSegments
 from grassfire import calc_skel
 #from simplegeom.wkt import loads
 
