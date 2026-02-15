@@ -1,3 +1,4 @@
+from bisect import bisect_right
 from functools import cmp_to_key
 
 
@@ -6,14 +7,23 @@ class OrderedSequence:
 
     def __init__(self, cmp):
         self._cmp = cmp
+        self._key = cmp_to_key(cmp)
         self._items = []
+        self._keys = []
 
     def add(self, item):
-        self._items.append(item)
-        self._items.sort(key=cmp_to_key(self._cmp))
+        key_item = self._key(item)
+        index = bisect_right(self._keys, key_item)
+        self._items.insert(index, item)
+        self._keys.insert(index, key_item)
 
     def remove(self, item):
-        self._items.remove(item)
+        for index, existing in enumerate(self._items):
+            if existing == item:
+                del self._items[index]
+                del self._keys[index]
+                return
+        raise ValueError("item not found in ordered sequence")
 
     def __iter__(self):
         return iter(self._items)
