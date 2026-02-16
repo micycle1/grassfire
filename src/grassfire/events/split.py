@@ -58,7 +58,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     skel.vertices.append(vb)
 
     if pause:
-        logging.debug('split l.194 -- computed new vertex B')
         from grassfire.inout import interactive_visualize
         interactive_visualize(queue, skel, step, now)
     va = compute_new_kvertex(v1.ur, v.ur, now, sk_node, len(skel.vertices) + 1, v.internal or v1.internal, pause)
@@ -68,7 +67,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     skel.vertices.append(va)
 
     if pause:
-        logging.debug('split l.211  -- computed new vertex A')
         interactive_visualize(queue, skel, step, now)
 
     update_circ(v.left, vb, now)
@@ -87,7 +85,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     fan_b = replace_kvertex(b, v, vb, now, ccw, queue, immediate)
 
     if pause:
-        logging.debug('split l.243 -- replaced vertex B')
         from grassfire.inout import interactive_visualize
         interactive_visualize(queue, skel, step, now)
     a = t.neighbours[(e + 2) % 3]
@@ -96,7 +93,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     fan_a = replace_kvertex(a, v, va, now, cw, queue, immediate)
 
     if pause:
-        logging.debug('split l.255 -- replaced vertex A')
         from grassfire.inout import interactive_visualize
         interactive_visualize(queue, skel, step, now)
 

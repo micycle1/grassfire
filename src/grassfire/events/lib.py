@@ -39,23 +39,19 @@ def stop_kvertices(V, step, now, pos=None):
         logging.debug("Vertex starts at same time as now: {}".format(time_close))
         logging.debug("Kinetic vertex is not stopped: {}".format(stopped))
         if stopped:
-            logging.debug("Stop_node of vertex")
             sk_node = v.stop_node
         elif time_close:
-            logging.debug("Time close")
             assert not stopped
             sk_node = v.start_node
         else:
             v.stops_at = now
     if sk_node is not None:
-        logging.debug("Skeleton node already there")
         for v in V:
             v.stop_node = sk_node
             v.stops_at = now
         is_new_node = False
     else:
         if pos is None:
-            logging.debug("Make new skeleton node")
             l = [v.position_at(now) for v in V]
             ct = len(l)
             sumx, sumy = 0., 0.
@@ -111,7 +107,6 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
                 fh.write(str(original))
                 fh.write("\n")
     if all(map(near_zero, direction)) or near_zero(acos_d - math.pi) or d < math.cos(math.radians(179.999999)):
-        logging.debug(" OVERRULED - vectors cancel each other out / angle ~180° -> parallel wavefront!")
         bi = (0, 0)
     else:
         from grassfire.line2d import (LineLineIntersectionResult,
@@ -174,16 +169,9 @@ def replace_kvertex(t, v, newv, now, direction, queue, immediate):
     first = True
     while t is not None:
         logging.debug(" @ {} [{}]".format(id(t), t.info))
-        logging.debug(t.event)
         if t.event is not None and near_zero(now - t.event.time):
             logging.debug(near_zero(now - t.event.time))
-            logging.debug("""
-
-            SAME SAME TIME... ARE WE PARALLEL?
-
-            """)
             if t.event.tp == 'flip':
-                logging.debug(t.neighbours[t.event.side[0]]) # -- can have become None
                 logging.error('Error with current event -- as we do not handle flip now, we run the risk of inconsistency -- in fan: {0} $'.format(t.event))
 
         side = t.vertices.index(v)

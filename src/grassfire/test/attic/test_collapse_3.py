@@ -89,16 +89,12 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
     def test_3triangle(self):
         tri = self.triangles[139742234434064]
         evt = compute_event(tri, now=0.)
-        logging.debug(evt)
-        logging.info(evt)
         assert orient2d(*[v.position_at(4) for v in tri.vertices]) >= 0
         assert evt.time == 4.281470067903971
 
     def test_3triangle_past(self):
         tri = self.triangles[139742234434064]
         evt = compute_event(tri, now=5.)
-        logging.debug(evt)
-        logging.info(evt)
         assert evt.time == None
 
 

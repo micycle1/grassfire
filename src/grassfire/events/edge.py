@@ -39,11 +39,8 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
     if newly_made:
         skel.sk_nodes.append(sk_node)
     kv = compute_new_kvertex(v1.ul, v2.ur, now, sk_node, len(skel.vertices) + 1, v1.internal or v2.internal, pause)
-    kv.wfl = v1.wfl                         #
-    kv.wfr = v2.wfr                         #
-
-
-
+    kv.wfl = v1.wfl
+    kv.wfr = v2.wfr
 
     if v1.left:
         logging.debug(v1.left.position_at(now))
@@ -53,8 +50,6 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
         logging.debug(v2.right.position_at(now))
     else:
         logging.warning("no v2.right")
-    if kv.inf_fast:
-        logging.debug("New kinetic vertex moves infinitely fast!")
     skel.vertices.append(kv)
     update_circ(v1.left, kv, now)
     update_circ(kv, v2.right, now)
@@ -67,7 +62,6 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
     fan_a = []
     fan_b = []
     if a is not None:
-        logging.debug("replacing vertex for neighbours at side A")
         a_idx = a.neighbours.index(t)
         a.neighbours[a_idx] = b
         fan_a = replace_kvertex(a, v2, kv, now, cw, queue, immediate)
@@ -77,10 +71,8 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
             orig, dest = e.segment
             import math
             if(near_zero(math.sqrt(orig.distance2_at(dest, now)))):
-                logging.info("collapsing neighbouring edge, as it is very tiny -- cw")
                 schedule_immediately(fan_a[-1], now, queue, immediate)
     if b is not None:
-        logging.debug("replacing vertex for neighbours at side B")
         b_idx = b.neighbours.index(t)
         b.neighbours[b_idx] = a
         fan_b = replace_kvertex(b, v1, kv, now, ccw, queue, immediate)
@@ -89,11 +81,9 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
             orig, dest = e.segment
             import math
             if(near_zero(math.sqrt(orig.distance2_at(dest, now)))):
-                logging.info("collapsing neighbouring edge, as it is very tiny -- ccw")
                 schedule_immediately(fan_b[-1], now, queue, immediate)
 
     if n is not None:
-        logging.debug("*** neighbour n: schedule adjacent neighbour for *IMMEDIATE* processing")
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
             schedule_immediately(n, now, queue, immediate)

@@ -43,7 +43,6 @@ class Skeleton(object):
         for v in self.vertices:
             if v.stops_at is not None:
                 if v.start_node is v.stop_node:
-                    logging.info('skipping segment with same start / end node')
                     continue
                 else:
                     if self.transform is not None:

@@ -239,8 +239,6 @@ class WaveFrontIntersector:
     def __init__(self, wf_left, wf_right):
         self.left = wf_left
         self.right = wf_right
-        logging.debug(self.left)
-        logging.debug(self.right)
 
     def get_bisector(self):
         intersector = LineLineIntersector(self.left.line, self.right.line)

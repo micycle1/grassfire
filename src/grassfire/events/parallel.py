@@ -86,7 +86,6 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
             dists.append(d)
         dists_sub_min = [near_zero(_ - min(dists)) for _ in dists]
         if near_zero(min(dists)) and dists_sub_min.count(True) == 1:
-            logging.debug(dists_sub_min)
             logging.debug("Smallest edge collapses? {}".format(near_zero(min(dists))))
             assert dists_sub_min.count(True) == 1
             side = dists_sub_min.index(True)
@@ -109,24 +108,17 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
 
     left_leg_idx = ccw(left.vertices.index(pivot))
     left_leg = Edge(left, left_leg_idx)
-    if left.neighbours[left_leg_idx] is not None:
-        logging.debug("inf-fast pivot, but not over wavefront edge? -- left side")
     left_dist = dist(*map(lambda x: x.position_at(now), left_leg.segment))
     right_leg_idx = cw(right.vertices.index(pivot))
     right_leg = Edge(right, right_leg_idx)
-    if right.neighbours[right_leg_idx] is not None:
-        logging.debug("inf-fast pivot, but not over wavefront edge? -- right side")
     right_dist = dist(*map(lambda x: x.position_at(now), right_leg.segment))
     dists = [left_dist, right_dist]
     dists_sub_min = [near_zero(_ - min(dists)) for _ in dists]
     unique_dists = dists_sub_min.count(True)
     if unique_dists == 2:
-        logging.debug("Equal sized legs")
         if len(fan) == 1:
-            logging.debug("Calling handle_parallel_edge_event_even_legs for 1 triangle")
             handle_parallel_edge_event_even_legs(first_tri, first_tri.vertices.index(pivot), pivot, now, step, skel, queue, immediate)
         elif len(fan) == 2:
-            logging.debug("Calling handle_parallel_edge_event_even_legs for *multiple* triangles")
 
             all_2 = True
             for t in fan:
@@ -157,15 +149,11 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
                 flip(t0, side0, t1, side1)
                 t0_has_inf_fast = [v.inf_fast for v in t0.vertices]
                 t1_has_inf_fast = [v.inf_fast for v in t1.vertices]
-                logging.debug(t0_has_inf_fast)
-                logging.debug(t1_has_inf_fast)
 
                 if True in t0_has_inf_fast:
-                    logging.debug("-- Handling t0 after flip event in parallel fan --")
                     handle_parallel_edge_event_even_legs(t0, t0.vertices.index(pivot), pivot, now, step, skel, queue, immediate)
 
                 if True in t1_has_inf_fast:
-                    logging.debug("-- Handling t1 after flip event in parallel fan --")
                     handle_parallel_edge_event_even_legs(t1, t1.vertices.index(pivot), pivot, now, step, skel, queue, immediate)
 
             if pause:
@@ -179,10 +167,8 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
     else:
         shortest_idx = dists_sub_min.index(True)
         if shortest_idx == 1: # right is shortest, left is longest
-            logging.debug("CW / left wavefront at pivot, ending at v2, is longest")
             handle_parallel_edge_event_shorter_leg(right_leg.triangle, right_leg.side, pivot, now, step, skel, queue, immediate, pause)
         elif shortest_idx == 0: # left is shortest, right is longest
-            logging.debug("CCW / right wavefront at pivot, ending at v1, is longest")
             handle_parallel_edge_event_shorter_leg(left_leg.triangle, left_leg.side, pivot, now, step, skel, queue, immediate, pause)
 
 
@@ -222,17 +208,12 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         assert pivot.stops_at is None
         pivot.stop_node = sk_node
         pivot.stops_at = now
-    else:
-        logging.debug("Infinite fast pivot already stopped,"
-                     " but should not be stopped(?)")
     t.stops_at = now
     assert t.vertices.index(pivot) != e
     kv = compute_new_kvertex(v1.ul, v2.ur, now, sk_node, len(skel.vertices) + 1, v1.internal or v2.internal, pause)
     kv.wfl = v1.left.wfr
     kv.wfr = v2.right.wfl
 
-    if kv.inf_fast:
-        logging.debug("New kinetic vertex moves infinitely fast!")
     a = t.neighbours[ccw(e)]
     b = t.neighbours[cw(e)]
     n = t.neighbours[e]
@@ -247,7 +228,6 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         a.neighbours[a_idx] = b
         fan_a = replace_kvertex(a, v2, kv, now, cw, queue, immediate)
         if pause:
-            logging.debug('replaced neighbour A')
             interactive_visualize(queue, skel, step, now)
 
     if b is not None:
@@ -256,7 +236,6 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         b.neighbours[b_idx] = a
         fan_b = replace_kvertex(b, v1, kv, now, ccw, queue, immediate)
         if pause:
-            logging.debug('replaced neighbour B')
             interactive_visualize(queue, skel, step, now)
     if n is not None:
         n.neighbours[n.neighbours.index(t)] = None
@@ -286,8 +265,6 @@ def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, im
     sk_node, newly_made = stop_kvertices([v1,v2], step, now)
     if newly_made:
         skel.sk_nodes.append(sk_node)
-    if pivot.stop_node is not None:
-        logging.debug("Infinite fast pivot already stopped, but should not be stopped(?)")
     pivot.stop_node = sk_node
     pivot.stops_at = now
     t.stops_at = now
@@ -297,7 +274,6 @@ def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, im
     if n is not None:
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
-            logging.debug(n.event)
             schedule_immediately(n, now, queue, immediate)
 
 

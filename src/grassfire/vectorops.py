@@ -108,8 +108,6 @@ def angle_unit(v1, v2):
     does not compute the norm(v1)*norm(v2), as it is assumed to be 1
     """
     d = dot(v1, v2)
-    if d > 1.0 or d < -1.0:
-        logging.debug("dot not in [-1, 1] -- clamp")
     d = max(-1.0, min(1.0, d))
     acos_d = math.acos(d)
 

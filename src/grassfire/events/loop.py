@@ -117,8 +117,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                             if near_zero(n.event.time - event.time):
                                 also.append(n)
                                 visit.append(n)
-                if also:
-                    logging.debug([n.info for n in also])
 
             check_direct(evt)
             with open("/tmpfast/current_event.wkt", "w") as fh:
@@ -179,7 +177,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         elif evt.tp == "split":
             handle_split_event(evt, step, skel, queue, immediate, pause and step >= stop_after)
 
-        logging.debug("=" * 80)
 
         if make_video:
             make_frames(NOW, video_digits, skel, queue, immediate)
