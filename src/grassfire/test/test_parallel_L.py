@@ -35,8 +35,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 27, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 33, len(filter(lambda v: v.stops_at is not None, skel.vertices))
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 6
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 33
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -66,8 +66,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 29, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 42-6
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 6
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 42-6
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -94,8 +94,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 27, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 11
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 29
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 11
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 29
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)

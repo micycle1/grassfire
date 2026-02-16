@@ -226,13 +226,13 @@ def create_bevel_wavefront(first, last):
     print(wf_bevel)
     wf_intersect = WaveFrontIntersector(first, wf_bevel)
     bisector1 = wf_intersect.get_bisector()
-    intersection = wf_intersect.get_intersection()
+    intersection = wf_intersect.get_intersection_at_t(0.0)
     print(bisector1)
     print(intersection)
     assert intersection == first.start == last.end
     wf_intersect = WaveFrontIntersector(wf_bevel, last)
     bisector2 = wf_intersect.get_bisector()
-    intersection = wf_intersect.get_intersection()
+    intersection = wf_intersect.get_intersection_at_t(0.0)
     print(bisector2)
     print(intersection)
     assert intersection == first.start == last.end

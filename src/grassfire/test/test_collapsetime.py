@@ -34,7 +34,7 @@ class TestCollapseTime(unittest.TestCase):
 
     def test_bug(self):
         evt = compute_event_3triangle(self.triangle, now=self.now, sieve=find_gt)
-        print evt
+        print(evt)
 
 
 

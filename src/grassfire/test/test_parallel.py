@@ -41,9 +41,9 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 26, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        obtained = len(filter(lambda v: v.stops_at is None, skel.vertices))
+        obtained = len(list(filter(lambda v: v.stops_at is None, skel.vertices)))
         assert obtained == 8, obtained
-        obtained = len(filter(lambda v: v.stops_at is not None, skel.vertices))
+        obtained = len(list(filter(lambda v: v.stops_at is not None, skel.vertices)))
         assert obtained == 29, obtained
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -68,8 +68,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 8, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 7
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 6
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 7
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -95,8 +95,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 18, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 12, len(not_stopped)
         assert len(stopped) == 17, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -121,8 +121,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 8, len(not_stopped)
         assert len(stopped) == 21-8, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -156,8 +156,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 8, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 6, len(not_stopped)
         assert len(stopped) == 8, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -187,8 +187,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 8, len(not_stopped)
         assert len(stopped) == 16, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -213,8 +213,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 7, len(not_stopped)
         assert len(stopped) == 17, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -237,9 +237,9 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of segments in the skeleton
         assert len(skel.segments()) == (16+6), len(skel.segments())
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 6
         assert len(
-            filter(lambda v: v.stops_at is not None, skel.vertices)) == 16
+            list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 16
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -257,9 +257,9 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of segments in the skeleton
         assert len(skel.segments()) == (12+8), len(skel.segments())
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 8
         assert len(
-            filter(lambda v: v.stops_at is not None, skel.vertices)) == 12
+            list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 12
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -277,8 +277,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 13, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 12
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 8
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 12
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -300,8 +300,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 8, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 5, len(not_stopped)
         assert len(stopped) == 7, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -327,8 +327,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 4
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 5
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 4
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 5
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -350,8 +350,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 8, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 5
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 7
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 5
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 7
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -392,8 +392,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 10, len(not_stopped)
         assert len(stopped) == 24-10, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -416,8 +416,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 13, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 12
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 8
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 12
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -439,8 +439,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 9, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 8
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 6
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 8
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -462,8 +462,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 10, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 7
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 9
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 7
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 9
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -484,9 +484,9 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of segments in the skeleton
         assert len(skel.segments()) == (13+8), len(skel.segments())
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 8
         assert len(
-            filter(lambda v: v.stops_at is not None, skel.vertices)) == 13
+            list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 13
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -504,9 +504,9 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of segments in the skeleton
         assert len(skel.segments()) == (12+8), len(skel.segments())
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 8
         assert len(
-            filter(lambda v: v.stops_at is not None, skel.vertices)) == 12
+            list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 12
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -525,8 +525,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 17, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 12
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 16
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 12
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 16
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -550,8 +550,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 18, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 12
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 17
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 12
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 17
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -572,8 +572,8 @@ class TestMoreAdvancedParallelEvents(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 5
-        assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 16
+        assert len(list(filter(lambda v: v.stops_at is None, skel.vertices))) == 5
+        assert len(list(filter(lambda v: v.stops_at is not None, skel.vertices))) == 16
         # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
@@ -603,8 +603,8 @@ class TestRandomlyBreaking(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 8, len(not_stopped)
         assert len(stopped) == 16, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes
@@ -634,8 +634,8 @@ class TestRandomlyBreaking(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(stopped) + len(not_stopped) == len(skel.segments())
         assert len(not_stopped) == 7, len(not_stopped)
         assert len(stopped) == 17, len(stopped)
@@ -663,8 +663,8 @@ class TestRandomlyBreaking(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 67, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(stopped) + len(not_stopped) == len(skel.segments())
         assert len(not_stopped) == 26, len(not_stopped)
         assert len(stopped) == 116-26, len(stopped)
@@ -693,8 +693,8 @@ class TestRandomlyBreaking(unittest.TestCase):
         # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
         # check the amount of kinetic vertices that are (not) stopped
-        not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
-        stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
+        not_stopped = list(filter(lambda v: v.stops_at is None, skel.vertices))
+        stopped = list(filter(lambda v: v.stops_at is not None, skel.vertices))
         assert len(not_stopped) == 8, len(not_stopped)
         assert len(stopped) == 13, len(stopped)
         # check cross relationship between kinetic vertices and skeleton nodes

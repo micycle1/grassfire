@@ -302,9 +302,6 @@ class WaveFrontIntersector:
         logging.debug("magnitude of bisector: {}".format(magn))
         return bi
 
-    def get_intersection(self):
-        return self.get_intersection_at_t()
-
     def get_intersection_at_t(self, t):
         intersector = LineLineIntersector(self.left.line.at_time(t), self.right.line.at_time(t))
         if intersector.intersection_type() == LineLineIntersectionResult.POINT:
