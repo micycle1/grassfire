@@ -10,48 +10,6 @@ from grassfire.events.parallel import handle_parallel_fan
 from grassfire.line2d import WaveFrontIntersector
 
 
-def signed_turn(head, mid, tail):
-    from grassfire.vectorops import make_vector, cross, dot
-    import math
-    """turn angle at vertex going from head via mid to tail
-    angle in radians
-
-    + == left turn
-    - == right turn
-    0 == straight
-    """
-    u = make_vector(mid, head)
-    v = make_vector(tail, mid)
-    return math.atan2(cross(u, v), dot(u, v))
-
-
-def get_bisector(head, mid, tail):
-    from grassfire.vectorops import make_vector, cross, dot, mul, add, unit
-    import math
-    """turn angle at vertex going from head via mid to tail
-    angle in radians
-
-    + == left turn
-    - == right turn
-    0 == straight
-    """
-    logging.debug("head: {0[0]} {0[1]} mid: {1[0]} {1[1]}  tail: {2[0]} {2[1]} ".format(head, mid, tail))
-    a = make_vector(tail, mid)
-    b = make_vector(head, mid)
-    logging.debug(a)
-    logging.debug("should be tail: {}".format(add(mid, a)))
-
-    logging.debug(b)
-    logging.debug("should be head: {}".format(add(mid, b)))
-
-    logging.debug(add(mid, a) == tail)
-    logging.debug(add(mid, b) == head)
-
-    res = add(unit(a), unit(b))
-    logging.debug(res)
-    return res
-
-
 # ------------------------------------------------------------------------------
 # Edge event handlers
 def handle_edge_event(evt, step, skel, queue, immediate, pause):

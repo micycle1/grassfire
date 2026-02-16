@@ -35,18 +35,6 @@ def near_zero(val):
     return is_close(val, 0.0, rel_tol=1e-12, abs_tol=1e-10, method="weak")
 
 
-def all_close(iterator, abs_tol=0., rel_tol=1.e-9):
-    """
-    """
-    iterator = iter(iterator)
-    try:
-        first = next(iterator)
-    except StopIteration:
-        return False
-    return all(is_close(first, other, rel_tol, abs_tol, 'strong')
-               for other in iterator)
-
-
 def is_close(a,
              b,
              rel_tol=1e-9,
@@ -115,51 +103,3 @@ def is_close(a,
     elif method == "average":
         return ((diff <= abs(rel_tol * (a + b) * 0.5) or
                  (diff <= abs_tol)))
-
-
-def groupby_cluster(L):
-    """Groups list of 2-tuples in clusters, based on whether tuples are nearly
-    equal
-
-    Assumes sorted list as input
-    Returns list with sublists with indices
-    """
-    it = iter(L)
-    prev = next(it)
-    clusters = []
-    cluster = [0]
-    ct = 1
-    for item in it:
-        if near_zero(prev[0] - item[0]) and near_zero(prev[1] - item[1]):
-            cluster.append(ct)
-        else:
-            clusters.append(cluster)
-            cluster = [ct]
-            prev = item
-        ct += 1
-    if cluster:
-        clusters.append(cluster)
-    return clusters
-
-
-def r_squared(pts):
-    """Calculate R**2 for a set of points
-
-    If value returned == 1, these points are on a straight line
-    """
-    length = len(pts)
-    xs = [pt[0] for pt in pts]
-    ys = [pt[1] for pt in pts]
-    x = sum(xs)
-    y = sum(ys)
-    xx = sum(x**2 for x in xs)
-    yy = sum(y**2 for y in ys)
-    xy = sum(x*y for x, y in zip(xs,ys))
-    num = (length * xy - x * y)
-    sqt = (length * xx - x * x) * (length * yy - y * y)
-    if sqt <= 0:
-        corr = 0
-    else:
-        den = math.sqrt(sqt)
-        corr = num / den
-    return corr

@@ -1,65 +1,10 @@
 import logging
 from tri.delaunay.tds import cw, ccw
-
-from grassfire.events.lib import stop_kvertices, compute_new_kvertex, \
-        update_circ, replace_kvertex, near_zero
+from grassfire.events.lib import stop_kvertices, compute_new_kvertex, update_circ, replace_kvertex
 from grassfire.events.parallel import handle_parallel_fan
-from grassfire.events.lib import get_fan, is_infinitely_fast
 from grassfire.line2d import WaveFrontIntersector
 
 
-
-def compute_crossing_bisector(left, right, now):
-    """given two wavefront lines and the time now compute
-    where these wavefronts would be at this moment
-    intersect them
-
-    and from the original intersection point to this intersection
-    point compute the vector that gives the bisector
-    """
-    from grassfire.vectorops import mul, make_vector
-    from grassfire.line2d import LineLineIntersector, LineLineIntersectionResult
-
-    intersect = LineLineIntersector(left, right)
-    if intersect.intersection_type() == LineLineIntersectionResult.POINT:
-        v = intersect.result
-
-        # Debug: Write wavefront intersection to file for visualization
-        with open("/tmpfast/wavefront_original_intersection.wkt", "w") as fh:
-            fh.write("wkt")
-            fh.write("\n")
-            fh.write("POINT({0[0]} {0[1]})".format(v))
-            fh.write("\n")
-
-    else:
-        raise NotImplementedError()
-
-    bi = None
-    left_translated = left.translated(mul(left.w, now))
-    right_translated = right.translated(mul(right.w, now))
-    intersect = LineLineIntersector(left_translated, right_translated)
-    #
-    # == 3 possible outcomes in 2D: ==
-    #
-    # 0. overlapping lines - always intersecting in a line
-    # 1. crossing - point2
-    # 2. parallel - no intersection
-    #
-    if intersect.intersection_type() == LineLineIntersectionResult.LINE:
-        bi = tuple(left.w)
-    elif intersect.intersection_type() == LineLineIntersectionResult.POINT:
-        # Debug: Write wavefront intersection to file for visualization
-        with open("/tmpfast/wavefront_intersection.wkt", "w") as fh:
-            fh.write("wkt")
-            fh.write("\n")
-            fh.write("POINT({0[0]} {0[1]})".format(intersect.result))
-            fh.write("\n")
-        bi = make_vector(end=intersect.result, start=v)
-    elif intersect.intersection_type() == LineLineIntersectionResult.NO_INTERSECTION:
-        logging.warning('no intersection, parallel wavefronts - not overlapping?  -- should we rotate the unit vec?')
-        bi = tuple(left.w)
-
-    return bi
 # ------------------------------------------------------------------------------
 # Split event handler
 def handle_split_event(evt, step, skel, queue, immediate, pause):
@@ -103,6 +48,7 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     # print(bi1)
 
     # the position of the node is witnessed by 3 pairs of wavefronts
+    # NOTE uses try-except to determine parallel (bad approach)
     try:
         intersector = WaveFrontIntersector(a, b)
         pos_at_now = intersector.get_intersection_at_t(now)
@@ -133,38 +79,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
 #     assert v2.left is v1
 
     assert v1.ur is v2.ul
-
-    # pos_vr = v.right.position_at(now)
-    # pos_v1 = v1.position_at(now)
-    # from grassfire.vectorops import make_vector, mul, add, unit, norm
-    # ha = add(v1.position_at(now), mul(make_vector(pos_vr, pos_v1), 0.5)) # pt halfway a
-
-    # pos_vl = v.left.position_at(now)
-    # pos_v2 = v2.position_at(now)
-    # hb = add(v2.position_at(now), mul(make_vector(pos_vl, pos_v2), 0.5)) # pt halfway b
-
-    # with open('/tmpfast/split_pts_halfway.wkt', 'w') as fh:
-    #     fh.write('wkt')
-    #     fh.write('\n')
-    #     fh.write("POINT({0[0]} {0[1]})".format(v.position_at(now)))
-    #     fh.write('\n')
-    #     fh.write("POINT({0[0]} {0[1]})".format(ha))
-    #     fh.write('\n')
-    #     fh.write("POINT({0[0]} {0[1]})".format(hb))
-    #     fh.write('\n')
-    # print('written out points')
-
-    # # the geometric bisector based on the position of the vertices
-    # bi_b = make_vector(hb, v.position_at(now))
-    # bi_a = make_vector(ha, v.position_at(now))
-
-    # def sign(scalar):
-    #     if scalar < 0:
-    #         return -1
-    #     elif scalar == 0:
-    #         return 0
-    #     else:
-    #         return 1
 
     # the position of the stop_node can be computed by:
     # taking the original wavefronts and translate these lines to 'now'
@@ -198,11 +112,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     va.wfl = v1.wfr
     va.wfr = v.wfr
 
-#     logging.debug("""
-# -- BISECTOR BI   {}
-#             bi_a {}
-#             va.v {}""".format(BI, bi_a, va.velocity)
-#     )
     skel.vertices.append(va)
 
     if pause:
@@ -264,25 +173,3 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
         handle_parallel_fan(fan_a, va, now, cw, step, skel, queue, immediate, pause)
     if vb.inf_fast:
         handle_parallel_fan(fan_b, vb, now, ccw, step, skel, queue, immediate, pause)
-
-#     # we "remove" the triangle itself
-
-    # def is_infinitely_fast(fan):
-    #     times = [tri.event.time if tri.event is not None else -1 for tri in fan]
-    #     is_inf_fast = all(map(near_zero, [time - now for time in times]))
-    #     if fan and is_inf_fast:
-    #         return True
-    #     else:
-    #         return False
-#    is_inf_fast_b = is_infinitely_fast(get_fan(b, v, ccw))
-#    is_inf_fast_a = is_infinitely_fast(get_fan(a, v, cw))
-
-
-    # double check: infinitely fast vertices
-    # (might have been missed by adding wavefront vectors cancelling out)
-#    if is_inf_fast_a and not va.inf_fast:
-#        logging.debug("New kinetic vertex vA: ***Upgrading*** to infinitely fast moving vertex!")
-#        va.inf_fast = True
-#    if is_inf_fast_b and not vb.inf_fast:
-#        logging.debug("New kinetic vertex vB: ***Upgrading*** to infinitely fast moving vertex!")
-#        vb.inf_fast = True

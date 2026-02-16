@@ -122,33 +122,6 @@ def angle_unit(v1, v2):
     return d, acos_d
 
 
-def bisector(u1, u2):
-    """Based on two unit vectors perpendicular to the wavefront,
-    get the bisector
-
-    The magnitude of the bisector vector represents the speed
-    in which a vertex has to move to keep up (stay at the intersection of)
-    the 2 wavefront edges
-    """
-    direction = add(u1, u2)
-    logging.debug(" direction: {}".format(direction))
-    d, acos_d = angle_unit(u1, u2)
-
-#    if all(map(near_zero, direction)) or near_zero(acos_d - math.pi): #
-    if all(map(near_zero, direction)) or (near_zero(acos_d - math.pi) or d < math.cos(math.radians(179.9999))):
-        logging.debug(" vectors cancel each other out / angle ~180° -> parallel wavefront!")
-        return (0, 0)
-        #raise ValueError("parallel wavefront")
-###    logging.debug(" unit(direction): {}".format(unit(direction)))
-    alpha = 0.5 * math.pi + 0.5 * acos_d
-    logging.debug(" degrees(alpha): {}°".format(math.degrees(alpha)))
-    magnitude = math.sin(alpha)
-    logging.debug(" magnitude: {}".format(magnitude))
-    # print magnitude
-    bisector = div(unit(direction), magnitude)
-    logging.debug(" bisector: {}".format(bisector))
-    return bisector
-
 def rotate90ccw(v):
     """Rotate 2d vector 90 degrees counter clockwise
 

@@ -8,6 +8,7 @@ from grassfire.calc import get_unique_times, near_zero
 from grassfire.inout import output_edges_at_T, output_triangles_at_T, output_vertices_at_T
 from grassfire.primitives import Event, InfiniteVertex
 from grassfire.vectorops import add, dot, mul, sub, norm
+from predicates import orient2d_xy as orient2d
 
 
 # ------------------------------------------------------------------------------
@@ -584,7 +585,6 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
         if event is not None and all(not v.inf_fast for v in tri.vertices) is True:
             assert event is not None
             verts = [v.position_at(((event.time - now) * 0.5) + now) for v in tri.vertices]
-            from predicates import orient2d_xy as orient2d
 
             if orient2d(verts[0][0], verts[0][1], verts[1][0], verts[1][1], verts[2][0], verts[2][1]) < 0:
                 logging.warning(
@@ -594,7 +594,6 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
 
         if event is None:
             verts = [v.position_at(now + 10) for v in tri.vertices]
-            from predicates import orient2d_xy as orient2d
 
             if orient2d(verts[0][0], verts[0][1], verts[1][0], verts[1][1], verts[2][0], verts[2][1]) < 0:
                 logging.error(
@@ -672,26 +671,6 @@ def collapse_time_edge(v1, v2):
         logging.debug("edge collapse time: None (near) parallel movement")
         # any time will do (we pick a time in the past, before the start of our event simulation)
         return -1.0
-
-
-def solve_quadratic_whatevery(A, B, C):
-    if near_zero(A) and not near_zero(B):
-        return [-C / B]
-    elif near_zero(A) and near_zero(B):
-        return []
-    try:
-        d = math.sqrt(B * B - 4 * A * C)
-    except ValueError:
-        return []
-
-    def div(n, d):
-        """Divide, with a useful interpretation of division by zero."""
-        return n / d
-
-    if B > 0:
-        return [div(2 * C, (-B - d)), div((-B - d), 2 * A)]
-    else:
-        return [div((-B + d), 2 * A), div(2 * C, (-B + d))]
 
 
 def solve_quadratic(A, B, C):

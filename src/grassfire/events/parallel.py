@@ -10,7 +10,7 @@ from grassfire.events.lib import stop_kvertices, update_circ, \
     is_infinitely_fast
 from grassfire.events.lib import get_fan
 from grassfire.inout import interactive_visualize
-from grassfire.calc import groupby_cluster, near_zero
+from grassfire.calc import near_zero
 from grassfire.primitives import KineticVertex
 from grassfire.vectorops import dist
 

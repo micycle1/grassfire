@@ -38,48 +38,11 @@ def output_triangles_at_T(tri, T, fh):
             pass
 
 
-def output_kdt(skel, time):
-    """ """
-    with open("/tmpfast/ktris.wkt", "w") as fh:
-        fh.write("id;wkt;n0;n1;n2;v0;v1;v2\n")
-        for t in skel.triangles:
-            if not t.finite:
-                continue
-            valid = all([(v.starts_at <= time and v.stops_at >= time) or v.stops_at is None for v in t.vertices])
-            if valid:
-                L = []
-                for v in t.vertices:
-                    L.append("{0[0]} {0[1]}".format(v.visualize_at(time)))
-                L.append(L[0])
-                poly = "POLYGON(({0}))" .format(", ".join(L))
-                if t is None:
-                    continue
-                fh.write("{0};{1};{2[0]};{2[1]};{2[2]};{3[0]};{3[1]};{3[2]}\n".format(id(t), poly, [id(n) for n in t.neighbours], [id(v) for v in t.vertices]))
-    with open("/tmpfast/kvertices.wkt", "w") as fh:
-        fh.write("id;wkt;left cw;right ccw\n")
-        for v in skel.vertices:
-            if (v.starts_at <= time and v.stops_at >= time) or v.stops_at is None:
-                fh.write("{0};POINT({1[0]} {1[1]});{2};{3}\n".format(id(v), v.visualize_at(time), id(v.left), id(v.right)))
-
-
 def output_vertices_at_T(V, T, fh):
     """Output list of vertices as WKT to text file (for QGIS)"""
     fh.write("id;info;wkt;left cw;right ccw\n")
     for v in V:
         fh.write("{0};{4};POINT({1[0]} {1[1]});{2};{3}\n".format(id(v), v.visualize_at(T), id(v.left), id(v.right), v.info))
-
-
-def output_dt(dt):
-    """ """
-    with open("/tmpfast/vertices.wkt", "w") as fh:
-        output_vertices([v for v in dt.vertices], fh)
-
-    it = TriangleIterator(dt)
-    with open("/tmpfast/tris.wkt", "w") as fh:
-        output_triangles([t for t in it], fh)
-
-    with open("/tmpfast/segments.wkt", "w") as fh:
-        output_edges([e for e in FiniteEdgeIterator(dt, True)], fh)
 
 
 def output_offsets(skel, now=1000, ct=5):

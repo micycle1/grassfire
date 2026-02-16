@@ -2,7 +2,7 @@
 
 import math
 from grassfire.vectorops import (
-    sub, add, div, mul, angle, make_vector, unit, rotate90cw, bisector
+    sub, add, div, mul, angle, make_vector, unit, rotate90cw
 )
 
 

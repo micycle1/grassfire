@@ -4,9 +4,8 @@ import logging
 from grassfire.calc import is_close, near_zero
 from grassfire.collapse import (compute_collapse_time,
                                 compute_new_edge_collapse_event)
-from grassfire.inout import interactive_visualize, notify_qgis
 from grassfire.primitives import KineticVertex, SkeletonNode
-from grassfire.vectorops import add, bisector, dist, mul
+from grassfire.vectorops import mul
 
 # ------------------------------------------------------------------------------
 # Functions common for event handling
