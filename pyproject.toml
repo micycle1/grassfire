@@ -11,11 +11,10 @@ license = "MIT"
 authors = [
     { name = "Martijn Meijers", email = "b.m.meijers@tudelft.nl" }
 ]
-requires-python = ">=3.8,<3.9"
+requires-python = ">=3.12"
 dependencies = [
-    "geompreds @ git+https://github.com/bmmeijers/predicates/",
-    "tri @ git+https://github.com/bmmeijers/tri/",
-    "matplotlib>=3.7.5",
+    "predicates @ git+https://github.com/micycle1/predicates/",
+    "tri @ git+https://github.com/micycle1/tri",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -38,6 +37,7 @@ Homepage = "https://github.com/micycle1/grassfire"
 test = [
     "pytest>=8.3.5",
     "requests>=2.32.4",
+    "matplotlib>=3.7.5",
 ]
 dev = [
     "ipykernel>=6.29.5",

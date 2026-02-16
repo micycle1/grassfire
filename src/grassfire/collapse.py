@@ -584,9 +584,9 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
         if event is not None and all(not v.inf_fast for v in tri.vertices) is True:
             assert event is not None
             verts = [v.position_at(((event.time - now) * 0.5) + now) for v in tri.vertices]
-            from geompreds import orient2d
+            from predicates import orient2d_xy as orient2d
 
-            if orient2d(*verts) < 0:
+            if orient2d(verts[0][0], verts[0][1], verts[1][0], verts[1][1], verts[2][0], verts[2][1]) < 0:
                 logging.warning(
                     "TRIANGLE TAKES POSSIBLY WRONG ORIENTATION -- we may miss out on handling an event -- "
                     "triangle turns wrong way"
@@ -594,9 +594,9 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
 
         if event is None:
             verts = [v.position_at(now + 10) for v in tri.vertices]
-            from geompreds import orient2d
+            from predicates import orient2d_xy as orient2d
 
-            if orient2d(*verts) < 0:
+            if orient2d(verts[0][0], verts[0][1], verts[1][0], verts[1][1], verts[2][0], verts[2][1]) < 0:
                 logging.error(
                     "TRIANGLE HAS WRONG ORIENTATION and will not collapse -- we missed out on handling an event -- "
                     "triangle turns wrong way"

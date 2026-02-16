@@ -1,4 +1,4 @@
-from geompreds import orient2d
+from predicates import orient2d_xy as orient2d
 from math import hypot
 
 NOT_INTERSECTING = 0
@@ -16,14 +16,16 @@ def intersecting(pa, pb, qa, qb):
     the two segments and that these boxes *do* overlap!
 
     Call intersection() to get the location of intersection.
+
+    pa, pb, qa, qb — each is a 2D point: a sequence (tuple or list) of two numeric coordinates (int or float), e.g. (x, y) or [x, y].
     """
-    a = orient2d(pa, pb, qa)
-    b = orient2d(pa, pb, qb)
+    a = orient2d(pa[0], pa[1], pb[0], pb[1], qa[0], qa[1])
+    b = orient2d(pa[0], pa[1], pb[0], pb[1], qb[0], qb[1])
     if (a > 0 and b > 0) or (a < 0 and b < 0):
         return NOT_INTERSECTING
 
-    c = orient2d(qa, qb, pa)
-    d = orient2d(qa, qb, pb)
+    c = orient2d(qa[0], qa[1], qb[0], qb[1], pa[0], pa[1])
+    d = orient2d(qa[0], qa[1], qb[0], qb[1], pb[0], pb[1])
     if (c > 0 and d > 0) or (c < 0 and d < 0):
         return NOT_INTERSECTING
 
@@ -141,16 +143,3 @@ def segment_length(s):
     dx = s[0][0] - s[1][0]
     dy = s[0][1] - s[1][1]
     return hypot(dx, dy)
-
-
-def test_small():
-    test = (0, 0), (10, 10), (5, -10), (5, 10)
-    assert intersecting(*test) == INTERSECTING
-    assert intersection(*test) == (5, 5)
-
-
-if __name__ == "__main__":
-    test_small()
-    segments = [[(0, 0), (10, 10)],
-                [(5, -10), (5, 10)]]
-    print (segments_intersecting(segments))

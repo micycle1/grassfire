@@ -7,7 +7,7 @@ Grassfire - straight skeleton by means of kinetic triangulation
 The code in this package depends on a few other packages:
 
 - [tri](https://github.com/bmmeijers/tri/)
-- [geompreds](https://github.com/bmmeijers/predicates/)
+- [predicates](https://github.com/micycle1/predicates/)
 
 ### Using uv (recommended)
 
@@ -38,7 +38,7 @@ source .venv/bin/activate  # On Unix/macOS
 You can install them with pip (I'd suggest to make a virtualenv):
 
 ```bash
-pip install -e git+https://github.com/bmmeijers/predicates/#egg=geompreds
+pip install -e git+https://github.com/micycle1/predicates/#egg=predicates
 pip install -e git+https://github.com/bmmeijers/tri/#egg=tri
 ```
 
