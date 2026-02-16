@@ -10,18 +10,13 @@ from grassfire.line2d import WaveFrontIntersector
 def handle_edge_event(evt, step, skel, queue, immediate, pause):
     """Handles triangle collapse, where exactly 1 edge collapses"""
     t = evt.triangle
-    logging.info("* edge           :: tri>> #{} [{}]".format(id(t), t.info))
 
-    logging.debug(evt.side)
     assert len(evt.side) == 1, len(evt.side)
     e = evt.side[0]
-    logging.debug("wavefront edge collapsing? {0}".format(t.neighbours[e] is None))
     is_wavefront_collapse = t.neighbours[e] is None
     now = evt.time
     v1 = t.vertices[ccw(e)]
     v2 = t.vertices[cw(e)]
-    logging.debug("v1 := {} [{}] -- stop_node: {}".format(id(v1), v1.info, v1.stop_node))
-    logging.debug("v2 := {} [{}] -- stop_node: {}".format(id(v2), v2.info, v2.stop_node))
     if is_wavefront_collapse and not v1.is_stopped and not v2.is_stopped:
         assert v1.right is v2
         assert v2.left is v1
@@ -32,7 +27,6 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
     c = v2.wfr
     intersector = WaveFrontIntersector(a, c)
     bi = intersector.get_bisector()
-    logging.debug(bi)
     pos_at_now = None
     try:
         intersector = WaveFrontIntersector(a, c)
@@ -48,9 +42,6 @@ def handle_edge_event(evt, step, skel, queue, immediate, pause):
     kv.wfl = v1.wfl                         #
     kv.wfr = v2.wfr                         #
 
-    logging.debug("Computed new kinetic vertex {} [{}]".format(id(kv), kv.info))
-    logging.debug("v1 := {} [{}]".format(id(v1), v1.info))
-    logging.debug("v2 := {} [{}]".format(id(v2), v2.info))
 
 
 
@@ -137,9 +128,7 @@ def handle_edge_event_3sides(evt, step, skel, queue, immediate):
     now = evt.time
     t = evt.triangle
 
-    logging.info("* edge 3sides    :: tri>> #{} [{}]".format(id(t), t.info))
 
-    logging.debug(evt.side)
     assert len(evt.side) == 3
     sk_node, newly_made = stop_kvertices(t.vertices, step, now)
     if newly_made:
@@ -158,13 +147,10 @@ def handle_edge_event_1side(evt, step, skel, queue, immediate, pause):
     """
     t = evt.triangle
 
-    logging.info("* edge 1side     :: tri>> #{} [{}]".format(id(t), t.info))
 
 
-    logging.debug(evt.side)
     assert len(evt.side) == 1, len(evt.side)
     e = evt.side[0]
-    logging.debug("wavefront edge collapsing? {0}".format(t.neighbours[e] is None))
     now = evt.time
     v0 = t.vertices[e]
     v1 = t.vertices[ccw(e)]
@@ -173,11 +159,6 @@ def handle_edge_event_1side(evt, step, skel, queue, immediate, pause):
     if newly_made:
         skel.sk_nodes.append(sk_node)
     kv = compute_new_kvertex(v1.ul, v2.ur, now, sk_node, len(skel.vertices) + 1, v1.internal or v2.internal, pause)
-    logging.debug("Computed new kinetic vertex {} [{}]".format(id(kv), kv.info))
-    logging.debug("v1 := {} [{}]".format(id(v1), v1.info))
-    logging.debug("v2 := {} [{}]".format(id(v2), v2.info))
-    logging.debug(kv.position_at(now))
-    logging.debug(kv.position_at(now+1))
     skel.vertices.append(kv)
     sk_node, newly_made = stop_kvertices([v0, kv], step, now)
     if newly_made:

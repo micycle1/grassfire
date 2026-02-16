@@ -112,11 +112,6 @@ def angle_unit(v1, v2):
         logging.debug("dot not in [-1, 1] -- clamp")
     d = max(-1.0, min(1.0, d))
     acos_d = math.acos(d)
-    logging.debug(" d : {}".format(d))
-    logging.debug(" acos(d) : {}".format(acos_d))
-    logging.debug("  › near zero? {}".format(near_zero(acos_d - math.pi)))
-    logging.debug(" degrees(acos(d)): {}°".format(math.degrees(acos_d)))
-    logging.debug("  › d < cos(179.999)? {}".format(d < math.cos(math.radians(179.9999)) ))
 
     return d, acos_d
 

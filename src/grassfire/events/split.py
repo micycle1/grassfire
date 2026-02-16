@@ -9,9 +9,7 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     """
     t = evt.triangle
 
-    logging.info("* split          :: tri>> #{} [{}]".format(id(t), t.info))
 
-    logging.debug("{}".format(t.neighbours))
     assert len(evt.side) == 1
     e = evt.side[0]
     now = evt.time
@@ -21,8 +19,6 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
     v1 = t.vertices[(e + 1) % 3]
     v2 = t.vertices[(e + 2) % 3]
 
-    logging.debug("v1 := {} [{}]".format(id(v1), v1.info))
-    logging.debug("v2 := {} [{}]".format(id(v2), v2.info))
 
 
     assert v1.wfr is v2.wfl
@@ -75,20 +71,14 @@ def handle_split_event(evt, step, skel, queue, immediate, pause):
         logging.debug('split l.211  -- computed new vertex A')
         interactive_visualize(queue, skel, step, now)
 
-    logging.debug("-- update circular list at B-side: {} [{}]".format(id(vb), vb.info))
     update_circ(v.left, vb, now)
     update_circ(vb, v2, now)
     assert vb.left.wfr is vb.wfl
     assert vb.right.wfl is vb.wfr
 
-    logging.debug("-- update circular list at A-side: {} [{}]".format(id(va), va.info))
     update_circ(v1, va, now)
     update_circ(va, v.right, now)
 
-    logging.debug("-- [{}]".format(va.info))
-    logging.debug("   [{}]".format(va.right.info))
-    logging.debug("   {}".format(va.right.wfl))
-    logging.debug("   {}".format(va.wfr))
     assert va.left.wfr is va.wfl
     assert va.right.wfl is va.wfr
     b = t.neighbours[(e + 1) % 3]

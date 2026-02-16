@@ -24,7 +24,6 @@ def find_gt(a, x):
 
 def find_gte(a, x):
     """Find greater than or equal to x, ignores None values."""
-    logging.debug("gte a: {} ; x: {}".format(a, x))
     L = sorted([x for x in a if x is not None])
     i = bisect.bisect_left(L, x)
     if i != len(L):
@@ -42,26 +41,15 @@ def vertex_crash_time(org, dst, apx):
         apx: kinetic vertex opposite of wavefront edge
     """
     Mv = tuple(sub(apx.origin, org.origin))
-    logging.debug("Vector Mv: " + str(Mv))
     assert org.ur is not None
     assert org.ur == dst.ul, "#{} #{} :: {} vs {}".format(id(org), id(dst), org.ur, dst.ul)
 
     n = tuple(org.ur.w)  # was: org.ur
-    logging.debug("Vector n: " + str(n))
 
     s = apx.velocity
-    logging.debug("Vector s: " + str(s))
     dist_v_e = dot(Mv, n)
-    logging.debug("Distance wavefront -- vertex: " + str(dist_v_e))
 
     s_proj = dot(s, n)
-    logging.debug(
-        "Per time unit v travels (1 - s_proj := combined speed of approach) "
-        + str(s_proj)
-        + " "
-        + str(1.0 - s_proj)
-    )
-    logging.debug("Per time unit e travels " + str(norm(n)))
 
     denom = 1.0 - s_proj
     if not near_zero(denom):
@@ -72,10 +60,8 @@ def vertex_crash_time(org, dst, apx):
 
 def area_collapse_times(o, d, a):
     coeff = area_collapse_time_coeff(o, d, a)
-    logging.debug(coeff)
     solution = solve_quadratic(coeff[0], coeff[1], coeff[2])
     solution.sort()
-    logging.debug("area collapse times: " + str(solution))
     return solution
 
 
@@ -111,7 +97,6 @@ def compute_event_0triangle(tri, now, sieve):
         collapse_time_edge(d, a),
         collapse_time_edge(a, o),
     ]
-    logging.debug("times edge collapse {}".format(times_edge_collapse))
 
     dists = [
         o.distance2_at(d, times_edge_collapse[0]),
@@ -119,9 +104,6 @@ def compute_event_0triangle(tri, now, sieve):
         a.distance2_at(o, times_edge_collapse[2]),
     ]
 
-    logging.debug("dists^2 {}".format(dists))
-    logging.debug("dists {}".format([math.sqrt(_) for _ in dists]))
-    logging.debug("near_zero dists {}".format([near_zero(math.sqrt(_)) for _ in dists]))
     indices = []
     for i, _ in enumerate([math.sqrt(_) for _ in dists]):
         if near_zero(_):
@@ -129,11 +111,8 @@ def compute_event_0triangle(tri, now, sieve):
     t_e_c = []
     for i in indices:
         t_e_c.append(times_edge_collapse[i])
-    logging.debug("t e c {}".format(t_e_c))
     time_edge_collapse = sieve(t_e_c, now)
     time_area_collapse = sieve(times_area_collapse, now)
-    logging.debug(">> time_edge_collapse: {0}".format(time_edge_collapse))
-    logging.debug(">> time_area_collapse: {0}".format(time_area_collapse))
 
     if time_edge_collapse is None and time_area_collapse is None:
         return None
@@ -268,20 +247,10 @@ def compute_event_1triangle(tri, now, sieve):
             return Event(when=time, tri=tri, side=(longest_side,), tp=tp, tri_tp=tri.type)
 
     time_vertex_crash = sieve(times_vertex_crash, now)
-    logging.debug("time vertex crash " + str(time_vertex_crash))
 
     time_area_collapse = sieve(area_collapse_times(o, d, a), now)
-    logging.debug("time area collapse " + str(time_area_collapse))
 
     time_edge_collapse = sieve([collapse_time_edge(ow, dw)], now)
-    logging.debug(
-        [
-            collapse_time_edge(ow, dw),
-            collapse_time_edge(dw, aw),
-            collapse_time_edge(aw, ow),
-        ]
-    )
-    logging.debug("time edge collapse " + str(time_edge_collapse))
 
     if time_edge_collapse is None and time_vertex_crash is None:
         logging.debug(" case A")
@@ -424,9 +393,7 @@ def compute_event_2triangle(tri, now, sieve):
         times.append(collapse_time_edge(a, o))
 
     times = get_unique_times(times)
-    logging.debug("Unique times: " + str(times))
     time = sieve(times, now)
-    logging.debug("Time found: " + str(time))
     if time is None:
         time = sieve(area_collapse_times(o, d, a), now)
 
@@ -462,7 +429,6 @@ def compute_event_3triangle(tri, now, sieve):
         collapse_time_edge(d, a),
         collapse_time_edge(a, o),
     ]
-    logging.debug("times edge collapse {}".format(t_e_c))
 
     dists = [
         o.distance2_at(d, t_e_c[0]),
@@ -470,9 +436,6 @@ def compute_event_3triangle(tri, now, sieve):
         a.distance2_at(o, t_e_c[2]),
     ]
 
-    logging.debug("dists^2 {}".format(dists))
-    logging.debug("dists {}".format([math.sqrt(_) for _ in dists]))
-    logging.debug("near_zero dists {}".format([near_zero(math.sqrt(_)) for _ in dists]))
     indices = []
     for i, _ in enumerate([math.sqrt(_) for _ in dists]):
         if near_zero(_):
@@ -482,8 +445,6 @@ def compute_event_3triangle(tri, now, sieve):
 
     time_edge_collapse = sieve(t_e_c, now)
     time_area_collapse = sieve(area_collapse_times(o, d, a), now)
-    logging.debug(">> time_edge_collapse: {0}".format(time_edge_collapse))
-    logging.debug(">> time_area_collapse: {0}".format(time_area_collapse))
 
     if time_edge_collapse:
         sides = tuple(indices)
@@ -511,10 +472,7 @@ def compute_event_inftriangle(tri, now, sieve):
         if isinstance(v, InfiniteVertex):
             break
     side = inf_idx
-    logging.debug("side " + str(side))
     o, d, a = tri.vertices[cw(side)], tri.vertices[ccw(side)], tri.vertices[side]
-    logging.debug(o)
-    logging.debug(d)
     if tri.neighbours[side] is None:  # wavefront edge on the hull that collapses
         assert tri.type == 1, tri.type
         time = find_gt([collapse_time_edge(o, d)], now)
@@ -593,7 +551,6 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
 
     if event is not None:
         tri.event = event
-    logging.debug("{} --- {}".format(id(tri), event))
 
     return event
 def compute_new_edge_collapse_event(tri, time):
@@ -612,9 +569,7 @@ def compute_new_edge_collapse_event(tri, time):
             ],
         )
     )
-    logging.debug("distances at time = {1}: {0}".format(dists, time))
     zeros = [near_zero(dist - min(dists)) for dist in dists]
-    logging.debug("near zero at time = {1}: {0}".format(zeros, time))
     sides = []
     for i, zero in enumerate(zeros):
         if zero is True:
@@ -624,14 +579,6 @@ def compute_new_edge_collapse_event(tri, time):
 
 def collapse_time_edge(v1, v2):
     """Returns the time when the given 2 kinetic vertices are closest to each other."""
-    logging.debug(
-        "edge collapse time for v1 = {} [{}] and v2 = {} [{}]".format(
-            id(v1),
-            v1.info,
-            id(v2),
-            v2.info,
-        )
-    )
     s1 = v1.velocity
     s2 = v2.velocity
     o1 = v1.origin
@@ -710,7 +657,6 @@ def area_collapse_time_coeff(kva, kvb, kvc):
         - xaorig * ycorig
     )
     ret = (A, B, C)
-    logging.debug("coefficients {0}".format(ret))
     return ret
 
 

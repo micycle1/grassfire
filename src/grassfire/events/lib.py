@@ -30,7 +30,6 @@ def stop_kvertices(V, step, now, pos=None):
     """
     sk_node = None
 
-    logging.debug("stopping kinetic vertices, @t:={}".format(now))
     for v in V:
         logging.debug(" - kv #{} [{}] inf-fast:={}".format(id(v), v.info, v.inf_fast))
 
@@ -75,7 +74,6 @@ def stop_kvertices(V, step, now, pos=None):
         assert v.is_stopped == True
         assert v.stops_at == now
 
-    logging.debug("POINT({0[0]} {0[1]});sknode_new_pos".format(sk_node.pos))
     return sk_node, is_new_node
 
 
@@ -91,18 +89,11 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
     kv.start_node = sk_node
     kv.internal = internal
 
-    logging.debug('== New vertex: {} [{}] =='.format(id(kv), kv.info))
-    logging.debug('bisector calc')
-    logging.debug(' ul: {}'.format(ul))
-    logging.debug(' ur: {}'.format(ur))
-    logging.debug(' sk_node.pos: {}'.format(sk_node.pos))
     import math
 
     from grassfire.vectorops import add, angle_unit
-    logging.debug(' >>> {}'.format(angle_unit(ul.w, ur.w)))
     u1, u2 = ul.w, ur.w
     direction = add(u1, u2)
-    logging.debug(" direction: {}".format(direction))
     d, acos_d = angle_unit(u1, u2)
     if pause:
         with open('/tmpfast/support_lines.wkt', 'w') as fh:
@@ -145,11 +136,8 @@ def compute_new_kvertex(ul, ur, now, sk_node, info, internal, pause=False):
              raise RuntimeError(f"Unknown intersection type: {tp}")
 
     kv.velocity = bi #was: bisector(ul, ur)
-    logging.debug(' kv.velocity: {}'.format(kv.velocity))
     from grassfire.vectorops import norm
     magn_v = norm(kv.velocity)
-    logging.debug(' magnitude of velocity: {}'.format(magn_v))
-    logging.debug('== New vertex ==')
     if kv.velocity == (0, 0): ### or abs(kv.velocity[0]) > 100 or abs(kv.velocity[1]) > 100:
         kv.inf_fast = True
         kv.origin = sk_node.pos
@@ -182,7 +170,6 @@ def replace_kvertex(t, v, newv, now, direction, queue, immediate):
 
     Returns fan of triangles that were replaced
     """
-    logging.debug("replace_kvertex, start at: {0} [{1}] dir: {2}".format(id(t), t.info, direction))
     fan = []
     first = True
     while t is not None:
@@ -273,7 +260,6 @@ def schedule_immediately(tri, now, queue, immediate):
     event is added to the immediate queue.
 
     """
-    logging.debug("Scheduling triangle [{}] for direct collapse".format(tri.info))
     queue.discard(tri.event)
     if tri.event in immediate:
         immediate.remove(tri.event)

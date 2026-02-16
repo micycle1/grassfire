@@ -31,20 +31,14 @@ def choose_next_event(queue):
 
 
 def log_queue_content(step, immediate, queue):
-    logging.debug("")
-    logging.debug("STEP := " + str(step))
-    logging.debug("")
-    logging.debug("=" * 80)
     for i, e in enumerate(immediate):
         logging.debug("{0:5d} {1}".format(i, e))
-    logging.debug("-" * 80)
     for i, e in enumerate(queue):
         logging.debug("{0:5d} {1}".format(i, e))
         if i >= 20:
             break
     if len(queue) >= 20:
         logging.debug("... skipping display of {} events".format(len(queue) - 20))
-    logging.debug("=" * 80)
 def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_digits=3):
     """The main event loop.
 
@@ -71,15 +65,10 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
 
     immediate = deque([])
 
-    logging.debug("=" * 80)
-    logging.debug("Immediate / Queue at start of process")
-    logging.debug("=" * 80)
     for i, e in enumerate(immediate):
         logging.debug("{0:5d} {1}".format(i, e))
-    logging.debug("-" * 80)
     for i, e in enumerate(queue):
         logging.debug("{0:5d} {1}".format(i, e))
-    logging.debug("=" * 80)
 
     if make_video:
         make_frames(NOW, video_digits, skel, queue, immediate)
@@ -241,11 +230,8 @@ def init_event_list(skel):
     an OrderedSequence, so that events are ordered properly for further processing.
     """
     q = OrderedSequence(cmp=compare_event_by_time)
-    logging.debug("Calculate initial events")
-    logging.debug("=" * 80)
     for tri in skel.triangles:
         res = compute_collapse_time(tri, 0, find_gt)
         if res is not None:
             q.add(res)
-    logging.debug("=" * 80)
     return q

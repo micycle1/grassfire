@@ -43,7 +43,6 @@ def output_vertices_at_T(V, T, fh):
 
 def output_offsets(skel, now=1000, ct=5):
     """ """
-    logging.debug("offsets for t={}, ct={}".format(now, ct))
     inc = now / float(ct)
     times = [t*inc for t in range(ct)]
     with open("/tmpfast/offsetsl.wkt", "w") as fh:

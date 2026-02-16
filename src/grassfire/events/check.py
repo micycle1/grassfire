@@ -81,7 +81,6 @@ def at_same_location(V, now):
     vertex in the list
     """
     P = [v.position_at(now) for v in V]
-    logging.debug(P)
     p = P[0]
     for o in P[1:]:
         if not (near_zero(p[0]-o[0]) and near_zero(p[1]-o[1])):

@@ -11,7 +11,6 @@ def handle_flip_event(evt, step, skel, queue, immediate):
     assert len(evt.side) == 1
     t, t_side = evt.triangle, evt.side[0]
 
-    logging.info("* flip           :: tri>> #{} [{}]".format(id(t), t.info))
 
     n = t.neighbours[t_side]
     assert n is not None
@@ -19,7 +18,6 @@ def handle_flip_event(evt, step, skel, queue, immediate):
     flip(t, t_side, n, n_side)
     replace_in_queue(t, now, queue, immediate)
     replace_in_queue(n, now, queue, immediate)
-    logging.debug("flip event handled")
 
 
 def flip(t0, side0, t1, side1):

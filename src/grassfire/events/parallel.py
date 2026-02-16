@@ -67,8 +67,6 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
         raise ValueError("we should receive a fan of triangles to handle them")
         return
 
-    logging.debug("""
-""")
     if pause:
         logging.debug(" -- {}".format(len(fan)))
         logging.debug("    triangles in the fan: {}".format([(id(_), _.info) for _ in fan]))
@@ -120,9 +118,7 @@ def handle_parallel_fan(fan, pivot, now, direction, step, skel, queue, immediate
         logging.debug("inf-fast pivot, but not over wavefront edge? -- right side")
     right_dist = dist(*map(lambda x: x.position_at(now), right_leg.segment))
     dists = [left_dist, right_dist]
-    logging.debug('  distances: {}'.format(dists))
     dists_sub_min = [near_zero(_ - min(dists)) for _ in dists]
-    logging.debug(dists_sub_min)
     unique_dists = dists_sub_min.count(True)
     if unique_dists == 2:
         logging.debug("Equal sized legs")
@@ -206,20 +202,12 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
 
     """
 
-    logging.info("* parallel|short :: tri>> #{} [{}]".format(id(t), t.info))
-    logging.debug('At start of handle_parallel_edge_event_shorter_leg')
 
-    logging.debug("Edge with inf fast vertex collapsing! {0}".format(t.neighbours[e] is None))
     assert pivot.inf_fast
 
     v1 = t.vertices[ccw(e)]
     v2 = t.vertices[cw(e)]
     v3 = t.vertices[e]
-    logging.debug("* tri>> #{} [{}]".format(id(t), t.info))
-    logging.debug("* pivot #{} [{}]".format(id(pivot), pivot.info))
-    logging.debug("* v1 #{} [{}]".format(id(v1), v1.info))
-    logging.debug("* v2 #{} [{}]".format(id(v2), v2.info))
-    logging.debug("* v3 #{} [{}]".format(id(v3), v3.info))
     assert pivot is v1 or pivot is v2
 
     to_stop = []
@@ -243,14 +231,12 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
     kv.wfl = v1.left.wfr
     kv.wfr = v2.right.wfl
 
-    logging.debug("Computed new kinetic vertex {} [{}]".format(id(kv), kv.info))
     if kv.inf_fast:
         logging.debug("New kinetic vertex moves infinitely fast!")
     a = t.neighbours[ccw(e)]
     b = t.neighbours[cw(e)]
     n = t.neighbours[e]
     skel.vertices.append(kv)
-    logging.debug("-- update circular list for new kinetic vertex kv: {} [{}]".format(id(kv), kv.info))
     update_circ(v1.left, kv, now)
     update_circ(kv, v2.right, now)
     fan_a = []
@@ -272,7 +258,6 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
         if pause:
             logging.debug('replaced neighbour B')
             interactive_visualize(queue, skel, step, now)
-    logging.debug("*** neighbour n: {} ".format("schedule adjacent neighbour for *IMMEDIATE* processing" if n is not None else "no neighbour to collapse simultaneously"))
     if n is not None:
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
@@ -293,10 +278,7 @@ def handle_parallel_edge_event_shorter_leg(t, e, pivot, now, step, skel, queue, 
             return
 def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, immediate):
 
-    logging.info("* parallel|even  :: tri>> #{} [{}]".format(id(t), t.info))
 
-    logging.debug('At start of handle_parallel_edge_event with same size legs')
-    logging.debug("Edge with inf fast vertex collapsing! {0}".format(t.neighbours[e] is None))
     assert t.vertices.index(pivot) == e
     assert t.vertices[e] is pivot
     v1 = t.vertices[ccw(e)]
@@ -312,7 +294,6 @@ def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, im
 
     n = t.neighbours[e]
     msg = "schedule adjacent neighbour for *IMMEDIATE* processing" if n is not None else "no neighbour to collapse simultaneously"
-    logging.debug("*** neighbour n: {} ".format(msg))
     if n is not None:
         n.neighbours[n.neighbours.index(t)] = None
         if n.event is not None and n.stops_at is None:
@@ -321,10 +302,7 @@ def handle_parallel_edge_event_even_legs(t, e, pivot, now, step, skel, queue, im
 
 
 def handle_parallel_edge_event_3tri(t, e, pivot, now, step, skel, queue, immediate):
-    logging.info("* parallel|even#3 :: tri>> #{} [{}]".format(id(t), t.info))
 
-    logging.debug('At start of handle_parallel_edge_event for 3 triangle')
-    logging.debug("Edge with inf fast vertex collapsing! {0}".format(t.neighbours[e] is None))
     assert t.vertices.index(pivot) == e
     assert t.vertices[e] is pivot
 
@@ -346,17 +324,12 @@ def handle_parallel_edge_event_3tri(t, e, pivot, now, step, skel, queue, immedia
     assert v2 in t.vertices
 
     from grassfire.vectorops import dot, norm
-    logging.debug(v1.velocity)
-    logging.debug(v2.velocity)
     magn_v1 = norm(v1.velocity)
     magn_v2 = norm(v2.velocity)
 
-    logging.debug('  velocity magnitude: {}'.format([magn_v1, magn_v2]))
 
     dists = [left_dist, right_dist]
-    logging.debug('  distances: {}'.format(dists))
     dists_sub_min = [near_zero(_ - min(dists)) for _ in dists]
-    logging.debug(dists_sub_min)
     if magn_v2 < magn_v1:
         sk_node, newly_made = stop_kvertices([v2], step, now)
         if newly_made:
