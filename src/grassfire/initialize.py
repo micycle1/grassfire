@@ -44,28 +44,18 @@ def split_star(v):
     for edge in around:
         t, s = edge.triangle, edge.side
         group.append(edge)
-        # if the edge ahead is constrained, we make a new group
         if Edge(t, ccw(s)).constrained:
             groups.append(group)
             group = []
     if group:
         groups.append(group)
-
-    # if we have only one group, we do not have to change the first and the last
     if len(groups) <= 1:
         return groups
-
-    # merge first and last group
-    # this is necessary when the group does not start at a constrained edge
     edge = groups[0][0]
     if not edge.triangle.constrained[cw(edge.side)]:
         last = groups.pop()
         last.extend(groups[0])
         groups[0] = last
-
-    # -- post condition checks
-    # the first and last triangle in the group have a constrained
-    # and the rest of the triangles in the middle of every group do not
     for group in groups:
         first, last = group[0], group[-1]
         assert first.triangle.constrained[cw(first.side)]
@@ -82,8 +72,6 @@ def init_skeleton(dt):
     skeleton.
     """
     skel = Skeleton()
-
-    # make skeleton nodes: every triangulation vertex becomes a skeleton node
     nodes = {}
     avg_x = 0.0
     avg_y = 0.0
@@ -101,8 +89,6 @@ def init_skeleton(dt):
     internal_triangles = set()
     for _, depth, triangle in RegionatedTriangleIterator(dt):
         if depth == 1:
-            # FIXME: why not put the depth here as identifier into the triangle
-            # holes can then be separated from others (and possibly calculated in parallel)
             internal_triangles.add(triangle)
 
     triangle2ktriangle = {}
@@ -115,8 +101,6 @@ def init_skeleton(dt):
     del idx
 
     link_around = []
-    # set up properly the neighbours of all kinetic triangles
-    # blank out the neighbour, if a side is constrained
     unwanted = []
     for t in dt.triangles:
         k = triangle2ktriangle[t]
@@ -126,17 +110,12 @@ def init_skeleton(dt):
             k.wavefront_support_lines[i] = make_support_line(edge)
 
         for j, n in enumerate(t.neighbours):
-            # set neighbour pointer to None if constrained side
             if t.constrained[j]:
                 continue
-            # skip linking to non-existing triangle
             if n is None or n.vertices[2] is None:
                 unwanted.append(k)
                 continue
             k.neighbours[j] = triangle2ktriangle[n]
-
-    # make kinetic vertices and link them to kinetic triangles
-    # also make sure that every kinetic vertex is related to a skeleton node
     kvertices = []
     ct = 0
     for v in dt.vertices:
@@ -150,15 +129,10 @@ def init_skeleton(dt):
 
         for group in groups:
             first, last = group[0], group[-1]
-
-            # compute turn type at vertex
             tail, mid1 = Edge(last.triangle, ccw(last.side)).segment
             mid2, head = Edge(first.triangle, cw(first.side)).segment
             assert mid1 is mid2
             turn = orient2d((tail.x, tail.y), (mid1.x, mid1.y), (head.x, head.y))
-            # left : + [ = ccw ]
-            # straight : 0.
-            # right : - [ = cw ]
 
             if turn < 0:
                 turn_type = "RIGHT - REFLEX"
@@ -200,13 +174,9 @@ def init_skeleton(dt):
                 kv.internal = ktriangle.internal
 
             kvertices.append(kv)
-
-            # link vertices to each other in circular list
             link_around.append(
                 ((last.triangle, cw(last.side)), kv, (first.triangle, ccw(first.side)))
             )
-
-    # link vertices in circular list
     for left, kv, right in link_around:  # left is cw, right is ccw
         assert left is not None
         assert right is not None
@@ -221,9 +191,6 @@ def init_skeleton(dt):
         assert kv.left.wfr is kv.wfl, "{} vs\n {}".format(kv.left.wfr, kv.wfl)
         assert kv.wfr is kv.right.wfl
         assert kv.is_stopped is False
-
-    # -- copy infinite vertices into the kinetic triangles
-    # make dico of infinite vertices (lookup by coordinate value)
     infinites = {}
     for t in triangle2ktriangle:
         for v in t.vertices:
@@ -232,15 +199,10 @@ def init_skeleton(dt):
                 infv.origin = (v[0], v[1])
                 infinites[(v[0], v[1])] = infv
     assert len(infinites) == 3
-
-    # link infinite triangles to the infinite vertex
     for (t, kt) in triangle2ktriangle.items():
         for i, v in enumerate(t.vertices):
             if v is not None and not v.is_finite:
                 kt.vertices[i] = infinites[(v[0], v[1])]
-
-    # there are 3 infinite triangles that are supposed to be removed
-    # these triangles were already stored in the unwanted list
     remove = []
     for kt in ktriangles:
         if [isinstance(v, InfiniteVertex) for v in kt.vertices].count(True) == 2:
@@ -248,8 +210,6 @@ def init_skeleton(dt):
     assert len(remove) == 3
     assert len(unwanted) == 3
     assert remove == unwanted
-
-    # remove the 3 unwanted triangles and link their neighbours together
     link = []
     for kt in unwanted:
         v = kt.vertices[kt.neighbours.index(None)]
@@ -271,9 +231,6 @@ def init_skeleton(dt):
         kt.vertices = [None, None, None]
         kt.neighbours = [None, None, None]
         ktriangles.remove(kt)
-
-    # replace the infinite vertices by one point in the center of the PSLG
-    # (this could be the origin (0,0) if we would scale input to [-1,1] range)
     for kt in ktriangles:
         for i, v in enumerate(kt.vertices):
             if isinstance(v, InfiniteVertex):
@@ -307,8 +264,6 @@ def internal_only_skeleton(skel):
 def check_ktriangles(L, now=0):
     """Check whether kinetic triangles are all linked up properly."""
     valid = True
-
-    # check if neighbours are properly linked
     for ktri in L:
         if ktri.stops_at is not None:
             continue
@@ -338,8 +293,6 @@ def check_ktriangles(L, now=0):
                         v.stops_at,
                     )
                     valid = False
-
-    # check if the sides of a triangle share the correct vertex at begin / end
     if False:  # FIXME: enable!!!
         for ktri in L:
             for i in range(3):
@@ -352,8 +305,4 @@ def check_ktriangles(L, now=0):
                     if not ngb.vertices[ccw(j)] is ktri.vertices[cw(i)]:
                         print("something wrong with vertices 2")
                         valid = False
-
-    # FIXME: check orientation of triangles ????
-    # -- could be little difficult with initial needle triangles at terminal
-    # vertices of PSLG
     return valid

@@ -7,30 +7,9 @@ from grassfire.events import at_same_location
 
 from grassfire.test.intersection import segments_intersecting
 
-# FIXME:
-# we could test the geometric embedding of the skeleton generated
-# as well (requires approximate comparisons for geometry that is generated)
-
 PAUSE = False
 OUTPUT = False
 LOGGING = False
-
-# class Simple(unittest.TestCase):
-#     def test_bottom_circle(self):
-#         """bottom circle"""
-#         from math import pi, cos, sin, degrees
-#         ring = []
-#         pi2 = 2 * pi
-#         ct = 8
-#         alpha = pi / ct
-#         for i in range(ct + 1):
-#             ring.append((cos(pi + i * alpha), sin(pi + i * alpha)))
-#         ring.append(ring[0])
-#         conv = ToPointsAndSegments()
-#         conv.add_polygon([ring])
-#         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-#         assert len(skel.segments()) == (9 + 15)
-#         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
 
 
 
@@ -383,16 +362,12 @@ class TestGrassfire(unittest.TestCase):
             conv.add_point(line[1])
             conv.add_segment(*line)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 992, len(skel.sk_nodes)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == 1329, len(skel.segments())
-        # check the amount of kinetic vertices that are (not) stopped
         not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
         stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
         assert len(not_stopped) == 20, len(not_stopped)
         assert len(stopped) == 1309, len(stopped)
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -480,7 +455,6 @@ class TestGrassfire(unittest.TestCase):
         assert not segments_intersecting(skel.segments())
 
     def test_simultaneous(self):
-        # substitute with this and we get a lot of simultaneous events!
         conv = ToPointsAndSegments()
         conv.add_polygon(
             [[(0, 1), (1, 0), (3, 0), (4, 1), (4, 3), (3, 4), (1, 4), (0, 3), (0, 1)]])
@@ -564,17 +538,14 @@ class TestGrassfire(unittest.TestCase):
 """
         import json
         x = json.loads(s)
-        # parse segments from geo-json
         segments = []
         for y in x['features']:
             segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-        # convert to triangulation input
         conv = ToPointsAndSegments()
         for line in segments:
             conv.add_point(line[0])
             conv.add_point(line[1])
             conv.add_segment(*line)
-        # skeletonize / offset
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
         assert len(skel.segments()) == 18
         assert len(skel.sk_nodes) == 12, len(skel.sk_nodes)

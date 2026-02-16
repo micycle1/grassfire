@@ -81,14 +81,6 @@ def is_close(a,
 
     if a == b:  # short-circuit exact equality
         return True
-    # use cmath so it will work with complex or float
-#     print a
-#     print b
-#     if cmath.isinf(a) or cmath.isinf(b):
-#         # This includes the case of two infinities of opposite sign, or
-#         # one infinity and one finite number. Two infinities of opposite sign
-#         # would otherwise have an infinite relative tolerance.
-#         return False
     diff = abs(b - a)
     if method == "asymmetric":
         return (diff <= abs(rel_tol * b)) or (diff <= abs_tol)

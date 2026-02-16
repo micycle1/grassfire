@@ -58,17 +58,12 @@ class TestCollapseTime2TriangleOutwards(unittest.TestCase):
     def test_equilateral(self):
         evt = compute_event(self.tri, now=0.)
         assert evt != None
-        # FIXME: WRONG, should be ignored (as is in the past)
         assert evt.time == None
 
     def test_equilateral_past(self):
         evt = compute_event(self.tri, now=-10.)
         assert evt != None
-        # FIXME: WRONG, should be ignored (as is in the past)
         assert evt.time == -0.6852753776217849202012644
-#         assert evt.how == "point"
-#         assert evt.event_tp == "collapse"
-#         assert evt.where == (1.5, 0.6852753776217849)
 
 def _enable_logging():
     import logging
@@ -83,15 +78,7 @@ def _enable_logging():
 
 
 def perform_one():
-#     tst = TestCollapseSameTime("test_equal_sides")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = VertexCrash("test_equilateral_outwards")
-    # tst = TestCollapseTime0TriangleSegment("test_0triangle_segment")
     tst = TestCollapseTime0TriangleSpoke("test_0triangle_spoke")
-#     tst = TestCollapseTime0TrianglePoint("test_0triangle_point")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = EdgeCollapse("test_crossing")
-#     tst = EdgeCollapse("test_parallel_follower")
     suite = unittest.TestSuite()
     suite.addTests([tst])#, tst1])
     runner = unittest.TextTestRunner()
@@ -99,6 +86,4 @@ def perform_one():
 
 
 if __name__ == '__main__':
-#     _enable_logging()
     unittest.main()
-#     perform_one()

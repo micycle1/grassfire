@@ -31,13 +31,9 @@ class Skeleton(object):
 
     def __init__(self):
         """ """
-        # positions --> skeleton positions
         self.sk_nodes = []
-        # kinetic primitives --> (traced) wavefront
         self.vertices = []
         self.triangles = []
-        # when we 'shrink' the geometry to get more floating point accuracy,
-        # we can get back with this object to the original location
         self.transform = None
 
 
@@ -68,8 +64,6 @@ class SkeletonNode(object):
         self.pos = pos
 
         x, y = pos
-        #assert -2.0 <= x <= 2.0, (x, "construct")
-        #assert -2.0 <= y <= 2.0, (y, "construct")
 
         self.step = step
         self.info = info  # the info of the vertex in the triangulation
@@ -91,17 +85,10 @@ class KineticVertex(object):
     def __init__(self, origin=None, velocity=None, ul=None, ur=None):
         self.origin = origin
         self.velocity = velocity
-        # next / prev pos
-        # while looking in direction of bisector, see which
-        # kinetic vertex you see on the left, and which on the right
         self._left = []  # (start, stop, vertex)
         self._right = []
-
-        # floats
         self.starts_at = None
         self.stops_at = None
-
-        # Skeleton nodes
         self.start_node = None
         self.stop_node = None
 
@@ -118,9 +105,7 @@ class KineticVertex(object):
         self.turn = None
 
     def __str__(self):
-        # FIXME: make other method (dependent on time as argument)
         time = 0
-        # 4.281470022378475
         return "{0[0]} {0[1]} @{1}".format(self.position_at(time), id(self))
 
     def __repr__(self):
@@ -134,7 +119,6 @@ class KineticVertex(object):
 
     def distance2(self, other):
         """Cartesian distance *squared* to other point """
-        # Used for distances in random triangle close to point
         return pow(self.origin[0] - other.origin[0], 2) + \
             pow(self.origin[1] - other.origin[1], 2)
 
@@ -142,7 +126,6 @@ class KineticVertex(object):
         """Cartesian distance *squared* to other point """
         (sx, sy) = self.position_at(time)
         (ox, oy) = other.position_at(time)
-        # Used for distances in random triangle close to point
         return pow(sx - ox, 2) + pow(sy - oy, 2)
 
     def position_at(self, time):
@@ -154,11 +137,6 @@ class KineticVertex(object):
 
     def visualize_at(self, time):
         if not self.inf_fast:
-            ## -- if it is a high velocity vertex, render it at its start node
-            # magn = norm(self.velocity)
-            # if magn > 10:
-            #     return self.start_node.pos
-            # else:
             return (self.origin[0] + time * self.velocity[0],
                     self.origin[1] + time * self.velocity[1])
         else:
@@ -219,7 +197,6 @@ class InfiniteVertex(object):  # Stationary Vertex
         """ """
         self.origin = origin
         self.velocity = (0, 0)
-        # infinitevertex does not have circular thing
         self.left = None
         self.right = None
         self.internal = False
@@ -235,7 +212,6 @@ class InfiniteVertex(object):  # Stationary Vertex
         """Cartesian distance *squared* to other point """
         (sx, sy) = self.origin
         (ox, oy) = other.position_at(time)
-        # Used for distances in random triangle close to point
         return pow(sx - ox, 2) + pow(sy - oy, 2)
 
     def position_at(self, time):
@@ -244,13 +220,6 @@ class InfiniteVertex(object):  # Stationary Vertex
     def visualize_at(self, time):
         """ """
         return self.origin
-#     @property
-#     def origin(self):
-#         return self.origin
-
-#     @property
-#     def velocity(self):
-#         return (0,0)
 
 
 class KineticTriangle(object):
@@ -262,8 +231,6 @@ class KineticTriangle(object):
         self.wavefront_directions = [None, None, None]
         self.wavefront_support_lines = [None, None, None]
         self.event = None  # point back to event,
-                           # note this might prevent
-                           # garbage collection (strong cycle)
         self.info = None
         self.stops_at = None
         self.internal = False
@@ -280,7 +247,6 @@ class KineticTriangle(object):
                 n_s.append(None)
             else:
                 n_s.append(True)
-        #n_s = "n0={0[0]}, n1={0[1]}, n2={0[2]}".format(n_s) #
         n_s = ", ".join(map(str, n_s))
         v_s = ",\n".join(map(repr, self.vertices))
         s = "KineticTriangle({0}, {1})".format(v_s, n_s)

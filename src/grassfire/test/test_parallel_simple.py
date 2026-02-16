@@ -35,16 +35,12 @@ class TestSimpleParallelEvents(unittest.TestCase):
             conv.add_point(end)
             conv.add_segment(start, end)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT, shrink=True)
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == 23, len(skel.segments())
-        # check the amount of kinetic vertices that are (not) stopped
         not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
         stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
         assert len(not_stopped) == 6, len(not_stopped)
         assert len(stopped) == 17, len(stopped)
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -72,28 +68,21 @@ class TestSimpleParallelEvents(unittest.TestCase):
 ]
 }"""
         x = json.loads(s)
-        # parse segments from geo-json
         segments = []
         for y in x['features']:
             segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-        # convert to triangulation input
         conv = ToPointsAndSegments()
         for line in segments:
             conv.add_point(line[0])
             conv.add_point(line[1])
             conv.add_segment(*line)
-        # skeletonize / offset
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == 20, len(skel.segments())
-        # check the amount of kinetic vertices that are (not) stopped
         not_stopped = filter(lambda v: v.stops_at is None, skel.vertices)
         stopped = filter(lambda v: v.stops_at is not None, skel.vertices)
         assert len(not_stopped) == 5, len(not_stopped)
         assert len(stopped) == 15, len(stopped)
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -124,15 +113,11 @@ class TestSimpleParallelEvents(unittest.TestCase):
             conv.add_point(end)
             conv.add_segment(start, end)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT, shrink=True)
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 15, len(skel.sk_nodes)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == 22, len(skel.segments())
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
         assert len(
             filter(lambda v: v.stops_at is not None, skel.vertices)) == 13 + 4
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -160,16 +145,11 @@ class TestSimpleParallelEvents(unittest.TestCase):
             conv.add_point(end)
             conv.add_segment(start, end)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT, shrink=True)
-        #
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 16, len(skel.sk_nodes)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == 23, len(skel.segments())
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 6
         assert len(
             filter(lambda v: v.stops_at is not None, skel.vertices)) == 13 + 4
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -181,14 +161,10 @@ class TestSimpleParallelEvents(unittest.TestCase):
         polygon = [[(0,0), (10,0), (10,10), (0,10), (0,0)]]
         conv.add_polygon(polygon)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == (4 + 4), len(skel.segments())
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 5, len(skel.sk_nodes)
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 4
         assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 4
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None:
@@ -200,14 +176,10 @@ class TestSimpleParallelEvents(unittest.TestCase):
         polygon = [[(0,0), (10,0), (10,5), (0,5), (0,0)]]
         conv.add_polygon(polygon)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == (5 + 4), len(skel.segments())
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 4
         assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 5
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -219,14 +191,10 @@ class TestSimpleParallelEvents(unittest.TestCase):
         polygon = [[(0, 0), (10., 0), (10,20), (-0.5,20.), (-0.5,11.), (-1,11), (-1,10), (0,10), (0,0)]]
         conv.add_polygon(polygon)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == (12 + 8), len(skel.segments())
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 13, len(skel.sk_nodes)
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
         assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 12
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:
@@ -241,14 +209,10 @@ class TestSimpleParallelEvents(unittest.TestCase):
         polygon = [[(-0.5, 0), (10., 0), (10,20), (0,20.), (0,11.), (-1,11), (-1,10), (-0.5,10), (-0.5,0)]]
         conv.add_polygon(polygon)
         skel = calc_skel(conv, pause=PAUSE, output=OUTPUT)
-        # check the amount of segments in the skeleton
         assert len(skel.segments()) == (13 + 8), len(skel.segments())
-        # check the amount of skeleton nodes
         assert len(skel.sk_nodes) == 14, len(skel.sk_nodes)
-        # check the amount of kinetic vertices that are (not) stopped
         assert len(filter(lambda v: v.stops_at is None, skel.vertices)) == 8
         assert len(filter(lambda v: v.stops_at is not None, skel.vertices)) == 13
-        # check cross relationship between kinetic vertices and skeleton nodes
         for v in skel.vertices:
             assert at_same_location((v.start_node, v), v.starts_at)
             if v.stops_at is not None and not v.inf_fast:

@@ -20,14 +20,11 @@ class Transform(object):
 def get_transform(box):
     """Get a transform object for a bounding box to transform to (-1,-1),(1,1)
     """
-    # target = ((-1.,-1.),(1.,1.))
-    # tcx, tcy = (0., 0.)
     tdx, tdy = (2., 2.)
     (sxmin, symin), (sxmax, symax) = box
     scx, scy = (sxmin + sxmax) * 0.5, (symin + symax) * 0.5
     sdx, sdy = (sxmax - sxmin), (symax - symin)
     scale = max(sdx / tdx, sdy / tdy)
-#    print("scale {}".format(scale))
     return Transform((scale, scale), (scx, scy))
 
 

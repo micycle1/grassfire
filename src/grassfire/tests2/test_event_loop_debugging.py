@@ -8,8 +8,6 @@ not part of the core library functionality.
 import random
 import time
 import logging
-
-# Constants for video frame generation
 DEFAULT_TIME_DELTA = 0.2  # Default time delta when queue is empty
 SIGNAL_RANGE = int(1e6)   # Random signal range for frame synchronization
 
@@ -42,7 +40,6 @@ def make_frames(now, digits, skel, queue, immediate):
         peek = next(iter(queue))
         T = round(peek.time, digits)
     except StopIteration:
-        # Use a small default time delta when queue is empty
         T = N + DEFAULT_TIME_DELTA
 
     delta = T - N
@@ -56,13 +53,9 @@ def make_frames(now, digits, skel, queue, immediate):
         time.sleep(0.25)
         visualize(queue, skel, cur)
         time.sleep(0.5)
-        # Write random signal for frame synchronization with external visualization
         with open("/tmpfast/signal", "w") as fh:
             fh.write("{0}".format(random.randint(0, SIGNAL_RANGE)))
         time.sleep(0.25)
-
-
-# Testing constants that were hardcoded in loop.py
 TEST_STOP_AFTER_VALUES = [14830, 14569, 14851, 104700]
 """List of STOP_AFTER values used for testing specific scenarios."""
 

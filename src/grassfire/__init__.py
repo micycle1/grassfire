@@ -12,16 +12,6 @@ __version__ = "0.1.dev0"
 __license__ = "MIT License"
 __author__ = "Martijn Meijers"
 __all__ = ["calc_skel"]
-# ------------------------------------------------------------------------------
-# main function for calculating skeleton
-
-
-# FIXME: API -- internal / external calculation
-# I E
-# t t -- both internal and external (default?)
-# t f -- internal only (or should this be default?)
-# f t -- external only
-# f f -- does not make sense (no skeleton)
 
 
 def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False):
@@ -30,14 +20,10 @@ def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False)
     Returns:
         skel -- skeleton structure
     """
-    # step 0 -- get transformation parameters
     if shrink:
         box = get_box(conv.points)
         transform = get_transform(box)
         pts = list(map(transform.forward, conv.points))
-    # step 1 -- triangulate
-    # FIXME: keep info on points
-    # (so that we know after the construction what each node represents)
     else:
         pts = conv.points
     dt = triangulate(pts, conv.infos, conv.segments, output)
@@ -51,17 +37,9 @@ def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False)
                         j, edge.segment
                     )
                 )
-    # step 2a -- copy over triangles and deal with
-    # - terminal 1-vertices (add triangle)
-    # - infinite triangles
     skel = init_skeleton(dt)
-    # step 2b -- do we have a polygon and only internal to its boundaries
-    # where do we want to obtain the skeleton?
     if internal_only:
-        # keeps internal kinetic triangle/vertices only
         skel = internal_only_skeleton(skel)
-
-    # keep the transform object with the skeleton if we shrink to -1,1
     if shrink:
         skel.transform = transform
 
@@ -69,11 +47,8 @@ def calc_skel(conv, pause=False, output=False, shrink=True, internal_only=False)
         x, y = kv.start_node.pos
         assert -2.0 <= x <= 2.0, (x, "start")
         assert -2.0 <= y <= 2.0, (y, "start")
-    # step 3 -- make initial event list
     el = init_event_list(skel)
-    # step 4 -- handle events until finished
     last_evt_time = event_loop(el, skel, pause)
-    # step 5 -- output offsets and the skeleton
     if output:
         output_offsets(skel, last_evt_time)
         output_skel(skel, last_evt_time + 10)

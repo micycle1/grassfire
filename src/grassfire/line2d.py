@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 from operator import sub as _sub, mul as _mul, truediv as _div, add as _add
 from math import fsum, sqrt
@@ -89,7 +88,6 @@ def coefficients_from_points(p, q):
     """
     (px, py) = p
     (qx, qy) = q
-    # horizontal line
     if py == qy:
         a = 0.
         if qx > px:
@@ -101,7 +99,6 @@ def coefficients_from_points(p, q):
         else:
             b = -1.
             c = py
-    # vertical line
     elif qx == px:
         b = 0.
         if qy > py: # q above p
@@ -113,7 +110,6 @@ def coefficients_from_points(p, q):
         else:
             a = 1.
             c = -px
-    # neither horizontal or vertical
     else:
         a = py - qy
         b = qx - px
@@ -128,18 +124,11 @@ def coefficients_perpendicular_through_point(la, lb, px, py):
     return tuple(map(float, (a, b, c)))
 
 def coefficients_bisector_of_lines(pa, pb, pc, qa, qb, qc):
-    # see:
-    # https://math.stackexchange.com/questions/38665/equation-of-angle-bisector-given-the-equations-of-two-lines-in-2d
-    # https://www.math-only-math.com/equations-of-the-bisectors-of-the-angles-between-two-straight-lines.html
-    #
-    # normalize
     n1 = sqrt(pa * pa + pb * pb)
     n2 = sqrt(qa * qa + qb * qb)
-    # add
     a = n2 * pa + n1 * qa
     b = n2 * pb + n1 * qb
     c = n2 * pc + n1 * qc
-    # would this be a degenerate line? handle it
     if (a == 0 and b == 0):
         a = n2 * pa - n1 * qa
         b = n2 * pb - n1 * qb
@@ -153,7 +142,6 @@ class Line2:
         b = float(b)
         self.w = w
         self.b = b
-        ### print(norm2(w) == 1)
         if normalize:
             self._normalize()
 
@@ -162,7 +150,6 @@ class Line2:
 
     def _normalize(self):
         nrm = norm(self.w)
-#        print(f'norm {nrm}')
         self.b /= nrm
         self.w = unit(self.w)
 
@@ -176,9 +163,6 @@ class Line2:
 
     def perpendicular(self, through):
         """ perp line """
-        # line perpendicular to self, passing through pt,
-        # the direction of the resulting line is rotated
-        # counterclockwise by 90 degrees.
         coeff = coefficients_perpendicular_through_point(self.w[0], self.w[1],
                                                          through[0], through[1])
         return Line2(coeff[:2], coeff[2])
@@ -210,18 +194,8 @@ class Line2:
         coeff = coefficients_from_points(start, end)
         ln = cls(coeff[:2], coeff[2])
         assert end != start
-#        be = -dot(ln.w, end)
-#        bs = -dot(ln.w, start)
-#        assert be == bs == ln.b
-        #== ln.b
-#        print(f'w: {ln.w}')
-#        print(f'be: {be}')
-#        print(f'bs: {bs}')
-#        print(f'b: {ln.b}')
         dist_end = ln.signed_distance(end)
         dist_start = ln.signed_distance(start)
-#        assert dist_start == 0
-#        assert dist_end == 0
         return ln
 
     def y_at_x(self, x):
@@ -245,8 +219,6 @@ class Line2:
         else:
             logging.debug(' (constructing new line at t= {})'.format(now))
             return self.translated(mul(self.w, now)) # at_time(0) / # at_time(1)
-        # should we project the start / end points on the line ??
-        #http://www.sunshine2k.de/coding/java/PointOnLine/PointOnLine.html
 class WaveFront:
     """ A line that remembers start and end point from which it is constructed """
     def __init__(self, start, end, line=None):
@@ -271,19 +243,11 @@ class WaveFrontIntersector:
         logging.debug(self.right)
 
     def get_bisector(self):
-        # configuration at time t=0
         intersector = LineLineIntersector(self.left.line, self.right.line)
         res = intersector.intersection_type()
         if res == LineLineIntersectionResult.LINE:
-            # parallel = True; intersect = True
             bi = add(mul(self.left.line.w, 0.5), mul(self.right.line.w, 0.5))
-            # the magnitude of the bisector here is either:
-            #
-            #  a) near 0.0 -> wavefronts moving in opposite direction
-            #  b) near 2.0 -> wavefronts moving in same direction
         elif res == LineLineIntersectionResult.POINT:
-            # parallel = False; intersect = True
-            # configuration at time t = 1 (line.w == unit vector)
             left_translated = self.left.line.translated(self.left.line.w)
             right_translated = self.right.line.translated(self.right.line.w)
 
@@ -292,10 +256,8 @@ class WaveFrontIntersector:
             assert inner_res == LineLineIntersectionResult.POINT
             bi = make_vector(end=intersector_inner.result, start=intersector.result)
         elif res == LineLineIntersectionResult.NO_INTERSECTION:
-            # parallel = True; intersect = False
             added = add(self.left.line.w, self.right.line.w)
             bi = added
-            # assert near_zero(magn)
         else:
             raise RuntimeError(f"Unknown intersection type: {res}")
         magn = norm(bi)
@@ -323,46 +285,27 @@ class LineLineIntersector:
         self.result = None
 
     def intersection_type(self):
-        # solve intersection
-        #
         one, other = self.one, self.other
         assert len(one.w) == 2
         assert len(other.w) == 2
-
-        # == 3 possible outcomes in 2D:
-        #
-        # 0. overlapping lines - always intersecting in a line
-        # 1. crossing - point2
-        # 2. parallel - no intersection
-        #
         (a1, b1), c1 = one.w, one.b
         (a2, b2), c2 = other.w, other.b
         denom = a1 * b2 - a2 * b1
-#        print(f'denom {denom}')
-        # if denom == 0: # ^FIXME: use near_zero ?
         if near_zero(denom) == True:
             x1 = a1 * c2 - a2 * c1
             x2 = b1 * c2 - b2 * c1
-#            print(f'cross1 {x1}')
-#            print(f'cross2 {x2}')
-            # if (x1 == 0) and (x2 == 0): # ^FIXME: use near_zero ?
             if near_zero(x1) == True and near_zero(x2) == True:
-                # overlapping lines, always intersecting in this configuration
                 self.result = self.one
                 return LineLineIntersectionResult.LINE
             else:
-                # parallel lines, but not intersecting in this configuration
                 self.result = None
                 return LineLineIntersectionResult.NO_INTERSECTION
         else:
-            # crossing lines
             num1 = b1 * c2 - b2 * c1
             num2 = a2 * c1 - a1 * c2
-#            print(denom, num1, num2)
             x, y, w = num1, num2, denom
             xw = x / w
             yw = y / w
-#            print(f'point2 {xw}, {yw}')
             self.result = (xw, yw)
             return LineLineIntersectionResult.POINT
 

@@ -19,8 +19,6 @@ class TestCollapseTime1Triangle(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (0, 1.)
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (0., -1.)
@@ -39,15 +37,12 @@ class Test1TriangleFlipA(unittest.TestCase):
     """Flip event, apex misses the base"""
     def setUp(self):
         k = KineticTriangle()
-        # base
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., 1.)
-        #
         d = KineticVertex()
         d.origin = (4., 0.)
         d.velocity = (0, 1.)
-        # vertex missing the base
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (2, -2.)
@@ -56,7 +51,6 @@ class Test1TriangleFlipA(unittest.TestCase):
         self.tri = k
 
     def test_1triangle_flip(self):
-        # edge that has to flip == (apex, orig)
         evt = compute_event(self.tri, now=0.)
         assert evt != None
         print evt
@@ -69,15 +63,12 @@ class Test1TriangleCollapseA(unittest.TestCase):
     """Collapse event, apex hits the destination"""
     def setUp(self):
         k = KineticTriangle()
-        # base
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., 1.)
-        #
         d = KineticVertex()
         d.origin = (4., 0.)
         d.velocity = (0, 1.)
-        # vertex missing the base
         a = KineticVertex()
         a.origin = (4., 5.)
         a.velocity = (0, -2.)
@@ -98,15 +89,12 @@ class Test1TriangleCollapseB(unittest.TestCase):
     """Collapse event, apex hits the origin"""
     def setUp(self):
         k = KineticTriangle()
-        # base
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., 1.)
-        #
         d = KineticVertex()
         d.origin = (4., 0.)
         d.velocity = (0, 1.)
-        # vertex missing the base
         a = KineticVertex()
         a.origin = (0., 5.)
         a.velocity = (0, -2.)
@@ -127,15 +115,12 @@ class Test1TriangleCollapseC(unittest.TestCase):
     """Collapse event, origin hits destination."""
     def setUp(self):
         k = KineticTriangle()
-        # base
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (1., 1.)
-        #
         d = KineticVertex()
         d.origin = (4., 0.)
         d.velocity = (-1, 1.)
-        # vertex missing the base
         a = KineticVertex()
         a.origin = (0., 25.)
         a.velocity = (0, 2)
@@ -154,15 +139,12 @@ class Test1TriangleCollapseD(unittest.TestCase):
     """Collapse event, origin hits destination."""
     def setUp(self):
         k = KineticTriangle()
-        # base
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (1., 1.)
-        #
         d = KineticVertex()
         d.origin = (4., 0.)
         d.velocity = (-1, 1.)
-        # vertex missing the base
         a = KineticVertex()
         a.origin = (0., 25.)
         a.velocity = (0, -0.01)
@@ -191,15 +173,7 @@ def _enable_logging():
 
 
 def perform_one():
-#     tst = TestCollapseSameTime("test_equal_sides")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = VertexCrash("test_equilateral_outwards")
-    # tst = TestCollapseTime0TriangleSegment("test_0triangle_segment")
     tst = TestCollapseTime0TriangleSpoke("test_0triangle_spoke")
-#     tst = TestCollapseTime0TrianglePoint("test_0triangle_point")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = EdgeCollapse("test_crossing")
-#     tst = EdgeCollapse("test_parallel_follower")
     suite = unittest.TestSuite()
     suite.addTests([tst])#, tst1])
     runner = unittest.TextTestRunner()
@@ -207,6 +181,4 @@ def perform_one():
 
 
 if __name__ == '__main__':
-#     _enable_logging()
     unittest.main()
-#     perform_one()

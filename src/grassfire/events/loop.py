@@ -45,10 +45,6 @@ def log_queue_content(step, immediate, queue):
     if len(queue) >= 20:
         logging.debug("... skipping display of {} events".format(len(queue) - 20))
     logging.debug("=" * 80)
-
-
-# Main event loop
-# -----------------------------------------------------------------------------
 def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_digits=3):
     """The main event loop.
 
@@ -64,7 +60,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
         logging.debug("Stopping for the first time after step#{}".format(stop_after))
 
     if make_video:
-        # Avoid repeated imports in loop.
         from grassfire.tests2.test_event_loop_debugging import make_frames
 
     NOW = 0.0
@@ -125,8 +120,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                 seen = {current}
                 visit = [current]
                 also = []
-                # FIXME: maybe we should use 'geometric inliers' to the support line here
-                # this way we could also resolve 'flip event loops'
                 while visit:
                     current = visit.pop()
                     for n in current.neighbours:
@@ -139,8 +132,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                     logging.debug([n.info for n in also])
 
             check_direct(evt)
-
-            # Debug: Write current event to file for visualization
             with open("/tmpfast/current_event.wkt", "w") as fh:
                 fh.write(
                     "pos;wkt;evttype;evttime;tritype;id;n0;n1;n2;finite;info;wavefront_directions\n"
@@ -163,8 +154,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
                 )
 
             interactive_visualize(queue, skel, step, NOW)
-
-        # precondition: this triangle has not yet been dealt with before
         if evt.triangle.stops_at is not None:
             logging.warning("Already stopped %s, but still queued", id(evt.triangle))
             continue
@@ -214,8 +203,6 @@ def event_loop(queue, skel, pause=False, stop_after=0, make_video=False, video_d
 
     if pause:
         interactive_visualize(queue, skel, step, NOW)
-
-    # post condition - all finite triangles have stopped at the end of the wavefront propagation process
     not_stopped_tris = []
     for tri in skel.triangles:
         if all(v.internal for v in tri.vertices) and tri.stops_at is None:

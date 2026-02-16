@@ -2,7 +2,6 @@ from grassfire.primitives import KineticTriangle, KineticVertex, Event, Skeleton
 from grassfire.events import handle_split_event
 
 triangles = {}
-### 140003451728400
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -19,7 +18,6 @@ v.velocity = (0, 0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728400 ] = k
-### 140003451728464
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -36,7 +34,6 @@ v.velocity = (0.9049875621120889, 0.9999999999999999)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728464 ] = k
-### 140003451728528
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -53,7 +50,6 @@ v.velocity = (-0.8611874208078343, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728528 ] = k
-### 140003451728592
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -70,7 +66,6 @@ v.velocity = (-0.7807764064044151, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728592 ] = k
-### 140003451728656
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -87,7 +82,6 @@ v.velocity = (-0.3899868930592274, 4.141336851657371)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728656 ] = k
-### 140003451728720
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -104,7 +98,6 @@ v.velocity = (-0.6770329614269007, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728720 ] = k
-### 140003451728784
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -121,7 +114,6 @@ v.velocity = (-0.0, -4.123105625617657)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728784 ] = k
-### 140003451728848
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -138,7 +130,6 @@ v.velocity = (-0.5885834574042905, -4.164041047077979)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728848 ] = k
-### 140003451728912
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -155,7 +146,6 @@ v.velocity = (0.6770329614269006, -0.9999999999999998)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728912 ] = k
-### 140003451728976
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -172,7 +162,6 @@ v.velocity = (0, 0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451728976 ] = k
-### 140003451729040
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -189,7 +178,6 @@ v.velocity = (-0.4142135623730952, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729040 ] = k
-### 140003451729168
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -206,7 +194,6 @@ v.velocity = (-0.5351837584879964, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729168 ] = k
-### 140003451729232
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -223,7 +210,6 @@ v.velocity = (0.7807764064044151, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729232 ] = k
-### 140003451729296
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -240,7 +226,6 @@ v.velocity = (-0.7807764064044151, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729296 ] = k
-### 140003451729360
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -257,7 +242,6 @@ v.velocity = (0.7807764064044151, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729360 ] = k
-### 140003451729424
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -274,7 +258,6 @@ v.velocity = (-0.7807764064044151, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729424 ] = k
-### 140003451729488
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -291,7 +274,6 @@ v.velocity = (0.1622776601683794, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729488 ] = k
-### 140003451729552
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -308,7 +290,6 @@ v.velocity = (0.1622776601683794, 1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729552 ] = k
-### 140003451729680
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -325,7 +306,6 @@ v.velocity = (1.6324555320336755, 0.5099407093782344)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729680 ] = k
-### 140003451729744
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -342,7 +322,6 @@ v.velocity = (0.5000000000000001, -1.0000000000000002)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729744 ] = k
-### 140003451729808
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -359,7 +338,6 @@ v.velocity = (-0.7094810050208543, -0.9999999999999998)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729808 ] = k
-### 140003451729872
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -376,7 +354,6 @@ v.velocity = (-0.7094810050208543, -0.9999999999999998)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729872 ] = k
-### 140003451729936
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -393,7 +370,6 @@ v.velocity = (1.0427366558279314, 0.04784099769406555)
 V.append(v)
 k.vertices = V
 triangles[ 140003451729936 ] = k
-### 140003451730064
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -410,7 +386,6 @@ v.velocity = (-0.1622776601683794, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730064 ] = k
-### 140003451730128
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -427,7 +402,6 @@ v.velocity = (0.7807764064044151, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730128 ] = k
-### 140003451730192
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -444,7 +418,6 @@ v.velocity = (0.0, 4.1231056256176615)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730192 ] = k
-### 140003451730256
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -461,7 +434,6 @@ v.velocity = (0.7807764064044151, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730256 ] = k
-### 140003451730320
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -478,7 +450,6 @@ v.velocity = (0.5885834574042905, 4.164041047077979)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730320 ] = k
-### 140003451730384
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -495,7 +466,6 @@ v.velocity = (0.0, 4.1231056256176615)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730384 ] = k
-### 140003451730448
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -512,7 +482,6 @@ v.velocity = (-0.7807764064044151, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730448 ] = k
-### 140003451730512
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -529,7 +498,6 @@ v.velocity = (0.5351837584879964, -1.0)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730512 ] = k
-### 140003451730576
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -546,7 +514,6 @@ v.velocity = (1.286795680042036, 0.12741788233105927)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730576 ] = k
-### 140003451730640
 k = KineticTriangle()
 V = []
 v = KineticVertex()
@@ -563,8 +530,6 @@ v.velocity = (-1.6324555320336758, -0.5099407093782345)
 V.append(v)
 k.vertices = V
 triangles[ 140003451730640 ] = k
-
-### neighbour relationships
 n = [ triangles[140003451728912], triangles[140003451729808], None ]
 triangles[ 140003451728400 ].neighbours = n
 triangles[ 140003451728400 ].neighbours = n
@@ -677,7 +642,6 @@ for tid in triangles:
     if skip:
         continue
     interior[tid] = tri
-    #0.1175049556691678126485456
 
     print tri.str_at(time)
 

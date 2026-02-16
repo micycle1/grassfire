@@ -58,8 +58,6 @@ def intersection(pa, pb, qa, qb):
 
     for i in range(2):
         center[i] = (maxval[i] + minval[i]) / 2.
-
-    # normalized points, i.e. against center of points
     pa_ = [pa[i] - center[i] for i in range(2)]
     pb_ = [pb[i] - center[i] for i in range(2)]
     qa_ = [qa[i] - center[i] for i in range(2)]
@@ -68,8 +66,6 @@ def intersection(pa, pb, qa, qb):
     pt = hintersection(pa_, pb_, qa_, qb_)
     for i in range(2):
         pt[i] += center[i]
-
-    # FIXME: should we clamp the coordinates to a box, formed by the segments?
     return tuple(pt)
 
 

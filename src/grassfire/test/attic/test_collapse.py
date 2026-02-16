@@ -14,7 +14,6 @@ class TestCollapseTime(unittest.TestCase):
         """
         self.triangles = {}
         triangles = self.triangles
-        ### 139742234433616
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -31,7 +30,6 @@ class TestCollapseTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234433616 ] = k
-        ### 139742234433872
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -48,7 +46,6 @@ class TestCollapseTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234433872 ] = k
-        ### 139742234434000
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -65,7 +62,6 @@ class TestCollapseTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234434000 ] = k
-        ### 139742234434064
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -82,7 +78,6 @@ class TestCollapseTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234434064 ] = k
-        ### neighbours
         n = None, triangles[139742234433872], triangles[139742234434000]
         triangles[ 139742234433616 ].neighbours = list(n)
         n = None, triangles[139742234434000], triangles[139742234433616]
@@ -112,7 +107,6 @@ class TestCollapseSameTime(unittest.TestCase):
     def setUp(self):
         self.triangles = {}
         triangles = self.triangles
-        ### 139708485588816
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -129,7 +123,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485588816 ] = k
-        ### 139708485588880
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -146,7 +139,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485588880 ] = k
-        ### 139708485589072
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -163,7 +155,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485589072 ] = k
-        ### 139708485589136
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -180,7 +171,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485589136 ] = k
-        ### 139708485589200 <<< this is the bottom internal
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -197,7 +187,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485589200 ] = k
-        ### 139708485589264 <<< this is the top internal
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -214,8 +203,6 @@ class TestCollapseSameTime(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139708485589264 ] = k
-
-        ### neighbour relationships
         n = [ None, triangles[139708485588880], triangles[139708485589136] ]
         triangles[ 139708485588816 ].neighbours = n
         n = [ triangles[139708485588816], None, triangles[139708485589072] ]
@@ -254,7 +241,6 @@ class TestEvent1Edge(unittest.TestCase):
     def setUp(self):
         self.triangles = {}
         triangles = self.triangles
-        ### 139643876356304
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -271,7 +257,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356304 ] = k
-        ### 139643876356368
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -288,7 +273,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356368 ] = k
-        ### 139643876356432
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -305,7 +289,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356432 ] = k
-        ### 139643876356496
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -322,7 +305,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356496 ] = k
-        ### 139643876356560
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -339,7 +321,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356560 ] = k
-        ### 139643876356624
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -356,7 +337,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356624 ] = k
-        ### 139643876356688
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -373,7 +353,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356688 ] = k
-        ### 139643876356752
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -390,7 +369,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356752 ] = k
-        ### 139643876356816
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -407,7 +385,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356816 ] = k
-        ### 139643876356880
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -424,7 +401,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356880 ] = k
-        ### 139643876356944
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -441,7 +417,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876356944 ] = k
-        ### 139643876357072
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -458,7 +433,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357072 ] = k
-        ### 139643876357136
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -475,7 +449,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357136 ] = k
-        ### 139643876357200
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -492,7 +465,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357200 ] = k
-        ### 139643876357264
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -509,7 +481,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357264 ] = k
-        ### 139643876357328
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -526,7 +497,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357328 ] = k
-        ### 139643876357456
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -543,7 +513,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357456 ] = k
-        ### 139643876357520
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -560,7 +529,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357520 ] = k
-        ### 139643876357584
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -577,7 +545,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357584 ] = k
-        ### 139643876357648
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -594,7 +561,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357648 ] = k
-        ### 139643876357712
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -611,7 +577,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357712 ] = k
-        ### 139643876357776
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -628,7 +593,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357776 ] = k
-        ### 139643876357840
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -645,7 +609,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357840 ] = k
-        ### 139643876357904
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -662,7 +625,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357904 ] = k
-        ### 139643876357968
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -679,7 +641,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876357968 ] = k
-        ### 139643876358032
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -696,7 +657,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876358032 ] = k
-        ### 139643876358096
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -713,7 +673,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876358096 ] = k
-        ### 139643876358160
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -730,7 +689,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876358160 ] = k
-        ### 139643876358224
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -747,7 +705,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876358224 ] = k
-        ### 139643876358288
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -764,7 +721,6 @@ class TestEvent1Edge(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139643876358288 ] = k
-        ### neighbour relationships
         n = [ triangles[139643876358288], triangles[139643876357648], triangles[139643876356368] ]
         triangles[ 139643876356304 ].neighbours = n
         n = [ None, None, triangles[139643876356304] ]
@@ -846,10 +802,6 @@ class TestEvent1Edge(unittest.TestCase):
             print v.origin
             print v.velocity
         times = []
-#         for side in range(3):
-#             i, j = cw(side), ccw(side)
-#             v1, v2 = t.vertices[i], t.vertices[j]
-#             times.append((collapse_time_edge(v1, v2), side))
         side = 0
         i, j = cw(side), ccw(side)
         v1, v2 = t.vertices[i], t.vertices[j]
@@ -873,7 +825,6 @@ class TestEvent1Edge(unittest.TestCase):
         with open("/tmp/kinetic.wkt","w") as fh:
             fh.write("start;end;wkt\n")
             prev = datetime(2015, 1, 1)
-            #prev = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
             for inc in range(100, 150):
                 val = inc / 1000.
                 cur = prev
@@ -898,12 +849,6 @@ class EdgeCollapse(unittest.TestCase):
         v.origin = (10., 0.)
         v.velocity = (-1., 1.)
         time = collapse_time_edge(u, v)
-#         with open("/tmp/cpa.csv","w") as fh:
-#             for i, inc in enumerate(range(100, 150), start=1):
-#                 val = inc / 1000.
-#                 u.position_at(val)
-#                 v.position_at(val)
-#                 print >>fh, val,";", sqrt(u.distance2_at(v, val))
         dist = u.distance2_at(v, time)
         assert near_zero(dist)
 
@@ -918,8 +863,6 @@ class EdgeCollapse(unittest.TestCase):
         v.velocity = (0., 1.)
         time = collapse_time_edge(u, v)
         assert time is None
-#         dist = u.distance2_at(v, time)
-#         assert dist == 100.
 
     def test_parallel_overlap(self):
         """2 vertices having the exact same track"""
@@ -931,8 +874,6 @@ class EdgeCollapse(unittest.TestCase):
         v.velocity = (0., 1.)
         time = collapse_time_edge(u, v)
         assert time is None
-#         dist = u.distance2_at(v, time)
-#         assert dist == 0.
 
     def test_parallel_follower(self):
         """one vertex follows the other vertex on its track"""
@@ -944,8 +885,6 @@ class EdgeCollapse(unittest.TestCase):
         v.velocity = (0., 1.)
         time = collapse_time_edge(u, v)
         assert time is None
-#         dist = u.distance2_at(v, time)
-#         assert dist == 100.
 
     def test_bump(self):
         """2 vertices that bump into each other half way"""
@@ -964,7 +903,6 @@ class EdgeCollapse(unittest.TestCase):
 
 class VertexCrash(unittest.TestCase):
     def test_crash(self):
-        # base of triangle (from orig to dest)
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., 1.)
@@ -972,23 +910,18 @@ class VertexCrash(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (0, 1.)
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (0., -1.)
         times = []
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
-        # edge collapse times
         time = collapse_time_edge(o, d)
         times.append(time)
         time = collapse_time_edge(d, a)
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse time
         coeff = area_collapse_time_coeff(o, d, a)
         time = solve_quadratic(coeff[0], coeff[1], coeff[2])
         times.extend(time)
@@ -996,7 +929,6 @@ class VertexCrash(unittest.TestCase):
         show_all_times(times, o, d, a)
 
     def test_opposite_crash(self):
-        # base of triangle (from orig to dest)
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., -1.)
@@ -1004,17 +936,12 @@ class VertexCrash(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (0, -1.)
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (0., 1.)
-
-        # edge collapse times
         time = collapse_time_edge(o, d)
         time = collapse_time_edge(d, a)
         time = collapse_time_edge(a, o)
-        # area collapse time
         coeff = area_collapse_time_coeff(o, d, a)
         times = solve_quadratic(coeff[0], coeff[1], coeff[2])
 
@@ -1022,7 +949,6 @@ class VertexCrash(unittest.TestCase):
         show_all_times(times, o, d, a)
 
     def test_perpendicular_crash(self):
-        # base of triangle (from orig to dest)
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., -1.)
@@ -1030,12 +956,9 @@ class VertexCrash(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (0, -1.)
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (-1., 0.)
-        # edge collapse times
         times = []
         time = collapse_time_edge(o, d)
         times.append(time)
@@ -1043,19 +966,16 @@ class VertexCrash(unittest.TestCase):
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse time
         coeff = area_collapse_time_coeff(o, d, a)
         solution = solve_quadratic(coeff[0], coeff[1], coeff[2])
         for time in solution:
             times.append(time)
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
         times = get_unique_times(times)
         show_all_times(times, o, d, a)
 
     def test_perpendicular2_crash(self):
-        # base of triangle2 (from orig to dest)
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (0., 1.)
@@ -1063,12 +983,9 @@ class VertexCrash(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (0, 1.)
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (1, 0)
-        # edge collapse times
         times = []
         time = collapse_time_edge(o, d)
         times.append(time)
@@ -1076,19 +993,15 @@ class VertexCrash(unittest.TestCase):
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse time
         area = area_collapse_times(o, d, a)
         times.extend(area)
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
-        #
         times = get_unique_times(times)
         show_all_times(times, o, d, a)
 
 
     def test_central_crash(self):
-        # base of triangle2 (from orig to dest)
         o = KineticVertex()
         o.origin = (0., 0.)
         o.velocity = (sqrt(2), sqrt(2))
@@ -1096,12 +1009,9 @@ class VertexCrash(unittest.TestCase):
         d = KineticVertex()
         d.origin = (10., 0.)
         d.velocity = (-sqrt(2), -sqrt(2))
-
-        # vertex supposed to crash into base (the apex)
         a = KineticVertex()
         a.origin = (5, 5)
         a.velocity = (0, - sqrt(2))
-        # edge collapse times
         times = []
         time = collapse_time_edge(o, d)
         times.append(time)
@@ -1109,18 +1019,14 @@ class VertexCrash(unittest.TestCase):
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse time
         area = area_collapse_times(o, d, a)
         times.extend(area)
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
-        # filter None out of the times and see what is there...
         times = get_unique_times(times)
         show_all_times(times, o, d, a)
 
     def test_equilateral(self):
-#         k = KineticTriangle()
         V = []
         v = KineticVertex()
         v.origin = (0.0, 0.0)
@@ -1136,9 +1042,6 @@ class VertexCrash(unittest.TestCase):
         V.append(v)
         o,d,a = V
         print o,d,a
-#         k.vertices = V
-
-        # edge collapse times
         times = []
         time = collapse_time_edge(o, d)
         times.append(time)
@@ -1146,10 +1049,8 @@ class VertexCrash(unittest.TestCase):
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse time
         area = area_collapse_times(o, d, a)
         times.extend(area)
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
         print times
@@ -1157,7 +1058,6 @@ class VertexCrash(unittest.TestCase):
         show_all_times(times, o, d, a)
 
     def test_equilateral_outwards(self):
-#         k = KineticTriangle()
         V = []
         v = KineticVertex()
         v.origin = (0.0, 0.0)
@@ -1173,9 +1073,6 @@ class VertexCrash(unittest.TestCase):
         V.append(v)
         o,d,a = V
         print o,d,a
-#         k.vertices = V
-
-        # edge collapse times
         times = []
         time = collapse_time_edge(o, d)
         times.append(time)
@@ -1183,20 +1080,16 @@ class VertexCrash(unittest.TestCase):
         times.append(time)
         time = collapse_time_edge(a, o)
         times.append(time)
-        # area collapse times
         area = area_collapse_times(o, d, a)
         times.extend(area)
-        # vertex crash time
         time = vertex_crash_time(o, d, a)
         times.append(time)
-        #
         print times
         times = get_unique_times(times)
         show_all_times(times, o, d, a)
         self.assertRaises(ValueError, find_ge, times, 0)
 
 def compute_all_collapse_times(o,d,a):
-    # edge collapse times
     times = []
     time = collapse_time_edge(o, d)
     times.append(time)
@@ -1204,10 +1097,8 @@ def compute_all_collapse_times(o,d,a):
     times.append(time)
     time = collapse_time_edge(a, o)
     times.append(time)
-    # area collapse times
     area = area_collapse_times(o, d, a)
     times.extend(area)
-    # vertex crash time of the apex into the segment, orig -> dest
     time = vertex_crash_time(o, d, a)
     times.append(time)
     return times
@@ -1231,61 +1122,18 @@ def show_all_times(times, o, d, a):
                 print " avg ", tuple(avg)
             else:
                 print "line", pa, pb, pc
-                # to a segment, two separate points
-                # 1 distance is near_zero!
-                # pa+pb = pc
-                # pa+pc = pb
-                # pb+pc = pa
                 X = all_close_clusters([x for x, y in (pa, pb, pc)])
                 Y = all_close_clusters([y for x, y in (pa, pb, pc)])
                 print "     ", len(X)
                 print "     ", len(Y)
                 print "     ", X
                 print "     ", Y
-                # FIXME: by looking at the distances and knowledge on what
-                # side is what, we should be able to reliable decide what
-                # is the event that happens to this triangle!
                 if len(X) == 3 or len(Y) == 3:
                     print "flip/split", dists
                 else:
                     assert len(X) == 2 or len(Y) == 2
                     print "collapse", dists
-                #
-                # to a line, three separate points
-                # no distance is near_zero!
-                # -> could be flip or split event
     print ""
-
-# possible actions:
-
-# A triangle at time t
-# --------------------
-# - collapses to a point (all 3 sides collapse)
-# - collapses to a segment
-# - flips (to maintain correct orientation)
-# - is split (collapses to a segment, and that segment is split into 2)
-
-
-# a 3-triangle can:
-# - collapse to a point
-
-# a 2-triangle can:
-# - collapse to a point
-# - collapse to a segment
-
-# a 1-triangle can:
-# - collapse to a point
-# - flip
-# - be split
-
-# a 0-triangle can:
-# - flip
-# - collapse to a segment?
-# - collapse to a point? -- see circle
-
-# an infinite triangle can:
-# - flip
-# - collapse to a point
 
 def find_ge(a, x):
     'Find leftmost item greater than or equal to x'
@@ -1295,13 +1143,7 @@ def find_ge(a, x):
     raise ValueError("not there")
 
 def perform_one():
-#     tst = TestCollapseSameTime("test_equal_sides")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = VertexCrash("test_equilateral_outwards")
     tst = VertexCrash("test_equilateral")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = EdgeCollapse("test_crossing")
-#     tst = EdgeCollapse("test_parallel_follower")
     suite = unittest.TestSuite()
     suite.addTests([tst])#, tst1])
     runner = unittest.TextTestRunner()
@@ -1321,4 +1163,3 @@ def _enable_logging():
 if __name__ == '__main__':
     _enable_logging()
     unittest.main()
-#     perform_one()

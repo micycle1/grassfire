@@ -3,10 +3,6 @@ import unittest
 from tri.delaunay.helpers import ToPointsAndSegments
 from grassfire import calc_skel
 
-# FIXME:
-# we could test the geometric embedding of the skeleton generated
-# as well (requires approximate comparisons for geometry that is generated)
-
 PAUSE = False
 OUTPUT = False
 
@@ -31,19 +27,6 @@ class TestPSLGGrassfire(unittest.TestCase):
                          output=True)
         assert len(skel.segments()) == 10
         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-
-#     def test_simple_infinite(self):
-#         """1 segment with terminal vertices at convex hull
-#         """
-#         conv = ToPointsAndSegments()
-#         l0 = [(0.0, -1.0), (5.0, -1.0)]
-#         for line in l0, :
-#             conv.add_point(line[0])
-#             conv.add_point(line[1])
-#             conv.add_segment(*line)
-#         skel = calc_skel(conv)
-#         assert len(skel.segments()) == 4
-#         assert len(skel.sk_nodes) == 2
     def test_sharp_v(self):
         """Sharp V-shaped polyline
 
@@ -96,7 +79,6 @@ class TestPSLGGrassfire(unittest.TestCase):
 
     def test_2_vshape(self):
         from math import cos, sin, pi
-        # misses event
         N = 20
         inc = 2 * pi / N
         pts = []
@@ -226,33 +208,6 @@ class TestPSLGGrassfire(unittest.TestCase):
         assert len(skel.segments()) == 15, len(skel.segments())
         assert len(skel.sk_nodes) == 9, len(skel.sk_nodes)
 
-#     def test_another_parallel4(self):
-#         j = """{
-# "type": "FeatureCollection",
-# "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-#
-# "features": [
-# { "type": "Feature", "properties": { "id": 19 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.481125224325, 0.5 ], [ 0.288675134595, 0.5 ] ] } },
-# { "type": "Feature", "properties": { "id": 20 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.288675134595, 0.5 ], [ 0.19245008973, 0.666666666667 ] ] } },
-# { "type": "Feature", "properties": { "id": 24 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.19245008973, 0.666666666667 ], [ 0.288675134595, 0.833333333333 ] ] } },
-# { "type": "Feature", "properties": { "id": 44 }, "geometry": { "type": "LineString", "coordinates": [ [ 0.5773502692, 0.666666666667 ], [ 0.481125224325, 0.5 ] ] } }
-# ]
-# }"""
-#         import json
-#         x = json.loads(j)
-#         # parse segments from geo-json
-#         segments = []
-#         for y in x['features']:
-#             segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-#         # convert to triangulation input
-#         conv = ToPointsAndSegments()
-#         for line in segments:
-#             conv.add_point(line[0])
-#             conv.add_point(line[1])
-#             conv.add_segment(*line)
-#         # skeletonize / offset
-#         skel = calc_skel(conv, pause=True, output=True)
-
     def test_inf(self):
             """Contains 1 triangle that is only witnessed by infinite triangle event (edge collapse)
             """
@@ -303,17 +258,14 @@ class TestPSLGGrassfire(unittest.TestCase):
 }"""
         import json
         x = json.loads(j)
-        # parse segments from geo-json
         segments = []
         for y in x['features']:
             segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-        # convert to triangulation input
         conv = ToPointsAndSegments()
         for line in segments:
             conv.add_point(line[0])
             conv.add_point(line[1])
             conv.add_segment(*line)
-        # skeletonize / offset
         skel = calc_skel(conv, pause=True, output=True)
 
     def test_another_parallel1(self):
@@ -330,111 +282,15 @@ class TestPSLGGrassfire(unittest.TestCase):
 }"""
         import json
         x = json.loads(j)
-        # parse segments from geo-json
         segments = []
         for y in x['features']:
             segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-        # convert to triangulation input
         conv = ToPointsAndSegments()
         for line in segments:
             conv.add_point(line[0])
             conv.add_point(line[1])
             conv.add_segment(*line)
-        # skeletonize / offset
         skel = calc_skel(conv, pause=True, output=True)
-
-# # ##############################################################################
-# # # PARALLEL EDGES IN THE INPUT, leading to problems
-# # # (e.g. nodes not on correct location)
-# # ##############################################################################
-# #
-
-# #
-# #     def test_flipped_cshape(self):
-# #         """Parallel c-shape wavefront"""
-# #         conv = ToPointsAndSegments()
-# #         l0 = [(5, 0.0), (5, 3)]
-# #         l1 = [(0, 3), (5,3)]
-# #         l2 = [(0,0), (5,0)]
-# #         for line in l0, l1, l2:
-# #             conv.add_point(line[0])
-# #             conv.add_point(line[1])
-# #             conv.add_segment(*line)
-# #         skel = calc_skel(conv,
-# #                          pause=True,
-# #                          output=True)
-# #         assert len(skel.segments()) == 10
-# #         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-# #
-#     def test_cshape_bottom(self):
-#         """Parallel c-shape wavefront with longer segment on bottom"""
-# #         # FIXME: missing piece of wavefront, after handling parallel fan
-#         conv = ToPointsAndSegments()
-#         l0 = [(0.0, 0.0), (0.0, 3)]
-#         l1 = [(0, 3), (5,3)]
-#         l2 = [(0,0), (10,0)]
-#         for line in l0, l1, l2:
-#             conv.add_point(line[0])
-#             conv.add_point(line[1])
-#             conv.add_segment(*line)
-#         skel = calc_skel(conv, pause=True, output=True)
-#         assert len(skel.segments()) == 10
-#         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-# #
-# #
-# #     def test_cshape_top(self):
-# #         """Parallel c-shape wavefront with longer segment on top"""
-# #         # FIXME: missing piece of wavefront, after handling parallel fan
-# #         conv = ToPointsAndSegments()
-# #         l0 = [(0.0, 0.0), (0.0, 3)]
-# #         l1 = [(0, 3), (10,3)]
-# #         l2 = [(0,0), (5,0)]
-# #         for line in l0, l1, l2:
-# #             conv.add_point(line[0])
-# #             conv.add_point(line[1])
-# #             conv.add_segment(*line)
-# #         skel = calc_skel(conv, pause=True, output=True)
-# #         assert len(skel.segments()) == 10
-# #         assert len(skel.sk_nodes) == 6, len(skel.sk_nodes)
-# #         # geometric embedding
-# #         positions = [n.pos for n in skel.sk_nodes]
-# #         assert frozenset(positions) == frozenset([(0.0, -0.3), (1.0, 0.3), (-1.0, 0.3), (-1.0, -0.3), (-0.7, 0.0), (0.3, 0.0)])
-# #
-# #
-
-# #
-# #     def test_2parallel_eq(self):
-# #         """2 parallel wavefront having equal size"""
-# #         conv = ToPointsAndSegments()
-# #         l0 = [(0, 0), (3,0)]
-# #         l1 = [(0, 1), (3,1)]
-# #         for line in l0, l1:
-# #             conv.add_point(line[0])
-# #             conv.add_point(line[1])
-# #             conv.add_segment(*line)
-# #         skel = calc_skel(conv, pause=True, output=True)
-# #
-# #     def test_2parallel_not_eq(self):
-# #         """2 parallel wavefront having different size"""
-# #         conv = ToPointsAndSegments()
-# #         l0 = [(0, 0), (3,0)]
-# #         l1 = [(1, 1), (2,1)]
-# #         for line in l0, l1:
-# #             conv.add_point(line[0])
-# #             conv.add_point(line[1])
-# #             conv.add_segment(*line)
-# #         skel = calc_skel(conv, pause=False, output=False)
-# #
-# #     def test_2parallel_not_eq2(self):
-# #         """2 parallel wavefront having different size, other one above"""
-# #         conv = ToPointsAndSegments()
-# #         l0 = [(0, 0), (3,0)]
-# #         l1 = [(1, -1), (2,-1)]
-# #         for line in l0, l1:
-# #             conv.add_point(line[0])
-# #             conv.add_point(line[1])
-# #             conv.add_segment(*line)
-# #         skel = calc_skel(conv, pause=False, output=False)
 
 
     def test_half_U(self):

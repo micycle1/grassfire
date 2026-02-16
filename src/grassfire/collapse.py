@@ -11,20 +11,11 @@ from grassfire.vectorops import add, dot, mul, sub, norm
 from predicates import orient2d_xy as orient2d
 
 
-# ------------------------------------------------------------------------------
-# solve
-
-
 def find_gt(a, x):
     """Find value greater than x, ignores None values."""
-    # -- filter None values
     a = [x for x in a if x is not None]
-    # -- filter values that are really close to x
-    # (even if value is slightly greater)
     a = [v for v in a if not near_zero(v - x)]
-    # -- sort the list
     L = sorted(a)
-    # -- find leftmost value greater than x, if it is there
     i = bisect.bisect_right(L, x)
     if i != len(a):
         return L[i]
@@ -34,7 +25,6 @@ def find_gt(a, x):
 def find_gte(a, x):
     """Find greater than or equal to x, ignores None values."""
     logging.debug("gte a: {} ; x: {}".format(a, x))
-    # -- filter None values and sort
     L = sorted([x for x in a if x is not None])
     i = bisect.bisect_left(L, x)
     if i != len(L):
@@ -61,8 +51,6 @@ def vertex_crash_time(org, dst, apx):
 
     s = apx.velocity
     logging.debug("Vector s: " + str(s))
-
-    # Project Mv onto normalized unit vector pointing outwards of wavefront edge
     dist_v_e = dot(Mv, n)
     logging.debug("Distance wavefront -- vertex: " + str(dist_v_e))
 
@@ -97,7 +85,6 @@ def compute_event_0triangle(tri, now, sieve):
 
     times_area_collapse = area_collapse_times(o, d, a)
     for time in times_area_collapse:
-        # as we are degenerate now, flip it, or if a spoke collapses handle as edge collapse
         if near_zero(abs(time - now)):
             dists = [
                 d.distance2_at(a, now),
@@ -206,7 +193,6 @@ def compute_event_0triangle(tri, now, sieve):
                 raise ValueError("can this happen?")
 
     else:
-        # FIXME: much duplication here with above
         if time_edge_collapse is not None:
             time = time_edge_collapse
             dists = [
@@ -610,12 +596,6 @@ def compute_collapse_time(tri, now=0, sieve=find_gte):
     logging.debug("{} --- {}".format(id(tri), event))
 
     return event
-
-
-# FIXME: Rename method
-# it does not compute collapse time, it computes a new event
-# at a given time, the triangle should collapse, but which sides ??
-# also the type should probably be considered -> could lead to split of 2-triangle (parallel fan)
 def compute_new_edge_collapse_event(tri, time):
     """Compute new edge event for triangle that collapse at time.
 
@@ -669,7 +649,6 @@ def collapse_time_edge(v1, v2):
         logging.debug("these two vertices move in parallel:")
         logging.debug(str(v1) + "|" + str(v2))
         logging.debug("edge collapse time: None (near) parallel movement")
-        # any time will do (we pick a time in the past, before the start of our event simulation)
         return -1.0
 
 

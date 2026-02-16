@@ -11,5 +11,4 @@ for i in range(N):
 		pt = 2*cos(i * inc), 2*sin(i *inc)
 	pts.append(pt)
 for n in range(len(pts)):
-	#print n, n+1
 	print "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format(pts[n], pts[(n+1)%len(pts)])

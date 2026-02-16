@@ -1,4 +1,3 @@
-# -*- coding: iso-8859-15 -*-
 """Operations that allow tuples/lists (or any type that implements __getitem__
 and __iter__) to be used as vectors"""
 

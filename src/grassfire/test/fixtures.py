@@ -4,10 +4,6 @@
 
 from tri.delaunay.helpers import ToPointsAndSegments
 
-# def func():
-#     """ """
-#     return conv, segments_ct, nodes_ct, escaping_ct
-
 
 def many_simultaneous():
     """A lot of simultaneous events"""
@@ -303,7 +299,6 @@ def nested_hexagon():
             (1.29904, -0.75),
         ],
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     return conv, 36, 25, 6
@@ -331,7 +326,6 @@ def nested_hexagon_stretched():
             (1.29904, -0.75),
         ],
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     conv = ToPointsAndSegments()
@@ -359,7 +353,6 @@ def L_0():
             (0, 0),
         ]
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     return conv, 39, 27, 6
@@ -386,7 +379,6 @@ def L_1():
             (0, 0),
         ]
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     return conv, 42, 29, 6
@@ -413,7 +405,6 @@ def test_L_2():
             (5, 0),
         ]
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     return conv, 40, 27, 11
@@ -609,7 +600,6 @@ def test_koch_rec1():
 def test_tudelft_logo():
     "Failing case: missed event (top of E) + wavefront linked list is messed up after parallel events"
     polys = [
-        # flame
         [
             (28.2387, 57.1504),
             (27.7545962891, 57.0337472656),
@@ -726,7 +716,6 @@ def test_tudelft_logo():
             (29.2161125, 57.616425),
             (28.2387, 57.1504),
         ],
-        # T
         [
             (15.5055, 28.7004),
             (20.8063, 28.7004),
@@ -738,7 +727,6 @@ def test_tudelft_logo():
             (15.5055, 44.1211),
             (15.5055, 28.7004),
         ],
-        # U
         [
             (38.3852, 32.0156),
             (39.2659501953, 32.0912681641),
@@ -790,7 +778,6 @@ def test_tudelft_logo():
             (37.5044210937, 32.0912681641),
             (38.3852, 32.0156),
         ],
-        # D -- exterior
         [
             (55.4875, 45.5563),
             (59.4066, 45.5563),
@@ -819,7 +806,6 @@ def test_tudelft_logo():
             (55.4875, 30.9785),
             (55.4875, 45.5563),
         ],
-        # D -- interior
         [
             (52.8324, 28.7004),
             (59.4059, 28.7004),
@@ -852,8 +838,6 @@ def test_tudelft_logo():
             (52.8324, 47.834),
             (52.8324, 28.7004),
         ],
-        #          #e
-        #          #e -- outershell
         [
             (82.9195, 34.8762),
             (82.9195, 36.123),
@@ -914,7 +898,6 @@ def test_tudelft_logo():
             (82.9195, 34.8762),
             (82.9195, 34.8762),
         ],
-        # e -- innershell
         [
             (73.5055, 36.6262),
             (73.5694832031, 37.3917933594),
@@ -935,7 +918,6 @@ def test_tudelft_logo():
             (80.266, 36.6262),
             (73.5055, 36.6262),
         ],
-        # l
         [
             (85.973, 28.6992),
             (88.49331, 28.6992),
@@ -944,7 +926,6 @@ def test_tudelft_logo():
             (85.973, 28.6992),
             (85.973, 28.6992),
         ],
-        # f
         [
             (96.3883, 28.7004),
             (96.3883, 40.2512),
@@ -978,7 +959,6 @@ def test_tudelft_logo():
             (93.8688, 28.7004),
             (96.3883, 28.7004),
         ],
-        # t
         [
             (100.908, 42.0027),
             (100.908, 40.2512),
@@ -1023,8 +1003,6 @@ def test_tudelft_logo():
 def test_tudelft_logo_E():
     """The small letter 'e' of the TU Delft logo"""
     polys = [
-        #          #e
-        #          #e -- outershell
         [
             (82.9195, 34.8762),
             (82.9195, 36.123),
@@ -1085,7 +1063,6 @@ def test_tudelft_logo_E():
             (82.9195, 34.8762),
             (82.9195, 34.8762),
         ],
-        # e -- innershell
         [
             (73.5055, 36.6262),
             (73.5694832031, 37.3917933594),
@@ -1120,8 +1097,6 @@ def test_tudelft_logo_E():
 
 def test_dented_parallel_WITH_intermediate_nodes():
     """Letter H - parallel mid"""
-    #### FIXME: Interestingly the following input, generates a reasonable skeleton
-    #### However, it also creates skeletons of 0 units length (starting and stopping in the same node ???)
     segments = [
         [(0, 0), (9, 0)],
         [(9, 0), (9, 10)],
@@ -1180,7 +1155,6 @@ def test_straight_parallel_intermediates():
 
 def test_letter_h_midmid_manyvert():
     """Letter H - parallel mid"""
-    # FAILING test
     segments = [
         [(0, 0), (9, 0)],
         [(9, 0), (9, 10)],
@@ -3279,7 +3253,6 @@ def test_capital_T():
 
     Exhibits infinite event loop because of flipping...
     """
-    #    T
     ring = [
         (15.5055, 28.7004),
         (20.8063, 28.7004),
@@ -3300,13 +3273,6 @@ def test_koch_rec3():
     """Koch snowflake curve with recursion depth of 3
 
     """
-
-    ## Note, this test sometimes fails. The resulting skeleton structure does
-    ## *not* seem to be stable with respect to the number of nodes produced.
-    ## The number of nodes can be 497, 498, 499 or 500.
-
-    ## FIXME: investigate why this test is unstable
-    ## (does the input always have same number of triangles?)
 
     ring = [
         (0.0, 0.0),
@@ -3530,7 +3496,6 @@ def corner_same_inwards():
 
 def multiple_parallel():
     """Parallelogram with parallel wavefronts collapsing"""
-    # FIXME: Multiple skeleton nodes, because of fan that just collapses
     conv = ToPointsAndSegments()
     conv.add_polygon(
         [
@@ -3556,7 +3521,6 @@ def multiple_parallel():
 
 def cross():
     """Figure of a cross """
-    # FIXME: Multiple skeleton nodes, because of fan that just collapses
     ring = [
         (0, 0),
         (10, 0),
@@ -3657,7 +3621,6 @@ def bottom_circle_top_square():
     this test breaks. Apparently then one triangle is not processed
     properly and survives until the end of the process
     """
-    # bottom circle
     from math import pi, cos, sin, degrees
 
     ring = []
@@ -3798,10 +3761,6 @@ def rocket():
 
     This test has a vertex that is started and stopped at the same time!
     """
-    ###################################################
-    # No parallel edges, but simultaneous event,
-    # leading to infinite fast vertex, if not careful
-    ###################################################
     conv = ToPointsAndSegments()
     polygon = [
         [
@@ -3830,10 +3789,6 @@ def multiple_parallel2():
 def stairs():
     """Stairs like shape
     """
-    ###################################################
-    # No parallel edges, but simultaneous event,
-    # leading to infinite fast vertex, if not careful
-    ###################################################
     conv = ToPointsAndSegments()
     polygon = [
         [
@@ -3866,7 +3821,6 @@ def simple_parallel():
         ((0.866025403784, 0.166666666667), (1.25, -0.0)),
         ((0.866025403784, -0.166666666667), (1.25, -0.0)),
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     for line in segments:
         conv.add_point(line[0])
@@ -3884,7 +3838,6 @@ def needle_parallel():
         ((3, 2), (0, 2)),
         ((0, 2), (0, 0)),
     ]
-    # convert to triangulation input
     conv = ToPointsAndSegments()
     for line in segments:
         conv.add_point(line[0])
@@ -3987,16 +3940,6 @@ def split_event_from_top10nl():
 
 def cbs_vlissingen_parallel():
     """Vlissingen CBS municipality border, with parallel part"""
-
-    #
-    # In -- step 123, all is fine -- in step 124 one of the bisectors
-    # starts to point to a completely wrong direction
-    #
-    # can we have a post-condition for bisectors:
-    # * angle of bisector should be between angle of wavefront at left
-    # and wavefront at right
-    # ????
-    #
 
     poly = [
         [
@@ -4187,7 +4130,6 @@ def cbs_vlissingen_parallel():
     ]
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
-    ## FIXME: not completely correct (parallel part in south contains 'snapped' segments)
     return conv, 720, 539, 5
 
 
@@ -4198,7 +4140,6 @@ def test_parallel_split_event_leaves_unconstrained_edge_collapse():
     ]
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
-    # FIXME: the segments here can be super-short (and there are 2 nodes created in the center where there should be 1 node)
     return conv, 25, 16, 10
 
 
@@ -4209,76 +4150,3 @@ def test_failing_parallel_same_legs_3tri():
     conv = ToPointsAndSegments()
     conv.add_polygon(poly)
     return conv, 31, 21, 10
-
-# def missing_event():
-#     ring = [(82.9195, 34.8762), (82.9195, 36.123),
-#     (82.8224828125, 37.4505816406), (82.53454375, 38.658784375),
-#     (82.0603515625, 39.7298449219), (81.404575, 40.646),
-#     (80.5718828125, 41.3894863281), (79.56694375, 41.942540625),
-#     (78.3944265625, 42.2873996094), (77.059, 42.4063),
-#     (76.2952375244, 42.3687171631), (75.5838064453, 42.2585341797),
-#     (74.9242850342, 42.0795993408), (74.3162515625, 41.8357609375),
-#     (73.7592843018, 41.5308672607), (73.2529615234, 41.1687666016),
-#     (72.3905625, 40.2883375), (71.7256806641, 39.2252599609),
-#     (71.2549421875, 38.0103203125), (70.9749732422, 36.6743048828),
-#     (70.8824, 35.248), (70.9637001953, 33.823009375),
-#     (71.2144078125, 32.50744375), (71.6447333984, 31.3261375),
-#     (72.2648875, 30.303925), (73.0850806641, 29.465640625),
-#     (73.5733826904, 29.1232322266), (74.1155234375, 28.83611875),
-#     (74.7127792236, 28.6074044922), (75.3664263672, 28.44019375),
-#     (76.848, 28.3027), (77.9991910156, 28.3734771484),
-#     (79.058021875, 28.5858296875), (80.0117917969, 28.9397892578),
-#     (80.8478, 29.4353875), (81.5533457031, 30.0726560547),
-#     (82.115728125, 30.8516265625), (82.5222464844, 31.7723306641),
-#     (82.7602, 32.8348), (80.1098, 32.8348), (79.9671755859, 32.1632625),
-#     (79.7567359375, 31.59635), (79.4750064453, 31.1294125),
-#     (79.1185125, 30.7578),(82.9195, 34.8762)]
-#     # fixme; misses an event
-#     # there is a triangle that should be split
-#     # it is, but the direction of one of the 2 new vertices points to wrong side
-#     conv = ToPointsAndSegments()
-#     conv.add_polygon([ring])
-#     return conv, 0, 0, 0
-
-# def wrong_offsets():
-#     """Resulting segments do not form a planar graph"""
-#     import json
-#     s = """{
-# "type": "FeatureCollection",
-# "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::28992" } },
-
-# "features": [
-# { "type": "Feature", "properties": { "id": 139664900038544.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51043.725310399997397, 391507.68993699998828 ], [ 51042.455319, 391516.15654599998379 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900067600.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51038.632411799997499, 391542.760162 ], [ 51039.83351180000318, 391542.923948 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900067600.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51039.83351180000318, 391542.923948 ], [ 51039.671322499998496, 391544.167399 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900067728.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51039.671322499998496, 391544.167399 ], [ 51041.540670499998669, 391544.37510499998461 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900067728.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51041.540670499998669, 391544.37510499998461 ], [ 51041.69552799999656, 391544.839677 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900067856.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51041.69552799999656, 391544.839677 ], [ 51046.507679299997108, 391545.34621899999911 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900069712.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51047.918327300001692, 391507.107457 ], [ 51044.982255199996871, 391506.68801799998619 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900069840.000000, "side": 0 }, "geometry": { "type": "LineString", "coordinates": [ [ 51044.982255199996871, 391506.68801799998619 ], [ 51044.826051600000937, 391507.83351199998287 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900069840.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51044.826051600000937, 391507.83351199998287 ], [ 51043.725310399997397, 391507.68993699998828 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070160.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.455319, 391516.15654599998379 ], [ 51042.565606500000285, 391516.170332 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070288.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.473354800000379, 391516.453288 ], [ 51041.308878199997707, 391524.99278299999423 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070416.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51041.308878199997707, 391524.99278299999423 ], [ 51042.464014700002735, 391525.14345299999695 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070480.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.464014700002735, 391525.14345299999695 ], [ 51042.389055500003451, 391525.69883299997309 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070480.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.389055500003451, 391525.69883299997309 ], [ 51041.245075500002713, 391525.5081699999864 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070800.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51041.245075500002713, 391525.5081699999864 ], [ 51040.449382300001162, 391530.812791 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900070800.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51040.449382300001162, 391530.812791 ], [ 51040.220387200002733, 391530.78416699997615 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900071248.000000, "side": 0 }, "geometry": { "type": "LineString", "coordinates": [ [ 51040.220387200002733, 391530.78416699997615 ], [ 51039.75987090000126, 391535.619588 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900071248.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51039.75987090000126, 391535.619588 ], [ 51038.632411799997499, 391542.760162 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900144272.000000, "side": 1 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.565606500000285, 391516.170332 ], [ 51042.535010500003409, 391516.46099499997217 ] ] } },
-# { "type": "Feature", "properties": { "id": 139664900144272.000000, "side": 2 }, "geometry": { "type": "LineString", "coordinates": [ [ 51042.535010500003409, 391516.46099499997217 ], [ 51042.473354800000379, 391516.453288 ] ] } }
-# ]
-# }"""
-#     x = json.loads(s)
-#     # parse segments from geo-json
-#     segments = []
-#     for y in x['features']:
-#         segments.append(tuple(map(tuple, y['geometry']['coordinates'])))
-#     # convert to triangulation input
-#     conv = ToPointsAndSegments()
-#     for line in segments:
-#         conv.add_point(line[0])
-#         conv.add_point(line[1])
-#         conv.add_segment(*line)
-#     return conv, 0, 0, 0

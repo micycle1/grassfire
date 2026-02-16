@@ -13,8 +13,6 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
         """
         self.triangles = {}
         triangles = self.triangles
-
-        ### 139742234433616
         k = KineticTriangle()
         V = []
         v = InfiniteVertex()
@@ -31,8 +29,6 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234433616 ] = k
-
-        ### 139742234433872
         k = KineticTriangle()
         V = []
         v = InfiniteVertex()
@@ -49,8 +45,6 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234433872 ] = k
-
-        ### 139742234434000
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -67,8 +61,6 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234434000 ] = k
-
-        ### 139742234434064 -- finite
         k = KineticTriangle()
         V = []
         v = KineticVertex()
@@ -85,7 +77,6 @@ class TestCollapseTime3TriangleAndSurroundings(unittest.TestCase):
         V.append(v)
         k.vertices = V
         triangles[ 139742234434064 ] = k
-        ### neighbours
         n = None, triangles[139742234433872], triangles[139742234434000]
         triangles[ 139742234433616 ].neighbours = list(n)
         n = None, triangles[139742234434000], triangles[139742234433616]
@@ -123,15 +114,7 @@ def _enable_logging():
 
 
 def perform_one():
-#     tst = TestCollapseSameTime("test_equal_sides")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = VertexCrash("test_equilateral_outwards")
-    # tst = TestCollapseTime0TriangleSegment("test_0triangle_segment")
     tst = TestCollapseTime0TriangleSpoke("test_0triangle_spoke")
-#     tst = TestCollapseTime0TrianglePoint("test_0triangle_point")
-#     tst = TestEvent1Edge("test_0tri")
-#     tst = EdgeCollapse("test_crossing")
-#     tst = EdgeCollapse("test_parallel_follower")
     suite = unittest.TestSuite()
     suite.addTests([tst])#, tst1])
     runner = unittest.TextTestRunner()
@@ -139,6 +122,4 @@ def perform_one():
 
 
 if __name__ == '__main__':
-#     _enable_logging()
     unittest.main()
-#     perform_one()

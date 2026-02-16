@@ -21,7 +21,6 @@ class TestRotateAndReplace(unittest.TestCase):
                 pass
             def discard(self, one):
                 pass
-        # init skeleton structure
         conv = ToPointsAndSegments()
         polygon = [[(-2,-1), (-1,0), (1,0), (1.5,-.5), (1.2,.7),
                     (.4,1.2), (-.6,1.1), (-1.7,.7), (-2,-1)]]
@@ -29,7 +28,6 @@ class TestRotateAndReplace(unittest.TestCase):
         dt = triangulate(conv.points, None, conv.segments)
         output_dt(dt)
         skel = init_skeleton(dt)
-        #
         queue = QueueMock()
         newv = KineticVertex()
         newv.origin = (1,0)
@@ -52,13 +50,9 @@ class TestRotateAndReplace(unittest.TestCase):
         assert a is not None
         assert b is not None
         assert c is not None
-        # precondition:
-        # no vertex equal to the new kinetic vertex
         for t in skel.triangles:
             assert newv not in t.vertices
         replace_kvertex(found, b, newv, 0, cw, queue)
-        # postcondition
-        # we should have replaced 3 vertices
         ct = 0
         for t in skel.triangles:
             if newv in t.vertices:
@@ -67,12 +61,9 @@ class TestRotateAndReplace(unittest.TestCase):
         newv = KineticVertex()
         newv.origin = (-1,0)
         newv.velocity = (-0.5, 0.5)
-        # precondition:
-        # no vertex equal to the new kinetic vertex
         for t in skel.triangles:
             assert newv not in t.vertices
         replace_kvertex(found, a, newv, 0, ccw, queue)
-        # we should have replaced 4 vertices
         ct = 0
         for t in skel.triangles:
             if newv in t.vertices:

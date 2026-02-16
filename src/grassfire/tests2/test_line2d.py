@@ -13,93 +13,14 @@ def as_wkt(start, end):
 
 
 def main():
-    ####l = Line2.from_points( (10, 0), (0, 0) )
-    ####print(l)
-
-    ####l = Line2.from_points( (10, 1), (0, 2) )
-    ####print(l)
-
-    ####lt = l.translate( (1.0, 1.5) )
-    ####print(lt)
-
-    ####print(l.intersection(lt))
-
-
-    ####k = Line2.from_points( (10, 0), (0, 0) )
-    ####print(l)
-
-    ####l = Line2.from_points( (0, 10), (0, 0) )
-    ####print(l)
-
-    ####print(k.intersection(l))
-
-
-    ####la = Line2.from_points( (5, 10), (0, 10) )
-    ####lb = Line2.from_points( (150, 10), (10, 10) )
-
-    ####print(la, lb)
-
-    ####print(la.intersection(lb))
-
-
-    ###k = Line2.from_points( (1, 1), (0, 0) )
-    ###print(k)
-    ###print(k.through)
-
-    ###l = Line2.from_points( (0,3),  (5,0) )
-    ###print(l)
-    ###print(l.through)
-
-
-    ###m = Line2.from_points( (2, 0),  (0, 2) )
-    ###print(m)
-    ###print(m.through)
-
-    ###print("="*5)
-    ###n = Line2.from_points( (0, 100), (100, 0))
-    ###print(n)
-    ###print(n.through)
-    ###print("="*5)
-    ####intersection(n, l)
-    ####intersection(l, n)
-    ####print("="*5)
-    ###t = n.translated((0, 0))
-    ###print(t.through)
-    ###print("="*5)
-    ###t = n.translated((-1,+1))
-    ###print(t.through)
-    ###print('--')
-    ###x_axis_positive = Line2.from_points(end=(1, 10), start=(0, 10))
-    ###print('dist', x_axis_positive.signed_distance( (0, 10) ))
-    ###print('dist', x_axis_positive.signed_distance( (0, 0) ))
-    ###print('dist', x_axis_positive.signed_distance( (0, -10) ))
-    ###print(x_axis_positive.through)
-    ###print('--')
-    ###x_axis_negative = Line2.from_points(end=(-1, 0), start=(0, 0))
-    ###print('dist', x_axis_negative.signed_distance( (0,  10) ))
-    ###print('dist', x_axis_negative.signed_distance( (0,   0) ))
-    ###print('dist', x_axis_negative.signed_distance( (0, -10) ))
-    ###print(x_axis_negative.through)
-
-
-    ####y_axis = Line2.from_points( (0, 0), (0, 1) )
-    ####print(y_axis.through)
-
-    ####xpp = x_axis.translate( (0, +1) )
-    ####assert(xpp.through == (0,1))
-
-    ####xmm = x_axis.translate( (0, -1) )
-    ####assert(xmm.through == (0,-1))
 
     print("")
-    #e0 = Line2.from_points(end=(0, 1), start=(-0.25, 0))
     e0 = Line2.from_points( (-0.25, 0), (0, 1) )
     print(e0)
     e0t = e0.translated(mul(e0.w,50.))
     print(e0t)
 
     print("")
-    #e1 = Line2.from_points(end=(+0.25, 0), start=(0, 1))
     e1 = Line2.from_points( (0, 1), (1,0) )
     print(e1)
     e1t = e1.translated(e1.w)
@@ -152,44 +73,11 @@ def main():
         fh.write(as_wkt(*e1t.visualize()))
         fh.write("\n")
 
-    #coeff = coefficients_from_points((0, 100), (100, 0))
-    #print(coeff)
-
-    #ln = Line2(coeff[:2], coeff[2])
-    #ln1 = ln.translated((1,1))
-    #print(ln)
-    #print(ln.signed_distance((51,51)))
-    #print(ln1.signed_distance((51,51)))
-
-    #below = (49,49)
-    #print(ln.signed_distance(below))
-    #print(ln1.signed_distance(below))
-
-    #print(ln1)
-    #print(ln1.through)
-
 
     pos_xaxis = Line2.from_points( (0, 0), (-1, 0) )
     neg_xaxis_plus1 = Line2.from_points( (-1, -1), (0, 0) )
-    # there is 2 bisectors for the line
     bi_p = pos_xaxis.bisector(neg_xaxis_plus1).perpendicular((0, 0))
     bi_n = neg_xaxis_plus1.bisector(pos_xaxis)
-
-    # with open('/tmp/bisect.wkt', 'w') as fh:
-    #     fh.write("wkt")
-    #     fh.write("\n")
-
-    #     fh.write(as_wkt(*pos_xaxis.visualize()))
-    #     fh.write("\n")
-
-    #     fh.write(as_wkt(*neg_xaxis_plus1.visualize()))
-    #     fh.write("\n")
-
-    #     fh.write(as_wkt(*bi_p.visualize()))
-    #     fh.write("\n")
-
-    #     fh.write(as_wkt(*bi_n.visualize()))
-    #     fh.write("\n")
 
     la = Line2.from_points( (-1, 0), (0, 0) )
     lb = Line2.from_points( (-1, -1), (0,0) )
@@ -240,7 +128,6 @@ def create_bevel_wavefront(first, last):
 
 
 def test_wf():
-    # ---
     left = WaveFront(start=(-1,1), end= (0,0))
     right = WaveFront(start=(0,0), end=(1,1))
     print(left)
@@ -248,8 +135,6 @@ def test_wf():
     wf_intersect = WaveFrontIntersector(left, right)
     bisector = wf_intersect.get_bisector()
     print(bisector)
-
-    # ---
     left = WaveFront(start=(0,0), end= (10,0))
     right = WaveFront(start=(10,0), end=(20,0))
     print(left)
@@ -257,8 +142,6 @@ def test_wf():
     wf_intersect = WaveFrontIntersector(left, right)
     bisector = wf_intersect.get_bisector()
     print(bisector)
-
-    # ---
     left = WaveFront(start=(0,0), end=(0,10))
     right = WaveFront(start=(0,10), end=(0,0))
     print(left)
@@ -291,6 +174,5 @@ def test_create_bevel_wavefront():
 
 
 if __name__ == "__main__":
-    # main()
     test_wf()
     test_create_bevel_wavefront()

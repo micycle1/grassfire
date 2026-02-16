@@ -5,9 +5,6 @@ import logging
 
 from grassfire.vectorops import mul, dist, add, unit, norm
 
-# ------------------------------------------------------------------------------
-# output
-
 
 def output_edges_at_T(edges, T, fh):
     fh.write("id;info;side;wkt\n")
@@ -34,7 +31,6 @@ def output_triangles_at_T(tri, T, fh):
                 t.event.time if t.event is not None else "-1",
                 t.wavefront_directions))
         else:
-            # we skip the triangle if it has a timestamp associated
             pass
 
 
@@ -48,8 +44,6 @@ def output_vertices_at_T(V, T, fh):
 def output_offsets(skel, now=1000, ct=5):
     """ """
     logging.debug("offsets for t={}, ct={}".format(now, ct))
-    # now = 10
-    # inc = 0.005 #
     inc = now / float(ct)
     times = [t*inc for t in range(ct)]
     with open("/tmpfast/offsetsl.wkt", "w") as fh:
@@ -74,7 +68,6 @@ def output_offsets(skel, now=1000, ct=5):
             for v in skel.vertices:
                 if v.starts_at <= t and v.stops_at > t or \
                     (v.starts_at <= t and v.stops_at is None):
-                # finite ranges only (not None is filtered out)
                     try:
                         s = "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]});{2};{3};{4}".format(v.visualize_at(t),
                                                                               v.right_at(t).visualize_at(t),
@@ -108,12 +101,6 @@ def output_skel(skel, when):
         fh.write("wkt\n")
         for n in skel.sk_nodes:
             fh.write("POINT({0[0]} {0[1]})\n".format(n.pos))
-
-
-
-
-# ------------------------------------------------------------------------------
-# debugging
 _is_hook_qgis_shown = False
 def notify_qgis():
     global _is_hook_qgis_shown
@@ -166,7 +153,6 @@ def visualize(queue, skel, NOW):
     import os
     if not os.path.exists('/tmpfast/support_lines.wkt'):
         with open('/tmpfast/support_lines.wkt', 'w') as fh:
-            # from grassfire.line2d import as_wkt
             fh.write("wkt\tlr\toriginal")
             fh.write("\n")
             fh.write("LINESTRING(0 0, 10 0)\tl\tTrue")
@@ -244,9 +230,6 @@ def visualize(queue, skel, NOW):
     with open("/tmpfast/vertices1_progress.wkt", 'w') as fh1:
         fh1.write("id;wkt;leftid;rightid;info\n")
         for kvertex in skel.vertices:
-            #             if kvertex.start_node is not None and kvertex.stop_node is not None:
-            #                 fh0.write("{1};POINT({0[0]} {0[1]})\n".format(kvertex.visualize_at(kvertex.starts_at), id(kvertex)))
-            #             else:
             left = kvertex.left_at(NOW)
             right = kvertex.right_at(NOW)
             if left is None:

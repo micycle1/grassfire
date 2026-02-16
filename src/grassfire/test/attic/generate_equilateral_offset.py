@@ -6,8 +6,6 @@ from operator import add, sub, mul, truediv
 orig = (0,0)
 dest = (5,0)
 apex = (2.5, sqrt(3.)/2. * 5.)
-
-# -- get vectors
 dx = orig[0] - dest[0]
 dy = orig[1] - dest[1]
 
@@ -43,18 +41,10 @@ def normalize(v, length):
 	for i in range(len(v)):
 		out.append(v[i] / length)
 	return out
-
-# get 3 vectors pointing around triangle
 down = rotate90ccw(normalize(a, 5.))
 right = rotate90ccw(normalize(b, 5.))
 left = rotate90ccw(normalize(c, 5.))
-
-# -- first segment
 print "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format( map(add, down, orig), map(add, down, dest) )
-
-# -- second segment
 print "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format( map(add, right, dest), map(add, right, apex) )
-
-# -- third segment
 print "LINESTRING({0[0]} {0[1]}, {1[0]} {1[1]})".format( map(add, left, apex), map(add, left, orig))
 

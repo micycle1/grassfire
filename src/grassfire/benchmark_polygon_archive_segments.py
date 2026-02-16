@@ -75,8 +75,6 @@ def benchmark_total_skeleton_time(
 ):
     if repeats < 1:
         raise ValueError("repeats must be >= 1")
-    
-    # Pre-load coordinates to exclude from timing and profiling
     loaded_coords = [load_coords_fn(name) for name in names]
 
     totals = []
@@ -103,8 +101,6 @@ def run_benchmark(
     profiler_factory=cProfile.Profile,
 ):
     profiler = profiler_factory() if profile else None
-    
-    # Pass profiler into benchmark function so it can control scope
     average_total, totals = benchmark_fn(repeats=repeats, profiler=profiler)
     
     return average_total, totals, profiler

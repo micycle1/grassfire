@@ -19,13 +19,6 @@ class TestOrdering(unittest.TestCase):
         eb = Event(when = 1, tri = tri2)
         ec = Event(when = 2, tri = tri3)
         L = [ec, eb, ea]
-        #for e in L:
-        #    print e
-        #print "--"
-        #L.sort(cmp=compare_event_by_time)
-        #for e in L:
-        #    print e
-        #print ""
         queue = OrderedSequence(cmp=compare_event_by_time)
         for e in L: queue.add(e)
         queue.remove(ec)
